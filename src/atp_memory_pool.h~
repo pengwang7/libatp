@@ -42,13 +42,13 @@ ATP_EXPORT_SYMBOL pool_factory_policy_t* get_factory_default_policy();
 ATP_EXPORT_SYMBOL pool_factory_policy_t* get_factory_new_policy();
 
 
-struct pool_factory {
-    pool_factory_policy_t policy_;
+struct pool_factory {                                                          
+    pool_factory_policy_t policy_;                                               
     pool_t* (*create_pool)(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size);
-    void (*release_pool)(pool_factory_t* factory, pool_t* pool);
-    void (*dump_status)(pool_factory_t* factory, bool detail);
-    void (*on_chunk_free)(pool_factory_t* factory, size_t size);
-    void (*on_chunk_alloc)(pool_factory_t* factory, size_t size);
+    void (*release_pool)(pool_factory_t* factory, pool_t* pool);              
+    void (*dump_status)(pool_factory_t* factory, bool detail);                
+    void (*on_chunk_free)(pool_factory_t* factory, size_t size);              
+    void (*on_chunk_alloc)(pool_factory_t* factory, size_t size);             
 };
 
 
