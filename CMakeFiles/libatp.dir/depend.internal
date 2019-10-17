@@ -9,3 +9,17 @@ CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o
  /home/pengwang/cloud_platform/framework/3rd/glog/logging.h
  /home/pengwang/cloud_platform/framework/3rd/glog/vlog_is_on.h
  /home/pengwang/cloud_platform/project/libatp/examples/atp_memory_pool_benchmark.cpp
+CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o
+ /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_memory_policy.cpp
+ /home/pengwang/cloud_platform/project/libatp/src/atp_memory_pool.h
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o
+ /home/pengwang/cloud_platform/framework/3rd/gflags/gflags.h
+ /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_declare.h
+ /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_gflags.h
+ /home/pengwang/cloud_platform/framework/3rd/glog/log_severity.h
+ /home/pengwang/cloud_platform/framework/3rd/glog/logging.h
+ /home/pengwang/cloud_platform/framework/3rd/glog/vlog_is_on.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_memory_pool.cpp
+ /home/pengwang/cloud_platform/project/libatp/src/atp_memory_pool.h

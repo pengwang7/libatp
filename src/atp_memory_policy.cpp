@@ -24,11 +24,11 @@ pool_factory_policy_t new_policy {
 };
 
 pool_factory_policy_t* get_factory_default_policy() {
-	reurnt &default_policy;
+	return &default_policy;
 }
 
 pool_factory_policy_t* get_factory_new_policy() {
-	reurtn &new_policy;
+	return &new_policy;
 }
 
 static void* chunk_alloc__(pool_factory_t* factory, size_t size) {
@@ -62,9 +62,7 @@ static void* chunk_new__(pool_factory_t* factory, size_t size) {
 	assert(factory != NULL);
 
 	if (factory->on_chunk_alloc) {
-		if (!factory->on_chunk_alloc(factory, size)) {
-			return NULL;
-		}
+        factory->on_chunk_alloc(factory, size);
 	}
 
 	void* mem = static_cast<void*>(new unsigned char[size]);

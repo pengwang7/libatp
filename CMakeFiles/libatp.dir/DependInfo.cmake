@@ -5,6 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pengwang/cloud_platform/project/libatp/examples/atp_memory_pool_benchmark.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o"
+  "/home/pengwang/cloud_platform/project/libatp/src/atp_memory_policy.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"
+  "/home/pengwang/cloud_platform/project/libatp/src/atp_memory_pool.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

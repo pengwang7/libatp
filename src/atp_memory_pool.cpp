@@ -63,7 +63,7 @@ static void* pool_alloc_find(pool_t* pool, size_t size) {
 	}
 
     void* mem = NULL;
-	pool_chunk_t* chunk_node = TAILQ_FIRST(&pool->chunk_list_);
+    pool_chunk_t* chunk_node = TAILQ_FIRST(&pool->chunk_list_);
 
 	/* Traverse the chunk list */
 	while (chunk_node != NULL) {
@@ -227,10 +227,6 @@ void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, si
 	ph->factory_.release_pool = &release_pool__;
 	ph->factory_.on_chunk_alloc = &on_chunk_alloc__;
 	ph->factory_.on_chunk_free =  &on_chunk_free__;
-
-}
-
-void pool_helper_destroy(pool_helper* ph) {
 
 }
 

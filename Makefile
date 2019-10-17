@@ -150,6 +150,60 @@ examples/atp_memory_pool_benchmark.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.s
 .PHONY : examples/atp_memory_pool_benchmark.cpp.s
 
+src/atp_memory_policy.o: src/atp_memory_policy.cpp.o
+
+.PHONY : src/atp_memory_policy.o
+
+# target to build an object file
+src/atp_memory_policy.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o
+.PHONY : src/atp_memory_policy.cpp.o
+
+src/atp_memory_policy.i: src/atp_memory_policy.cpp.i
+
+.PHONY : src/atp_memory_policy.i
+
+# target to preprocess a source file
+src/atp_memory_policy.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.i
+.PHONY : src/atp_memory_policy.cpp.i
+
+src/atp_memory_policy.s: src/atp_memory_policy.cpp.s
+
+.PHONY : src/atp_memory_policy.s
+
+# target to generate assembly for a file
+src/atp_memory_policy.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.s
+.PHONY : src/atp_memory_policy.cpp.s
+
+src/atp_memory_pool.o: src/atp_memory_pool.cpp.o
+
+.PHONY : src/atp_memory_pool.o
+
+# target to build an object file
+src/atp_memory_pool.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o
+.PHONY : src/atp_memory_pool.cpp.o
+
+src/atp_memory_pool.i: src/atp_memory_pool.cpp.i
+
+.PHONY : src/atp_memory_pool.i
+
+# target to preprocess a source file
+src/atp_memory_pool.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.i
+.PHONY : src/atp_memory_pool.cpp.i
+
+src/atp_memory_pool.s: src/atp_memory_pool.cpp.s
+
+.PHONY : src/atp_memory_pool.s
+
+# target to generate assembly for a file
+src/atp_memory_pool.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.s
+.PHONY : src/atp_memory_pool.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +216,12 @@ help:
 	@echo "... examples/atp_memory_pool_benchmark.o"
 	@echo "... examples/atp_memory_pool_benchmark.i"
 	@echo "... examples/atp_memory_pool_benchmark.s"
+	@echo "... src/atp_memory_policy.o"
+	@echo "... src/atp_memory_policy.i"
+	@echo "... src/atp_memory_policy.s"
+	@echo "... src/atp_memory_pool.o"
+	@echo "... src/atp_memory_pool.i"
+	@echo "... src/atp_memory_pool.s"
 .PHONY : help
 
 

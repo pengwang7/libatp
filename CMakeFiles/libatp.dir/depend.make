@@ -9,3 +9,17 @@ CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: /home/pengwang/c
 CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/vlog_is_on.h
 CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: examples/atp_memory_pool_benchmark.cpp
 
+CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_debug.h
+CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_memory_policy.cpp
+CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_memory_pool.h
+
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags.h
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_declare.h
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_gflags.h
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/log_severity.h
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/logging.h
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/vlog_is_on.h
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: src/atp_debug.h
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: src/atp_memory_pool.cpp
+CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: src/atp_memory_pool.h
+

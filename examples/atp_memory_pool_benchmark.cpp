@@ -14,7 +14,7 @@ void atp_logger_init() {
 int main() {
     atp_logger_init();
 
-    LOG(DEBUG) << "hello, world";
+    LOG(INFO) << "hello, world";
 
     return 0;
 }
