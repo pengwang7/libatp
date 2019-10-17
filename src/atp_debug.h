@@ -1,6 +1,9 @@
 #ifndef __ATP_DEBUG_H__
 #define __ATP_DEBUG_H__
 
+#include <assert.h>
+
+
 #define ATP_EXPORT_SYMBOL
 
 #define ATP_DEBUG_ON (1)

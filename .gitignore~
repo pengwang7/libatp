@@ -1,0 +1,6 @@
+*.log
+*.so
+*.a
+*.obj
+*.txt~
+*.cpp~

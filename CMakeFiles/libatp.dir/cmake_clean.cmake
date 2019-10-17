@@ -1,0 +1,10 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o"
+  "libatp.pdb"
+  "libatp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/libatp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
