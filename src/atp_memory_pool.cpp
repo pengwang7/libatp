@@ -60,20 +60,20 @@ static void* pool_alloc_find(pool_t* pool, size_t size) {
 	if (!pool || size <= 0) {
 		LOG(ERROR) << "invalid args, pool or size is nil";
 		return NULL;
-	}
+    }
 
     void* mem = NULL;
     pool_chunk_t* chunk_node = TAILQ_FIRST(&pool->chunk_list_);
 
 	/* Traverse the chunk list */
-	while (chunk_node != NULL) {
-		mem = pool_alloc_from_chunk(chunk_node, size);
-		if (mem != NULL) {
-			return mem;
-		}
+    while (chunk_node != NULL) {
+	    mem = pool_alloc_from_chunk(chunk_node, size);
+	    if (mem != NULL) {
+		    return mem;
+	    }
 
-		chunk_node = TAILQ_NEXT(chunk_node, entry_);
-	}
+	    chunk_node = TAILQ_NEXT(chunk_node, entry_);
+    }
 
 	/* In this, all nodes in pool chunk list not have enough memory, we create a new */
 
