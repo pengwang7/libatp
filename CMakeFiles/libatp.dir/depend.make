@@ -8,6 +8,8 @@ CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: /home/pengwang/c
 CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/logging.h
 CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/vlog_is_on.h
 CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: examples/atp_memory_pool_benchmark.cpp
+CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: src/atp_debug.h
+CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: src/atp_memory_pool.h
 
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_debug.h
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_memory_policy.cpp

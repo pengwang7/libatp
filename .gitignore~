@@ -3,4 +3,6 @@
 *.a
 *.obj
 *.txt~
+*.h~
 *.cpp~
+log

@@ -58,6 +58,7 @@ ATP_EXPORT_SYMBOL pool_helper_t* create_pool_helper();
 ATP_EXPORT_SYMBOL void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity);
 ATP_EXPORT_SYMBOL void pool_helper_destroy(pool_helper* ph);
 ATP_EXPORT_SYMBOL size_t get_pool_helper_reference(pool_helper* ph);
+ATP_EXPORT_SYMBOL size_t get_pool_helper_capacity(pool_helper* ph);
 ATP_EXPORT_SYMBOL size_t get_pool_helper_max_capacity(pool_helper* ph);
 ATP_EXPORT_SYMBOL size_t get_pool_helper_used_mem_size(pool_helper* ph);
 ATP_EXPORT_SYMBOL pool_factory_t* get_pool_helper_factory(pool_helper* ph);

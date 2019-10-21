@@ -6,7 +6,10 @@ namespace atp {
 
 /* The memory pool init size will be auto adjusted one of pool_size_array */
 static size_t pool_size_array[ATP_MEMORY_POOL_CACHING_SIZE] = {
-
+    256,   512,   1024,  2048,
+    4096,  8192,  12288, 16484,
+    20480, 24567, 28672, 32768,
+    40960, 49125, 57344, 65535
 };
 
 /* 内存池的内部以pool_chunk为单位进行内存分配 */
@@ -107,12 +110,16 @@ static void* pool_alloc_from_chunk(pool_chunk_t* chunk, size_t size) {
 	if (!chunk || size <= 0) {
 		LOG(ERROR) << "invalid args, chunk or size is nil";
 		return NULL;
-	}
+    }
 
 	/* Whether or not nedd memory alignment */
 	if (size & (ATP_MEMORY_POOL_ALIGN - 1)) {
 		size = (size + ATP_MEMORY_POOL_ALIGN) & ~(ATP_MEMORY_POOL_ALIGN - 1);
 	}
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "pool_alloc_from_chunk alloc size: " << size;
+    }
 
 	size_t curr_chunk_size = size_t(chunk->end_ - chunk->cur_);
 	if (curr_chunk_size >= size) {
@@ -152,6 +159,10 @@ static pool_chunk_t* create_chunk_append_pool(pool_t* pool, size_t chunk_size) {
 void release_pool2(pool_t* pool) {
     assert(pool != NULL);
 
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "release_pool2 really release pool";
+    }
+
     pool_chunk_t* first_chunk = TAILQ_FIRST(&pool->chunk_list_);
     TAILQ_REMOVE(&pool->chunk_list_, first_chunk, entry_);
 
@@ -159,7 +170,15 @@ void release_pool2(pool_t* pool) {
 
     TAILQ_FOREACH(tmp, &pool->chunk_list_, entry_) {
         TAILQ_REMOVE(&pool->chunk_list_, tmp, entry_);
+
+        if (ATP_DEBUG_ON) {
+            LOG(INFO) << "release_pool2 relase tmp mem size: " << size_t(tmp->end_ - tmp->buf_);
+        }
         pool->factory_->policy_.chunk_free(pool->factory_, tmp, size_t(tmp->end_ - tmp->buf_));
+    }
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "release_pool2 relase mem size: " << size_t(first_chunk->end_ - (unsigned char*)pool);
     }
 
     pool->factory_->policy_.chunk_free(pool->factory_, pool, size_t(first_chunk->end_ - (unsigned char*)pool));
@@ -234,6 +253,10 @@ size_t get_pool_helper_reference(pool_helper* ph) {
 	return ph->used_count_;
 }
 
+size_t get_pool_helper_capacity(pool_helper* ph) {
+    return ph->capacity_;
+}
+
 size_t get_pool_helper_max_capacity(pool_helper* ph) {
 	return ph->max_capacity_;
 }
@@ -250,7 +273,7 @@ static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t i
     ssize_t pos = atp_binary_search(init_size);
 
     if (ATP_DEBUG_ON) {
-   //     LOG(DEBUG) << "The binary search pos: " << pos << " init_size: " << init_size << " auto adjusted: " << pool_size_array[pos];
+        LOG(INFO) << "The binary search pos: " << pos << " init_size: " << init_size << " auto adjusted: " << pool_size_array[pos];
     }
                                                                                  
     pool_t* pool = NULL;
@@ -283,10 +306,14 @@ static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t i
         strncpy(pool->name_, name, strlen(name));
         TAILQ_INIT(&pool->chunk_list_);
 
-        pool_chunk_t* chunk = (pool_chunk_t*)(mem + sizeof(pool_t));
+        pool_chunk_t* chunk = (pool_chunk_t*)(mem + sizeof(*pool));
         chunk->buf_ = ((unsigned char*)chunk) + sizeof(pool_chunk_t);
         chunk->cur_ = ATP_ALIGN_PTR(chunk->buf_, ATP_MEMORY_POOL_ALIGN);
         chunk->end_ = mem + init_size;
+
+        if (ATP_DEBUG_ON) {
+            LOG(INFO) << "====###====== current size: " << (size_t)(chunk->end_ - chunk->cur_);
+        }
 
         TAILQ_INSERT_TAIL(&pool->chunk_list_, chunk, entry_);
     } else {
@@ -371,7 +398,7 @@ static void on_chunk_free__(pool_factory_t* factory, size_t size) {
 
 static void on_chunk_alloc__(pool_factory_t* factory, size_t size) {
 	pool_helper_t* ph = (pool_helper_t*)factory;
-	ph->used_count_ += size;
+	ph->used_size_ += size;
 }
 
 static int atp_binary_search(size_t value) {
