@@ -224,6 +224,38 @@ pool_helper_t* create_pool_helper() {
 	return ph;
 }
 
+void pool_helper_destroy(pool_helper_t* ph) {
+    if (!ph) {
+        return;
+    }
+
+    pool_t* pl;
+
+    pthread_mutex_lock(&ph->mutex_);
+
+    while (pl = TAILQ_FIRST(&ph->used_pool_list_)) {
+        if (ATP_DEBUG_ON) {
+            LOG(INFO) << "Pool helper destroy pool";
+        }
+        TAILQ_REMOVE(&ph->used_pool_list_, pl, entry_);
+        release_pool2(pl);
+    }
+/*
+    for (int i = 0; i < ATP_MEMORY_POOL_CACHING_SIZE; ++ i) {
+        while (pl = TAILQ_FIRST(&ph->free_pool_list_[i])) {
+            TAILQ_REMOVE(&ph->free_pool_list_[i], pl, entry_);
+            release_pool2(pl);
+        }
+    }
+*/
+    pthread_mutex_unlock(&ph->mutex_);
+
+    pthread_mutex_destroy(&ph->mutex_);
+
+    free(ph);
+    ph = NULL;
+}
+
 void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity) {
 	memset(ph, 0, sizeof(*ph));
 	ph->max_capacity_ = max_capacity;
@@ -273,7 +305,9 @@ static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t i
     ssize_t pos = atp_binary_search(init_size);
 
     if (ATP_DEBUG_ON) {
-        LOG(INFO) << "The binary search pos: " << pos << " init_size: " << init_size << " auto adjusted: " << pool_size_array[pos];
+        if (pos < ATP_MEMORY_POOL_CACHING_SIZE) {
+            LOG(INFO) << "The binary search pos: " << pos << " init_size: " << init_size << " auto adjusted: " << pool_size_array[pos];
+        }
     }
                                                                                  
     pool_t* pool = NULL;
@@ -378,6 +412,7 @@ static void release_pool__(pool_factory_t* factory, pool_t* pool) {
         (cap + ph->capacity_) > ph->max_capacity_ ||
         cap > pool_size_array[ATP_MEMORY_POOL_CACHING_SIZE - 1]) {
         release_pool2(pool);
+        pthread_mutex_unlock(&ph->mutex_);
         return;
 	}
 

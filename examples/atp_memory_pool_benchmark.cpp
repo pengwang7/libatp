@@ -3,9 +3,9 @@
 
 using namespace atp;
 
-void atp_logger_init() {                                                      
+void atp_logger_init() {
     FLAGS_alsologtostderr = true;                                                
-    FLAGS_colorlogtostderr = true;                                               
+    FLAGS_colorlogtostderr = true;
     FLAGS_logbufsecs = 0;                                                        
     FLAGS_max_log_size = 1800;                                                   
                                                                                  
@@ -13,27 +13,9 @@ void atp_logger_init() {
     google::SetLogDestination(google::GLOG_INFO,"log-");                         
 }
 
-/*
-    time_t start, stop;                                                          
-                                                                                 
-    int count = 1000000;                                                         
-                                                                                 
-    start = time(NULL);                                                          
-                                                                                 
-    while (count --) {                                                           
-        char* buf = (char*)pool_alloc(pool, 8000);                               
-        if (buf == NULL) {                                                       
-            LOG(ERROR) << "pool_alloc failed, buf is nil";                       
-            exit(-1);                                                            
-        }                                                                        
-    }                                                                            
-                                                                                 
-    release_pool(get_pool_manager_factory(pool_mgr), pool);                      
-                                                                                 
-    stop = time(NULL);                                                           
-                                                                                 
-    LOG(INFO) << "stop - start: " << stop - start; 
- */
+void atp_logger_close() {
+    google::ShutdownGoogleLogging();
+}
 
 const int kMaxCapacity = 1024 * 1024 * 8;
 
@@ -89,6 +71,10 @@ int main() {
     print_pool_helper_info(helper);
 
     LOG(INFO) << "======================================";
+
+    pool_helper_destroy(helper);
+
+    atp_logger_close();
 
     return 0;
 }
