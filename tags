@@ -368,46 +368,164 @@ __ATP_MEMORY_POOL_H__	src/atp_memory_pool.h	2;"	d
 atp	src/atp_memory_policy.cpp	/^namespace atp {$/;"	n	file:
 atp	src/atp_memory_pool.cpp	/^namespace atp {$/;"	n	file:
 atp	src/atp_memory_pool.h	/^namespace atp {$/;"	n
-atp_binary_search	src/atp_memory_pool.cpp	/^static int atp_binary_search(size_t value) {$/;"	f	namespace:atp
-atp_logger_init	examples/atp_memory_pool_benchmark.cpp	/^void atp_logger_init() {                                                      $/;"	f
-buf_	src/atp_memory_pool.cpp	/^	unsigned char* buf_;$/;"	m	struct:atp::pool_chunk	file:
-capacity_	src/atp_memory_pool.cpp	/^	size_t capacity_;$/;"	m	struct:atp::pool	file:
-capacity_	src/atp_memory_pool.cpp	/^    size_t               capacity_;                                              $/;"	m	struct:atp::pool_helper	file:
-chunk_alloc	src/atp_memory_pool.h	/^	void* (*chunk_alloc)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory_policy
-chunk_alloc__	src/atp_memory_policy.cpp	/^static void* chunk_alloc__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp
-chunk_delete__	src/atp_memory_policy.cpp	/^static void chunk_delete__(pool_factory_t* factory, void* mem, size_t size) {$/;"	f	namespace:atp
-chunk_free	src/atp_memory_pool.h	/^	void (*chunk_free)(pool_factory_t* factory, void* mem, size_t size);$/;"	m	struct:atp::pool_factory_policy
-chunk_free__	src/atp_memory_policy.cpp	/^static void chunk_free__(pool_factory_t* factory, void* mem, size_t size) {$/;"	f	namespace:atp
-chunk_list_	src/atp_memory_pool.cpp	/^	TAILQ_HEAD(, pool_chunk) chunk_list_;$/;"	m	struct:atp::pool	file:
-chunk_new__	src/atp_memory_policy.cpp	/^static void* chunk_new__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp
+atp::atp_binary_search	src/atp_memory_pool.cpp	/^static int atp_binary_search(size_t value) {$/;"	f	namespace:atp	signature:(size_t value)
+atp::atp_binary_search	src/atp_memory_pool.cpp	/^static int atp_binary_search(size_t value);$/;"	p	namespace:atp	file:	signature:(size_t value)
+atp::chunk_alloc__	src/atp_memory_policy.cpp	/^static void* chunk_alloc__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, size_t size)
+atp::chunk_alloc__	src/atp_memory_policy.cpp	/^static void* chunk_alloc__(pool_factory_t* factory, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, size_t size)
+atp::chunk_delete__	src/atp_memory_policy.cpp	/^static void chunk_delete__(pool_factory_t* factory, void* mem, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, void* mem, size_t size)
+atp::chunk_delete__	src/atp_memory_policy.cpp	/^static void chunk_delete__(pool_factory_t* factory, void* mem, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, void* mem, size_t size)
+atp::chunk_free__	src/atp_memory_policy.cpp	/^static void chunk_free__(pool_factory_t* factory, void* mem, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, void* mem, size_t size)
+atp::chunk_free__	src/atp_memory_policy.cpp	/^static void chunk_free__(pool_factory_t* factory, void* mem, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, void* mem, size_t size)
+atp::chunk_new__	src/atp_memory_policy.cpp	/^static void* chunk_new__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, size_t size)
+atp::chunk_new__	src/atp_memory_policy.cpp	/^static void* chunk_new__(pool_factory_t* factory, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, size_t size)
+atp::create_chunk_append_pool	src/atp_memory_pool.cpp	/^static pool_chunk_t* create_chunk_append_pool(pool_t* pool, size_t chunk_size) {$/;"	f	namespace:atp	signature:(pool_t* pool, size_t chunk_size)
+atp::create_chunk_append_pool	src/atp_memory_pool.cpp	/^static pool_chunk_t* create_chunk_append_pool(pool_t* pool, size_t chunk_size);$/;"	p	namespace:atp	file:	signature:(pool_t* pool, size_t chunk_size)
+atp::create_pool	src/atp_memory_pool.cpp	/^pool_t* create_pool(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size)
+atp::create_pool	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_t* create_pool(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size);$/;"	p	namespace:atp	signature:(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size)
+atp::create_pool__	src/atp_memory_pool.cpp	/^static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size)
+atp::create_pool__	src/atp_memory_pool.cpp	/^static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size)
+atp::create_pool_helper	src/atp_memory_pool.cpp	/^pool_helper_t* create_pool_helper() {$/;"	f	namespace:atp	signature:()
+atp::create_pool_helper	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_helper_t* create_pool_helper();$/;"	p	namespace:atp	signature:()
+atp::dump_status__	src/atp_memory_pool.cpp	/^static void dump_status__(pool_factory_t* factory, bool detail) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, bool detail)
+atp::dump_status__	src/atp_memory_pool.cpp	/^static void dump_status__(pool_factory_t* factory, bool detail);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, bool detail)
+atp::get_factory_default_policy	src/atp_memory_policy.cpp	/^pool_factory_policy_t* get_factory_default_policy() {$/;"	f	namespace:atp	signature:()
+atp::get_factory_default_policy	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_factory_policy_t* get_factory_default_policy();$/;"	p	namespace:atp	signature:()
+atp::get_factory_new_policy	src/atp_memory_policy.cpp	/^pool_factory_policy_t* get_factory_new_policy() {$/;"	f	namespace:atp	signature:()
+atp::get_factory_new_policy	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_factory_policy_t* get_factory_new_policy();$/;"	p	namespace:atp	signature:()
+atp::get_pool_capacity	src/atp_memory_pool.cpp	/^size_t get_pool_capacity(pool_t* pool) {$/;"	f	namespace:atp	signature:(pool_t* pool)
+atp::get_pool_capacity	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_capacity(pool_t* pool);$/;"	p	namespace:atp	signature:(pool_t* pool)
+atp::get_pool_helper_capacity	src/atp_memory_pool.cpp	/^size_t get_pool_helper_capacity(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_capacity	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_helper_capacity(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_factory	src/atp_memory_pool.cpp	/^pool_factory_t* get_pool_helper_factory(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_factory	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_factory_t* get_pool_helper_factory(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_max_capacity	src/atp_memory_pool.cpp	/^size_t get_pool_helper_max_capacity(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_max_capacity	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_helper_max_capacity(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_reference	src/atp_memory_pool.cpp	/^size_t get_pool_helper_reference(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_reference	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_helper_reference(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_used_mem_size	src/atp_memory_pool.cpp	/^size_t get_pool_helper_used_mem_size(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_helper_used_mem_size	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_helper_used_mem_size(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+atp::get_pool_name	src/atp_memory_pool.cpp	/^const char* get_pool_name(pool_t* pool) {$/;"	f	namespace:atp	signature:(pool_t* pool)
+atp::get_pool_name	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL const char* get_pool_name(pool_t* pool);$/;"	p	namespace:atp	signature:(pool_t* pool)
+atp::on_chunk_alloc__	src/atp_memory_pool.cpp	/^static void on_chunk_alloc__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, size_t size)
+atp::on_chunk_alloc__	src/atp_memory_pool.cpp	/^static void on_chunk_alloc__(pool_factory_t* factory, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, size_t size)
+atp::on_chunk_free__	src/atp_memory_pool.cpp	/^static void on_chunk_free__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, size_t size)
+atp::on_chunk_free__	src/atp_memory_pool.cpp	/^static void on_chunk_free__(pool_factory_t* factory, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, size_t size)
+atp::pool	src/atp_memory_pool.cpp	/^struct pool {$/;"	s	namespace:atp	file:
+atp::pool::capacity_	src/atp_memory_pool.cpp	/^	size_t capacity_;$/;"	m	struct:atp::pool	file:	access:public
+atp::pool::chunk_list_	src/atp_memory_pool.cpp	/^	TAILQ_HEAD(, pool_chunk) chunk_list_;$/;"	m	struct:atp::pool	file:	access:public
+atp::pool::data_	src/atp_memory_pool.cpp	/^	void*  data_;$/;"	m	struct:atp::pool	file:	access:public
+atp::pool::entry_	src/atp_memory_pool.cpp	/^	TAILQ_ENTRY(pool) entry_;$/;"	m	struct:atp::pool	file:	access:public
+atp::pool::factory_	src/atp_memory_pool.cpp	/^	pool_factory_t* factory_;$/;"	m	struct:atp::pool	file:	access:public
+atp::pool::incr_size_	src/atp_memory_pool.cpp	/^	size_t incr_size_;$/;"	m	struct:atp::pool	file:	access:public
+atp::pool::name_	src/atp_memory_pool.cpp	/^	char   name_[ATP_MEMORY_POOL_NAME];$/;"	m	struct:atp::pool	file:	access:public
+atp::pool_alloc	src/atp_memory_pool.cpp	/^void* pool_alloc(pool_t* pool, size_t size) {$/;"	f	namespace:atp	signature:(pool_t* pool, size_t size)
+atp::pool_alloc	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL void* pool_alloc(pool_t* pool, size_t size);$/;"	p	namespace:atp	signature:(pool_t* pool, size_t size)
+atp::pool_alloc_find	src/atp_memory_pool.cpp	/^static void* pool_alloc_find(pool_t* pool, size_t size) {$/;"	f	namespace:atp	signature:(pool_t* pool, size_t size)
+atp::pool_alloc_find	src/atp_memory_pool.cpp	/^static void* pool_alloc_find(pool_t* pool, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_t* pool, size_t size)
+atp::pool_alloc_from_chunk	src/atp_memory_pool.cpp	/^static void* pool_alloc_from_chunk(pool_chunk_t* chunk, size_t size) {$/;"	f	namespace:atp	signature:(pool_chunk_t* chunk, size_t size)
+atp::pool_alloc_from_chunk	src/atp_memory_pool.cpp	/^static void* pool_alloc_from_chunk(pool_chunk_t* chunk, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_chunk_t* chunk, size_t size)
+atp::pool_chunk	src/atp_memory_pool.cpp	/^struct pool_chunk {$/;"	s	namespace:atp	file:
+atp::pool_chunk::buf_	src/atp_memory_pool.cpp	/^	unsigned char* buf_;$/;"	m	struct:atp::pool_chunk	file:	access:public
+atp::pool_chunk::cur_	src/atp_memory_pool.cpp	/^	unsigned char* cur_;$/;"	m	struct:atp::pool_chunk	file:	access:public
+atp::pool_chunk::end_	src/atp_memory_pool.cpp	/^	unsigned char* end_;$/;"	m	struct:atp::pool_chunk	file:	access:public
+atp::pool_chunk::entry_	src/atp_memory_pool.cpp	/^	TAILQ_ENTRY(pool_chunk) entry_;$/;"	m	struct:atp::pool_chunk	file:	access:public
+atp::pool_chunk_t	src/atp_memory_pool.h	/^typedef struct pool_chunk pool_chunk_t;$/;"	t	namespace:atp	typeref:struct:atp::pool_chunk
+atp::pool_factory	src/atp_memory_pool.h	/^struct pool_factory {$/;"	s	namespace:atp
+atp::pool_factory::create_pool	src/atp_memory_pool.h	/^    pool_t* (*create_pool)(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size);$/;"	m	struct:atp::pool_factory	access:public
+atp::pool_factory::dump_status	src/atp_memory_pool.h	/^    void (*dump_status)(pool_factory_t* factory, bool detail);$/;"	m	struct:atp::pool_factory	access:public
+atp::pool_factory::on_chunk_alloc	src/atp_memory_pool.h	/^    void (*on_chunk_alloc)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory	access:public
+atp::pool_factory::on_chunk_free	src/atp_memory_pool.h	/^    void (*on_chunk_free)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory	access:public
+atp::pool_factory::policy_	src/atp_memory_pool.h	/^    pool_factory_policy_t policy_;$/;"	m	struct:atp::pool_factory	access:public
+atp::pool_factory::release_pool	src/atp_memory_pool.h	/^    void (*release_pool)(pool_factory_t* factory, pool_t* pool);$/;"	m	struct:atp::pool_factory	access:public
+atp::pool_factory_policy	src/atp_memory_pool.h	/^struct pool_factory_policy {$/;"	s	namespace:atp
+atp::pool_factory_policy::chunk_alloc	src/atp_memory_pool.h	/^	void* (*chunk_alloc)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory_policy	access:public
+atp::pool_factory_policy::chunk_free	src/atp_memory_pool.h	/^	void (*chunk_free)(pool_factory_t* factory, void* mem, size_t size);$/;"	m	struct:atp::pool_factory_policy	access:public
+atp::pool_factory_policy_t	src/atp_memory_pool.h	/^typedef struct pool_factory_policy pool_factory_policy_t;$/;"	t	namespace:atp	typeref:struct:atp::pool_factory_policy
+atp::pool_factory_t	src/atp_memory_pool.h	/^typedef struct pool_factory pool_factory_t;$/;"	t	namespace:atp	typeref:struct:atp::pool_factory
+atp::pool_helper	src/atp_memory_pool.cpp	/^struct pool_helper {$/;"	s	namespace:atp	file:
+atp::pool_helper::capacity_	src/atp_memory_pool.cpp	/^    size_t               capacity_;                                              $/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper::data_	src/atp_memory_pool.cpp	/^    void*                data_;                                                  $/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper::factory_	src/atp_memory_pool.cpp	/^    pool_factory_t       factory_;                                               $/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper::free_pool_list_	src/atp_memory_pool.cpp	/^    TAILQ_HEAD(, pool) free_pool_list_[ATP_MEMORY_POOL_CACHING_SIZE];$/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper::max_capacity_	src/atp_memory_pool.cpp	/^    size_t               max_capacity_;                                          $/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper::mutex_	src/atp_memory_pool.cpp	/^    pthread_mutex_t      mutex_;                                                 $/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper::used_count_	src/atp_memory_pool.cpp	/^    size_t               used_count_;                                            $/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper::used_pool_list_	src/atp_memory_pool.cpp	/^    TAILQ_HEAD(, pool) used_pool_list_;$/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper::used_size_	src/atp_memory_pool.cpp	/^    size_t               used_size_;                                             $/;"	m	struct:atp::pool_helper	file:	access:public
+atp::pool_helper_destroy	src/atp_memory_pool.cpp	/^void pool_helper_destroy(pool_helper_t* ph) {$/;"	f	namespace:atp	signature:(pool_helper_t* ph)
+atp::pool_helper_destroy	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL void pool_helper_destroy(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+atp::pool_helper_init	src/atp_memory_pool.cpp	/^void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity) {$/;"	f	namespace:atp	signature:(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity)
+atp::pool_helper_init	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity);$/;"	p	namespace:atp	signature:(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity)
+atp::pool_helper_t	src/atp_memory_pool.h	/^typedef struct pool_helper pool_helper_t;$/;"	t	namespace:atp	typeref:struct:atp::pool_helper
+atp::pool_size_array	src/atp_memory_pool.cpp	/^static size_t pool_size_array[ATP_MEMORY_POOL_CACHING_SIZE] = {$/;"	m	namespace:atp	file:
+atp::pool_t	src/atp_memory_pool.h	/^typedef struct pool pool_t;$/;"	t	namespace:atp	typeref:struct:atp::pool
+atp::release_pool	src/atp_memory_pool.cpp	/^void release_pool(pool_t* pool, pool_factory_t* factory) {$/;"	f	namespace:atp	signature:(pool_t* pool, pool_factory_t* factory)
+atp::release_pool	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL void release_pool(pool_t* pool, pool_factory_t* factory);$/;"	p	namespace:atp	signature:(pool_t* pool, pool_factory_t* factory)
+atp::release_pool2	src/atp_memory_pool.cpp	/^static void release_pool2(pool_t* pool);$/;"	p	namespace:atp	file:	signature:(pool_t* pool)
+atp::release_pool2	src/atp_memory_pool.cpp	/^void release_pool2(pool_t* pool) {$/;"	f	namespace:atp	signature:(pool_t* pool)
+atp::release_pool__	src/atp_memory_pool.cpp	/^static void release_pool__(pool_factory_t* factory, pool_t* pool) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, pool_t* pool)
+atp::release_pool__	src/atp_memory_pool.cpp	/^static void release_pool__(pool_factory_t* factory, pool_t* pool);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, pool_t* pool)
+atp_binary_search	src/atp_memory_pool.cpp	/^static int atp_binary_search(size_t value) {$/;"	f	namespace:atp	signature:(size_t value)
+atp_binary_search	src/atp_memory_pool.cpp	/^static int atp_binary_search(size_t value);$/;"	p	namespace:atp	file:	signature:(size_t value)
+atp_logger_close	examples/atp_memory_pool_benchmark.cpp	/^void atp_logger_close() {$/;"	f	signature:()
+atp_logger_init	examples/atp_memory_pool_benchmark.cpp	/^void atp_logger_init() {$/;"	f	signature:()
+buf_	src/atp_memory_pool.cpp	/^	unsigned char* buf_;$/;"	m	struct:atp::pool_chunk	file:	access:public
+capacity_	src/atp_memory_pool.cpp	/^	size_t capacity_;$/;"	m	struct:atp::pool	file:	access:public
+capacity_	src/atp_memory_pool.cpp	/^    size_t               capacity_;                                              $/;"	m	struct:atp::pool_helper	file:	access:public
+chunk_alloc	src/atp_memory_pool.h	/^	void* (*chunk_alloc)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory_policy	access:public
+chunk_alloc__	src/atp_memory_policy.cpp	/^static void* chunk_alloc__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, size_t size)
+chunk_alloc__	src/atp_memory_policy.cpp	/^static void* chunk_alloc__(pool_factory_t* factory, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, size_t size)
+chunk_delete__	src/atp_memory_policy.cpp	/^static void chunk_delete__(pool_factory_t* factory, void* mem, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, void* mem, size_t size)
+chunk_delete__	src/atp_memory_policy.cpp	/^static void chunk_delete__(pool_factory_t* factory, void* mem, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, void* mem, size_t size)
+chunk_free	src/atp_memory_pool.h	/^	void (*chunk_free)(pool_factory_t* factory, void* mem, size_t size);$/;"	m	struct:atp::pool_factory_policy	access:public
+chunk_free__	src/atp_memory_policy.cpp	/^static void chunk_free__(pool_factory_t* factory, void* mem, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, void* mem, size_t size)
+chunk_free__	src/atp_memory_policy.cpp	/^static void chunk_free__(pool_factory_t* factory, void* mem, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, void* mem, size_t size)
+chunk_list_	src/atp_memory_pool.cpp	/^	TAILQ_HEAD(, pool_chunk) chunk_list_;$/;"	m	struct:atp::pool	file:	access:public
+chunk_new__	src/atp_memory_policy.cpp	/^static void* chunk_new__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, size_t size)
+chunk_new__	src/atp_memory_policy.cpp	/^static void* chunk_new__(pool_factory_t* factory, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, size_t size)
 const	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	10;"	d	file:
-create_chunk_append_pool	src/atp_memory_pool.cpp	/^static pool_chunk_t* create_chunk_append_pool(pool_t* pool, size_t chunk_size) {$/;"	f	namespace:atp
-create_pool	src/atp_memory_pool.cpp	/^pool_t* create_pool(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size) {$/;"	f	namespace:atp
-create_pool	src/atp_memory_pool.h	/^    pool_t* (*create_pool)(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size);$/;"	m	struct:atp::pool_factory
-create_pool__	src/atp_memory_pool.cpp	/^static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size) {$/;"	f	namespace:atp
-create_pool_helper	src/atp_memory_pool.cpp	/^pool_helper_t* create_pool_helper() {$/;"	f	namespace:atp
-cur_	src/atp_memory_pool.cpp	/^	unsigned char* cur_;$/;"	m	struct:atp::pool_chunk	file:
-data_	src/atp_memory_pool.cpp	/^	void*  data_;$/;"	m	struct:atp::pool	file:
-data_	src/atp_memory_pool.cpp	/^    void*                data_;                                                  $/;"	m	struct:atp::pool_helper	file:
-dump_status	src/atp_memory_pool.h	/^    void (*dump_status)(pool_factory_t* factory, bool detail);$/;"	m	struct:atp::pool_factory
-dump_status__	src/atp_memory_pool.cpp	/^static void dump_status__(pool_factory_t* factory, bool detail) {$/;"	f	namespace:atp
-end_	src/atp_memory_pool.cpp	/^	unsigned char* end_;$/;"	m	struct:atp::pool_chunk	file:
-entry_	src/atp_memory_pool.cpp	/^	TAILQ_ENTRY(pool) entry_;$/;"	m	struct:atp::pool	file:
-entry_	src/atp_memory_pool.cpp	/^	TAILQ_ENTRY(pool_chunk) entry_;$/;"	m	struct:atp::pool_chunk	file:
-factory_	src/atp_memory_pool.cpp	/^	pool_factory_t* factory_;$/;"	m	struct:atp::pool	file:
-factory_	src/atp_memory_pool.cpp	/^    pool_factory_t       factory_;                                               $/;"	m	struct:atp::pool_helper	file:
+create_chunk_append_pool	src/atp_memory_pool.cpp	/^static pool_chunk_t* create_chunk_append_pool(pool_t* pool, size_t chunk_size) {$/;"	f	namespace:atp	signature:(pool_t* pool, size_t chunk_size)
+create_chunk_append_pool	src/atp_memory_pool.cpp	/^static pool_chunk_t* create_chunk_append_pool(pool_t* pool, size_t chunk_size);$/;"	p	namespace:atp	file:	signature:(pool_t* pool, size_t chunk_size)
+create_pool	src/atp_memory_pool.cpp	/^pool_t* create_pool(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size)
+create_pool	src/atp_memory_pool.h	/^    pool_t* (*create_pool)(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size);$/;"	m	struct:atp::pool_factory	access:public
+create_pool	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_t* create_pool(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size);$/;"	p	namespace:atp	signature:(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size)
+create_pool__	src/atp_memory_pool.cpp	/^static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size)
+create_pool__	src/atp_memory_pool.cpp	/^static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size)
+create_pool_helper	src/atp_memory_pool.cpp	/^pool_helper_t* create_pool_helper() {$/;"	f	namespace:atp	signature:()
+create_pool_helper	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_helper_t* create_pool_helper();$/;"	p	namespace:atp	signature:()
+cur_	src/atp_memory_pool.cpp	/^	unsigned char* cur_;$/;"	m	struct:atp::pool_chunk	file:	access:public
+data_	src/atp_memory_pool.cpp	/^	void*  data_;$/;"	m	struct:atp::pool	file:	access:public
+data_	src/atp_memory_pool.cpp	/^    void*                data_;                                                  $/;"	m	struct:atp::pool_helper	file:	access:public
+dump_status	src/atp_memory_pool.h	/^    void (*dump_status)(pool_factory_t* factory, bool detail);$/;"	m	struct:atp::pool_factory	access:public
+dump_status__	src/atp_memory_pool.cpp	/^static void dump_status__(pool_factory_t* factory, bool detail) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, bool detail)
+dump_status__	src/atp_memory_pool.cpp	/^static void dump_status__(pool_factory_t* factory, bool detail);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, bool detail)
+end_	src/atp_memory_pool.cpp	/^	unsigned char* end_;$/;"	m	struct:atp::pool_chunk	file:	access:public
+entry_	src/atp_memory_pool.cpp	/^	TAILQ_ENTRY(pool) entry_;$/;"	m	struct:atp::pool	file:	access:public
+entry_	src/atp_memory_pool.cpp	/^	TAILQ_ENTRY(pool_chunk) entry_;$/;"	m	struct:atp::pool_chunk	file:	access:public
+factory_	src/atp_memory_pool.cpp	/^	pool_factory_t* factory_;$/;"	m	struct:atp::pool	file:	access:public
+factory_	src/atp_memory_pool.cpp	/^    pool_factory_t       factory_;                                               $/;"	m	struct:atp::pool_helper	file:	access:public
 features	CMakeFiles/feature_tests.c	/^  const char features[] = {"\\n"$/;"	v
 features	CMakeFiles/feature_tests.cxx	/^  const char features[] = {"\\n"$/;"	v
-free_pool_list_	src/atp_memory_pool.cpp	/^    TAILQ_HEAD(, pool) free_pool_list_[ATP_MEMORY_POOL_CACHING_SIZE];$/;"	m	struct:atp::pool_helper	file:
-get_factory_default_policy	src/atp_memory_policy.cpp	/^pool_factory_policy_t* get_factory_default_policy() {$/;"	f	namespace:atp
-get_factory_new_policy	src/atp_memory_policy.cpp	/^pool_factory_policy_t* get_factory_new_policy() {$/;"	f	namespace:atp
-get_pool_capacity	src/atp_memory_pool.cpp	/^size_t get_pool_capacity(pool_t* pool) {$/;"	f	namespace:atp
-get_pool_helper_factory	src/atp_memory_pool.cpp	/^pool_factory_t* get_pool_helper_factory(pool_helper* ph) {$/;"	f	namespace:atp
-get_pool_helper_max_capacity	src/atp_memory_pool.cpp	/^size_t get_pool_helper_max_capacity(pool_helper* ph) {$/;"	f	namespace:atp
-get_pool_helper_reference	src/atp_memory_pool.cpp	/^size_t get_pool_helper_reference(pool_helper* ph) {$/;"	f	namespace:atp
-get_pool_helper_used_mem_size	src/atp_memory_pool.cpp	/^size_t get_pool_helper_used_mem_size(pool_helper* ph) {$/;"	f	namespace:atp
-get_pool_name	src/atp_memory_pool.cpp	/^const char* get_pool_name(pool_t* pool) {$/;"	f	namespace:atp
-incr_size_	src/atp_memory_pool.cpp	/^	size_t incr_size_;$/;"	m	struct:atp::pool	file:
+free_pool_list_	src/atp_memory_pool.cpp	/^    TAILQ_HEAD(, pool) free_pool_list_[ATP_MEMORY_POOL_CACHING_SIZE];$/;"	m	struct:atp::pool_helper	file:	access:public
+get_factory_default_policy	src/atp_memory_policy.cpp	/^pool_factory_policy_t* get_factory_default_policy() {$/;"	f	namespace:atp	signature:()
+get_factory_default_policy	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_factory_policy_t* get_factory_default_policy();$/;"	p	namespace:atp	signature:()
+get_factory_new_policy	src/atp_memory_policy.cpp	/^pool_factory_policy_t* get_factory_new_policy() {$/;"	f	namespace:atp	signature:()
+get_factory_new_policy	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_factory_policy_t* get_factory_new_policy();$/;"	p	namespace:atp	signature:()
+get_pool_capacity	src/atp_memory_pool.cpp	/^size_t get_pool_capacity(pool_t* pool) {$/;"	f	namespace:atp	signature:(pool_t* pool)
+get_pool_capacity	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_capacity(pool_t* pool);$/;"	p	namespace:atp	signature:(pool_t* pool)
+get_pool_helper_capacity	src/atp_memory_pool.cpp	/^size_t get_pool_helper_capacity(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_capacity	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_helper_capacity(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_factory	src/atp_memory_pool.cpp	/^pool_factory_t* get_pool_helper_factory(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_factory	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL pool_factory_t* get_pool_helper_factory(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_max_capacity	src/atp_memory_pool.cpp	/^size_t get_pool_helper_max_capacity(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_max_capacity	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_helper_max_capacity(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_reference	src/atp_memory_pool.cpp	/^size_t get_pool_helper_reference(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_reference	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_helper_reference(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_used_mem_size	src/atp_memory_pool.cpp	/^size_t get_pool_helper_used_mem_size(pool_helper* ph) {$/;"	f	namespace:atp	signature:(pool_helper* ph)
+get_pool_helper_used_mem_size	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL size_t get_pool_helper_used_mem_size(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+get_pool_name	src/atp_memory_pool.cpp	/^const char* get_pool_name(pool_t* pool) {$/;"	f	namespace:atp	signature:(pool_t* pool)
+get_pool_name	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL const char* get_pool_name(pool_t* pool);$/;"	p	namespace:atp	signature:(pool_t* pool)
+incr_size_	src/atp_memory_pool.cpp	/^	size_t incr_size_;$/;"	m	struct:atp::pool	file:	access:public
 info_arch	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	/^char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";$/;"	v
 info_arch	CMakeFiles/3.9.6/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";$/;"	v
 info_compiler	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	/^char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";$/;"	v
@@ -424,24 +542,30 @@ info_simulate_version	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	/^char con
 info_simulate_version	CMakeFiles/3.9.6/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_simulate_version[] = {$/;"	v
 info_version	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	/^char const info_version[] = {$/;"	v
 info_version	CMakeFiles/3.9.6/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version[] = {$/;"	v
+kMaxCapacity	examples/atp_memory_pool_benchmark.cpp	/^const int kMaxCapacity = 1024 * 1024 * 8;$/;"	v
 main	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	/^int main(argc, argv) int argc; char *argv[];$/;"	f
 main	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	/^void main() {}$/;"	f
-main	CMakeFiles/3.9.6/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f
-main	CMakeFiles/feature_tests.c	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f
-main	CMakeFiles/feature_tests.cxx	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f
-main	examples/atp_memory_pool_benchmark.cpp	/^int main() {$/;"	f
-max_capacity_	src/atp_memory_pool.cpp	/^    size_t               max_capacity_;                                          $/;"	m	struct:atp::pool_helper	file:
-mutex_	src/atp_memory_pool.cpp	/^    pthread_mutex_t      mutex_;                                                 $/;"	m	struct:atp::pool_helper	file:
-name_	src/atp_memory_pool.cpp	/^	char   name_[ATP_MEMORY_POOL_NAME];$/;"	m	struct:atp::pool	file:
-on_chunk_alloc	src/atp_memory_pool.h	/^    void (*on_chunk_alloc)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory
-on_chunk_alloc__	src/atp_memory_pool.cpp	/^static void on_chunk_alloc__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp
-on_chunk_free	src/atp_memory_pool.h	/^    void (*on_chunk_free)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory
-on_chunk_free__	src/atp_memory_pool.cpp	/^static void on_chunk_free__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp
-policy_	src/atp_memory_pool.h	/^    pool_factory_policy_t policy_;$/;"	m	struct:atp::pool_factory
+main	CMakeFiles/3.9.6/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f	signature:(int argc, char* argv[])
+main	CMakeFiles/feature_tests.c	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f	signature:(int argc, char** argv)
+main	CMakeFiles/feature_tests.cxx	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f	signature:(int argc, char** argv)
+main	examples/atp_memory_pool_benchmark.cpp	/^int main() {$/;"	f	signature:()
+max_capacity_	src/atp_memory_pool.cpp	/^    size_t               max_capacity_;                                          $/;"	m	struct:atp::pool_helper	file:	access:public
+mutex_	src/atp_memory_pool.cpp	/^    pthread_mutex_t      mutex_;                                                 $/;"	m	struct:atp::pool_helper	file:	access:public
+name_	src/atp_memory_pool.cpp	/^	char   name_[ATP_MEMORY_POOL_NAME];$/;"	m	struct:atp::pool	file:	access:public
+on_chunk_alloc	src/atp_memory_pool.h	/^    void (*on_chunk_alloc)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory	access:public
+on_chunk_alloc__	src/atp_memory_pool.cpp	/^static void on_chunk_alloc__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, size_t size)
+on_chunk_alloc__	src/atp_memory_pool.cpp	/^static void on_chunk_alloc__(pool_factory_t* factory, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, size_t size)
+on_chunk_free	src/atp_memory_pool.h	/^    void (*on_chunk_free)(pool_factory_t* factory, size_t size);$/;"	m	struct:atp::pool_factory	access:public
+on_chunk_free__	src/atp_memory_pool.cpp	/^static void on_chunk_free__(pool_factory_t* factory, size_t size) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, size_t size)
+on_chunk_free__	src/atp_memory_pool.cpp	/^static void on_chunk_free__(pool_factory_t* factory, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, size_t size)
+policy_	src/atp_memory_pool.h	/^    pool_factory_policy_t policy_;$/;"	m	struct:atp::pool_factory	access:public
 pool	src/atp_memory_pool.cpp	/^struct pool {$/;"	s	namespace:atp	file:
-pool_alloc	src/atp_memory_pool.cpp	/^void* pool_alloc(pool_t* pool, size_t size) {$/;"	f	namespace:atp
-pool_alloc_find	src/atp_memory_pool.cpp	/^static void* pool_alloc_find(pool_t* pool, size_t size) {$/;"	f	namespace:atp
-pool_alloc_from_chunk	src/atp_memory_pool.cpp	/^static void* pool_alloc_from_chunk(pool_chunk_t* chunk, size_t size) {$/;"	f	namespace:atp
+pool_alloc	src/atp_memory_pool.cpp	/^void* pool_alloc(pool_t* pool, size_t size) {$/;"	f	namespace:atp	signature:(pool_t* pool, size_t size)
+pool_alloc	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL void* pool_alloc(pool_t* pool, size_t size);$/;"	p	namespace:atp	signature:(pool_t* pool, size_t size)
+pool_alloc_find	src/atp_memory_pool.cpp	/^static void* pool_alloc_find(pool_t* pool, size_t size) {$/;"	f	namespace:atp	signature:(pool_t* pool, size_t size)
+pool_alloc_find	src/atp_memory_pool.cpp	/^static void* pool_alloc_find(pool_t* pool, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_t* pool, size_t size)
+pool_alloc_from_chunk	src/atp_memory_pool.cpp	/^static void* pool_alloc_from_chunk(pool_chunk_t* chunk, size_t size) {$/;"	f	namespace:atp	signature:(pool_chunk_t* chunk, size_t size)
+pool_alloc_from_chunk	src/atp_memory_pool.cpp	/^static void* pool_alloc_from_chunk(pool_chunk_t* chunk, size_t size);$/;"	p	namespace:atp	file:	signature:(pool_chunk_t* chunk, size_t size)
 pool_chunk	src/atp_memory_pool.cpp	/^struct pool_chunk {$/;"	s	namespace:atp	file:
 pool_chunk_t	src/atp_memory_pool.h	/^typedef struct pool_chunk pool_chunk_t;$/;"	t	namespace:atp	typeref:struct:atp::pool_chunk
 pool_factory	src/atp_memory_pool.h	/^struct pool_factory {$/;"	s	namespace:atp
@@ -449,17 +573,25 @@ pool_factory_policy	src/atp_memory_pool.h	/^struct pool_factory_policy {$/;"	s	n
 pool_factory_policy_t	src/atp_memory_pool.h	/^typedef struct pool_factory_policy pool_factory_policy_t;$/;"	t	namespace:atp	typeref:struct:atp::pool_factory_policy
 pool_factory_t	src/atp_memory_pool.h	/^typedef struct pool_factory pool_factory_t;$/;"	t	namespace:atp	typeref:struct:atp::pool_factory
 pool_helper	src/atp_memory_pool.cpp	/^struct pool_helper {$/;"	s	namespace:atp	file:
-pool_helper_init	src/atp_memory_pool.cpp	/^void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity) {$/;"	f	namespace:atp
+pool_helper_destroy	src/atp_memory_pool.cpp	/^void pool_helper_destroy(pool_helper_t* ph) {$/;"	f	namespace:atp	signature:(pool_helper_t* ph)
+pool_helper_destroy	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL void pool_helper_destroy(pool_helper* ph);$/;"	p	namespace:atp	signature:(pool_helper* ph)
+pool_helper_init	src/atp_memory_pool.cpp	/^void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity) {$/;"	f	namespace:atp	signature:(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity)
+pool_helper_init	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity);$/;"	p	namespace:atp	signature:(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity)
 pool_helper_t	src/atp_memory_pool.h	/^typedef struct pool_helper pool_helper_t;$/;"	t	namespace:atp	typeref:struct:atp::pool_helper
 pool_size_array	src/atp_memory_pool.cpp	/^static size_t pool_size_array[ATP_MEMORY_POOL_CACHING_SIZE] = {$/;"	m	namespace:atp	file:
 pool_t	src/atp_memory_pool.h	/^typedef struct pool pool_t;$/;"	t	namespace:atp	typeref:struct:atp::pool
+print_pool_helper_info	examples/atp_memory_pool_benchmark.cpp	/^void print_pool_helper_info(pool_helper_t* helper) {$/;"	f	signature:(pool_helper_t* helper)
+print_pool_info	examples/atp_memory_pool_benchmark.cpp	/^void print_pool_info(pool_t* pl) {$/;"	f	signature:(pool_t* pl)
 qnxnto	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
 qnxnto	CMakeFiles/3.9.6/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
-release_pool	src/atp_memory_pool.cpp	/^void release_pool(pool_t* pool, pool_factory_t* factory) {$/;"	f	namespace:atp
-release_pool	src/atp_memory_pool.h	/^    void (*release_pool)(pool_factory_t* factory, pool_t* pool);$/;"	m	struct:atp::pool_factory
-release_pool2	src/atp_memory_pool.cpp	/^void release_pool2(pool_t* pool) {$/;"	f	namespace:atp
-release_pool__	src/atp_memory_pool.cpp	/^static void release_pool__(pool_factory_t* factory, pool_t* pool) {$/;"	f	namespace:atp
-used_count_	src/atp_memory_pool.cpp	/^    size_t               used_count_;                                            $/;"	m	struct:atp::pool_helper	file:
-used_pool_list_	src/atp_memory_pool.cpp	/^    TAILQ_HEAD(, pool) used_pool_list_;$/;"	m	struct:atp::pool_helper	file:
-used_size_	src/atp_memory_pool.cpp	/^    size_t               used_size_;                                             $/;"	m	struct:atp::pool_helper	file:
+release_pool	src/atp_memory_pool.cpp	/^void release_pool(pool_t* pool, pool_factory_t* factory) {$/;"	f	namespace:atp	signature:(pool_t* pool, pool_factory_t* factory)
+release_pool	src/atp_memory_pool.h	/^    void (*release_pool)(pool_factory_t* factory, pool_t* pool);$/;"	m	struct:atp::pool_factory	access:public
+release_pool	src/atp_memory_pool.h	/^ATP_EXPORT_SYMBOL void release_pool(pool_t* pool, pool_factory_t* factory);$/;"	p	namespace:atp	signature:(pool_t* pool, pool_factory_t* factory)
+release_pool2	src/atp_memory_pool.cpp	/^static void release_pool2(pool_t* pool);$/;"	p	namespace:atp	file:	signature:(pool_t* pool)
+release_pool2	src/atp_memory_pool.cpp	/^void release_pool2(pool_t* pool) {$/;"	f	namespace:atp	signature:(pool_t* pool)
+release_pool__	src/atp_memory_pool.cpp	/^static void release_pool__(pool_factory_t* factory, pool_t* pool) {$/;"	f	namespace:atp	signature:(pool_factory_t* factory, pool_t* pool)
+release_pool__	src/atp_memory_pool.cpp	/^static void release_pool__(pool_factory_t* factory, pool_t* pool);$/;"	p	namespace:atp	file:	signature:(pool_factory_t* factory, pool_t* pool)
+used_count_	src/atp_memory_pool.cpp	/^    size_t               used_count_;                                            $/;"	m	struct:atp::pool_helper	file:	access:public
+used_pool_list_	src/atp_memory_pool.cpp	/^    TAILQ_HEAD(, pool) used_pool_list_;$/;"	m	struct:atp::pool_helper	file:	access:public
+used_size_	src/atp_memory_pool.cpp	/^    size_t               used_size_;                                             $/;"	m	struct:atp::pool_helper	file:	access:public
 volatile	CMakeFiles/3.9.6/CompilerIdC/CMakeCCompilerId.c	11;"	d	file:

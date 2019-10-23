@@ -13,6 +13,10 @@
 #define ATP_MEMORY_POOL_START (5)
 #define ATP_MEMORY_POOL_CACHING_SIZE (16)
 
+/* The atp event flags */
+#define ATP_NONE_EVENT  (0x00)
+#define ATP_READ_EVENT  (0x02)
+#define ATP_WRITE_EVENT (0x04)
 
 /* Memory alignment */
 // example: 127以8个字节进行内存对齐,此处假设字长为8
