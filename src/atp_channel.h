@@ -65,6 +65,7 @@ private:
 private:
 	EventLoop* event_loop_;			/* IO event loop */
 	struct event* event_;			/* The libevent event */
+	int fd_;						/* The event file description */
 	int events_;					/* The event is read or write or both */
 	bool attached_;					/* The event is weather or not add to libevent event_base */
 

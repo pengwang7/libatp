@@ -3,6 +3,7 @@
 
 #include <assert.h>
 
+namespace atp {
 
 #define ATP_EXPORT_SYMBOL
 
@@ -26,4 +27,7 @@
 // res: 128
 #define ATP_ALIGN_PTR(PTR, ALIGNMENT) (PTR + (-(ssize_t)(PTR) & (ALIGNMENT - 1)))    
 
+#define event_safe_free(fn_, var_) do { fn_(var_), var_ = NULL } while(0);
+
+}/*end namespace atp*/
 #endif
