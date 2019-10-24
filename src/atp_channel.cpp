@@ -111,7 +111,7 @@ void Channel::disableAllEvents() {
 }
 
 int Channel::getInternalFd() const {
-
+    return fd_;
 }
 
 std::string Channel::eventsToString() const {
