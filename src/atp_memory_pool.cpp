@@ -14,23 +14,23 @@ static size_t pool_size_array[ATP_MEMORY_POOL_CACHING_SIZE] = {
 
 /* 内存池的内部以pool_chunk为单位进行内存分配 */
 struct pool_chunk {
-	unsigned char* buf_;
-	unsigned char* cur_;
-	unsigned char* end_;
+    unsigned char* buf_;
+    unsigned char* cur_;
+    unsigned char* end_;
 
-	TAILQ_ENTRY(pool_chunk) entry_;
+    TAILQ_ENTRY(pool_chunk) entry_;
 };
 
 struct pool {
-	char   name_[ATP_MEMORY_POOL_NAME];
-	size_t capacity_;
-	size_t incr_size_;
-	void*  data_;
+    char   name_[ATP_MEMORY_POOL_NAME];
+    size_t capacity_;
+    size_t incr_size_;
+    void*  data_;
 
-	pool_factory_t* factory_;
+    pool_factory_t* factory_;
 
-	TAILQ_HEAD(, pool_chunk) chunk_list_;
-	TAILQ_ENTRY(pool) entry_;
+    TAILQ_HEAD(, pool_chunk) chunk_list_;
+    TAILQ_ENTRY(pool) entry_;
 };
 
 struct pool_helper {
@@ -60,100 +60,99 @@ static int atp_binary_search(size_t value);
 
 
 static void* pool_alloc_find(pool_t* pool, size_t size) {
-	if (!pool || size <= 0) {
-		LOG(ERROR) << "invalid args, pool or size is nil";
-		return NULL;
+    if (!pool || size <= 0) {
+        LOG(ERROR) << "invalid args, pool or size is nil";
+        return NULL;
     }
 
     void* mem = NULL;
     pool_chunk_t* chunk_node = TAILQ_FIRST(&pool->chunk_list_);
 
-	/* Traverse the chunk list */
+    /* Traverse the chunk list */
     while (chunk_node != NULL) {
-	    mem = pool_alloc_from_chunk(chunk_node, size);
-	    if (mem != NULL) {
-		    return mem;
-	    }
+        mem = pool_alloc_from_chunk(chunk_node, size);
+        if (mem != NULL) {
+            return mem;
+        }
 
-	    chunk_node = TAILQ_NEXT(chunk_node, entry_);
+        chunk_node = TAILQ_NEXT(chunk_node, entry_);
     }
 
-	/* In this, all nodes in pool chunk list not have enough memory, we create a new */
+    /* In this, all nodes in pool chunk list not have enough memory, we create a new */
 
+    if (pool->incr_size_ <= 0) {
+        return NULL;
+    }
 
-	if (pool->incr_size_ <= 0) {
-		return NULL;
-	}
+    size_t new_chunk_size = pool->incr_size_;
 
-	size_t new_chunk_size = pool->incr_size_;
+    if (pool->incr_size_ < (size + sizeof(pool_chunk_t))) {
+        int counts = (size + sizeof(pool_chunk_t) + pool->incr_size_ + ATP_MEMORY_POOL_ALIGN) / pool->incr_size_;
+        new_chunk_size = pool->incr_size_ * counts;
+    }
 
-	if (pool->incr_size_ < (size + sizeof(pool_chunk_t))) {
-		int counts = (size + sizeof(pool_chunk_t) + pool->incr_size_ + ATP_MEMORY_POOL_ALIGN) / pool->incr_size_;
-		new_chunk_size = pool->incr_size_ * counts;
-	}
+    chunk_node = create_chunk_append_pool(pool, new_chunk_size);
+    if (!chunk_node) {
+        return NULL;
+    }
 
-	chunk_node = create_chunk_append_pool(pool, new_chunk_size);
-	if (!chunk_node) {
-		return NULL;
-	}
+    /* Allocate memroy from new chunk */
+    mem = pool_alloc_from_chunk(chunk_node, size);
+    if (!mem) {
+        return NULL;
+    }
 
-	/* Allocate memroy from new chunk */
-	mem = pool_alloc_from_chunk(chunk_node, size);
-	if (!mem) {
-		return NULL;
-	}
-
-	return mem;
+    return mem;
 }
 
 static void* pool_alloc_from_chunk(pool_chunk_t* chunk, size_t size) {
-	if (!chunk || size <= 0) {
-		LOG(ERROR) << "invalid args, chunk or size is nil";
-		return NULL;
+    if (!chunk || size <= 0) {
+        LOG(ERROR) << "invalid args, chunk or size is nil";
+        return NULL;
     }
 
-	/* Whether or not nedd memory alignment */
-	if (size & (ATP_MEMORY_POOL_ALIGN - 1)) {
-		size = (size + ATP_MEMORY_POOL_ALIGN) & ~(ATP_MEMORY_POOL_ALIGN - 1);
-	}
+    /* Whether or not nedd memory alignment */
+    if (size & (ATP_MEMORY_POOL_ALIGN - 1)) {
+        size = (size + ATP_MEMORY_POOL_ALIGN) & ~(ATP_MEMORY_POOL_ALIGN - 1);
+    }
 
     if (ATP_DEBUG_ON) {
         LOG(INFO) << "pool_alloc_from_chunk alloc size: " << size;
     }
 
-	size_t curr_chunk_size = size_t(chunk->end_ - chunk->cur_);
-	if (curr_chunk_size >= size) {
-		void* mem = chunk->cur_;
-		chunk->cur_ += size;
-		return mem;
-	}
+    size_t curr_chunk_size = size_t(chunk->end_ - chunk->cur_);
+    if (curr_chunk_size >= size) {
+        void* mem = chunk->cur_;
+        chunk->cur_ += size;
+        return mem;
+    }
 
-	/* The current doesn't have enough memory */
-	return NULL;
+    /* The current doesn't have enough memory */
+    return NULL;
 }
 
 static pool_chunk_t* create_chunk_append_pool(pool_t* pool, size_t chunk_size) {
-	if (!pool) {
-		return NULL;
-	}
+    if (!pool) {
+        return NULL;
+    }
 
-	assert(chunk_size >= sizeof(pool_chunk_t));
+    assert(chunk_size >= sizeof(pool_chunk_t));
 
-	pool_chunk_t* new_chunk = (pool_chunk_t*)(*pool->factory_->policy_.chunk_alloc)(pool->factory_, chunk_size);
-	if (!new_chunk) {
-		return NULL;
-	}
+    pool_chunk_t* new_chunk = (pool_chunk_t*)(*pool->factory_->policy_.chunk_alloc)(pool->factory_, chunk_size);
+    if (!new_chunk) {
+        return NULL;
+    }
 
-	pool->capacity_ += chunk_size;
+    pool->capacity_ += chunk_size;
 
-	new_chunk->buf_ = ((unsigned char*)new_chunk) + sizeof(pool_chunk_t);
-	new_chunk->cur_ = ATP_ALIGN_PTR(new_chunk->buf_, ATP_MEMORY_POOL_ALIGN);
-	new_chunk->end_ = ((unsigned char*)new_chunk) + chunk_size;
+    new_chunk->buf_ = ((unsigned char*)new_chunk) + sizeof(pool_chunk_t);
+    new_chunk->cur_ = ATP_ALIGN_PTR(new_chunk->buf_, ATP_MEMORY_POOL_ALIGN);
+    new_chunk->end_ = ((unsigned char*)new_chunk) + chunk_size;
 
-	/* Insert the new chunk to pool chunk list */
-	TAILQ_INSERT_HEAD(&pool->chunk_list_, new_chunk, entry_);
+    /* Insert the new chunk to pool chunk list */
+    TAILQ_INSERT_HEAD(&pool->chunk_list_, new_chunk, entry_);
 
-	return new_chunk;
+    return new_chunk;
 }
 
 void release_pool2(pool_t* pool) {
@@ -185,43 +184,43 @@ void release_pool2(pool_t* pool) {
 }
 
 size_t get_pool_capacity(pool_t* pool) {
-	assert(pool != NULL);
+    assert(pool != NULL);
 
-	return pool->capacity_;
+    return pool->capacity_;
 }
 
 const char* get_pool_name(pool_t* pool) {
-	assert(pool != NULL);
+    assert(pool != NULL);
 
-	return pool->name_;
+    return pool->name_;
 }
 
 pool_t* create_pool(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size) {
-	return (*factory->create_pool)(factory, name, init_size, incr_size);
+    return (*factory->create_pool)(factory, name, init_size, incr_size);
 }
 
 void release_pool(pool_t* pool, pool_factory_t* factory) {
-	assert(pool != NULL);
+    assert(pool != NULL);
 
-	return (*factory->release_pool)(factory, pool);
+    return (*factory->release_pool)(factory, pool);
 }
 
 void* pool_alloc(pool_t* pool, size_t size) {
-	assert(pool != NULL);
+    assert(pool != NULL);
 
-	pool_chunk_t* chunk_node = TAILQ_FIRST(&pool->chunk_list_);
-	void* mem = pool_alloc_from_chunk(chunk_node, size);
-	if (!mem) {
-		mem = pool_alloc_find(pool, size);
-	}
+    pool_chunk_t* chunk_node = TAILQ_FIRST(&pool->chunk_list_);
+    void* mem = pool_alloc_from_chunk(chunk_node, size);
+    if (!mem) {
+        mem = pool_alloc_find(pool, size);
+    }
 
-	return mem;
+    return mem;
 }
 
 
 pool_helper_t* create_pool_helper() {
-	pool_helper_t* ph = (pool_helper_t*)calloc(1, sizeof(pool_helper_t));
-	return ph;
+    pool_helper_t* ph = (pool_helper_t*)calloc(1, sizeof(pool_helper_t));
+    return ph;
 }
 
 void pool_helper_destroy(pool_helper_t* ph) {
@@ -240,14 +239,14 @@ void pool_helper_destroy(pool_helper_t* ph) {
         TAILQ_REMOVE(&ph->used_pool_list_, pl, entry_);
         release_pool2(pl);
     }
-/*
+    /*
     for (int i = 0; i < ATP_MEMORY_POOL_CACHING_SIZE; ++ i) {
         while (pl = TAILQ_FIRST(&ph->free_pool_list_[i])) {
             TAILQ_REMOVE(&ph->free_pool_list_[i], pl, entry_);
             release_pool2(pl);
         }
     }
-*/
+    */
     pthread_mutex_unlock(&ph->mutex_);
 
     pthread_mutex_destroy(&ph->mutex_);
@@ -257,32 +256,32 @@ void pool_helper_destroy(pool_helper_t* ph) {
 }
 
 void pool_helper_init(pool_helper_t* ph, const pool_factory_policy_t* policy, size_t max_capacity) {
-	memset(ph, 0, sizeof(*ph));
-	ph->max_capacity_ = max_capacity;
+    memset(ph, 0, sizeof(*ph));
+    ph->max_capacity_ = max_capacity;
 
-	pthread_mutex_init(&ph->mutex_, NULL);
+    pthread_mutex_init(&ph->mutex_, NULL);
 
-	TAILQ_INIT(&ph->used_pool_list_);
-	for (int i = 0; i < ATP_MEMORY_POOL_CACHING_SIZE; ++ i) {
-		TAILQ_INIT(&ph->free_pool_list_[i]);
-	}
+    TAILQ_INIT(&ph->used_pool_list_);
+    for (int i = 0; i < ATP_MEMORY_POOL_CACHING_SIZE; ++ i) {
+        TAILQ_INIT(&ph->free_pool_list_[i]);
+    }
 
-	/* If the policy is nil, then we used default policy */
-	if (!policy) {
-		policy = &default_policy;
-	}
+    /* If the policy is nil, then we used default policy */
+    if (!policy) {
+        policy = &default_policy;
+    }
 
-	memcpy(&ph->factory_.policy_, policy, sizeof(*policy));
+    memcpy(&ph->factory_.policy_, policy, sizeof(*policy));
 
-	ph->factory_.create_pool = &create_pool__;
-	ph->factory_.release_pool = &release_pool__;
-	ph->factory_.on_chunk_alloc = &on_chunk_alloc__;
-	ph->factory_.on_chunk_free =  &on_chunk_free__;
+    ph->factory_.create_pool = &create_pool__;
+    ph->factory_.release_pool = &release_pool__;
+    ph->factory_.on_chunk_alloc = &on_chunk_alloc__;
+    ph->factory_.on_chunk_free =  &on_chunk_free__;
 
 }
 
 size_t get_pool_helper_reference(pool_helper* ph) {
-	return ph->used_count_;
+    return ph->used_count_;
 }
 
 size_t get_pool_helper_capacity(pool_helper* ph) {
@@ -290,15 +289,15 @@ size_t get_pool_helper_capacity(pool_helper* ph) {
 }
 
 size_t get_pool_helper_max_capacity(pool_helper* ph) {
-	return ph->max_capacity_;
+    return ph->max_capacity_;
 }
 
 size_t get_pool_helper_used_mem_size(pool_helper* ph) {
-	return ph->used_size_;
+    return ph->used_size_;
 }
 
 pool_factory_t* get_pool_helper_factory(pool_helper* ph) {
-	return &ph->factory_;
+    return &ph->factory_;
 }
 
 static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t init_size, size_t incr_size) {
@@ -378,48 +377,48 @@ static pool_t* create_pool__(pool_factory_t* factory, const char* name, size_t i
 }
 
 static void release_pool__(pool_factory_t* factory, pool_t* pool) {
-	if (!factory || !pool) {
-		return;
-	}
+    if (!factory || !pool) {
+        return;
+    }
 
-	pool_helper_t* ph = (pool_helper_t*)factory;
+    pool_helper_t* ph = (pool_helper_t*)factory;
 
-	pthread_mutex_lock(&ph->mutex_);
+    pthread_mutex_lock(&ph->mutex_);
 
-	int exist = 0;
-	pool_t* tmp = NULL;
+    int exist = 0;
+    pool_t* tmp = NULL;
 
-	TAILQ_FOREACH(tmp, &ph->used_pool_list_, entry_) {
-		if (tmp == pool) {
-			exist = 1;
-			break;
-		}
-	}
+    TAILQ_FOREACH(tmp, &ph->used_pool_list_, entry_) {
+        if (tmp == pool) {
+            exist = 1;
+            break;
+        }
+    }
 
-	if (exist == 0) {
-		pthread_mutex_unlock(&ph->mutex_);
+    if (exist == 0) {
+        pthread_mutex_unlock(&ph->mutex_);
         LOG(ERROR) << "The release pool: " << pool->name_ << " not in used_pool_list_";
-		return;
-	}
+        return;
+    }
 
-	TAILQ_REMOVE(&ph->used_pool_list_, pool, entry_);
-	-- ph->used_count_;
+    TAILQ_REMOVE(&ph->used_pool_list_, pool, entry_);
+    -- ph->used_count_;
 
-	ssize_t pos = (ssize_t)(void*)pool->data_;
-	size_t cap = get_pool_capacity(pool);
+    ssize_t pos = (ssize_t)(void*)pool->data_;
+    size_t cap = get_pool_capacity(pool);
 
-	if (pos == ATP_MEMORY_POOL_CACHING_SIZE ||
+    if (pos == ATP_MEMORY_POOL_CACHING_SIZE ||
         (cap + ph->capacity_) > ph->max_capacity_ ||
         cap > pool_size_array[ATP_MEMORY_POOL_CACHING_SIZE - 1]) {
         release_pool2(pool);
         pthread_mutex_unlock(&ph->mutex_);
         return;
-	}
+    }
 
-	TAILQ_INSERT_TAIL(&ph->free_pool_list_[pos], pool, entry_);
-	ph->capacity_ += cap;
+    TAILQ_INSERT_TAIL(&ph->free_pool_list_[pos], pool, entry_);
+    ph->capacity_ += cap;
 
-	pthread_mutex_unlock(&ph->mutex_);
+    pthread_mutex_unlock(&ph->mutex_);
 }
 
 static void dump_status__(pool_factory_t* factory, bool detail) {
@@ -427,20 +426,20 @@ static void dump_status__(pool_factory_t* factory, bool detail) {
 }
 
 static void on_chunk_free__(pool_factory_t* factory, size_t size) {
-	pool_helper_t* ph = (pool_helper_t*)factory;
-	ph->used_size_ -= size;
+    pool_helper_t* ph = (pool_helper_t*)factory;
+    ph->used_size_ -= size;
 }
 
 static void on_chunk_alloc__(pool_factory_t* factory, size_t size) {
-	pool_helper_t* ph = (pool_helper_t*)factory;
-	ph->used_size_ += size;
+    pool_helper_t* ph = (pool_helper_t*)factory;
+    ph->used_size_ += size;
 }
 
 static int atp_binary_search(size_t value) {
-	int pos = 0;
-	int left = 0;
-	int right = ATP_MEMORY_POOL_CACHING_SIZE - 1;
-	int mid = 0;
+    int pos = 0;
+    int left = 0;
+    int right = ATP_MEMORY_POOL_CACHING_SIZE - 1;
+    int mid = 0;
 
     if (pool_size_array[left] >= value) {
         return left;
@@ -460,7 +459,7 @@ static int atp_binary_search(size_t value) {
         }
     }
 
-	return pos;
+    return pos;
 }
 
 }/*end namespace atp*/

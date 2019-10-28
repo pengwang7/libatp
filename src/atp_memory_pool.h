@@ -31,8 +31,8 @@ ATP_EXPORT_SYMBOL void* pool_alloc(pool_t* pool, size_t size);
 
 /* Factory policy for new/delete/malloc/free */
 struct pool_factory_policy {
-	void* (*chunk_alloc)(pool_factory_t* factory, size_t size);
-	void (*chunk_free)(pool_factory_t* factory, void* mem, size_t size);
+    void* (*chunk_alloc)(pool_factory_t* factory, size_t size);
+    void (*chunk_free)(pool_factory_t* factory, void* mem, size_t size);
 };
 
 extern pool_factory_policy_t default_policy;
