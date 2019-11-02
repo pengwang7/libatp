@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/libatp.dir/src/atp_channel.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"
   "CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o"

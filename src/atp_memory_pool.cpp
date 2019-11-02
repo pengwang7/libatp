@@ -239,14 +239,14 @@ void pool_helper_destroy(pool_helper_t* ph) {
         TAILQ_REMOVE(&ph->used_pool_list_, pl, entry_);
         release_pool2(pl);
     }
-    /*
+    
     for (int i = 0; i < ATP_MEMORY_POOL_CACHING_SIZE; ++ i) {
         while (pl = TAILQ_FIRST(&ph->free_pool_list_[i])) {
             TAILQ_REMOVE(&ph->free_pool_list_[i], pl, entry_);
             release_pool2(pl);
         }
     }
-    */
+    
     pthread_mutex_unlock(&ph->mutex_);
 
     pthread_mutex_destroy(&ph->mutex_);

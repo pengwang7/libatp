@@ -1,12 +1,13 @@
-#include <assert.h>
+#include <string.h>
 
 #include "atp_channel.h"
+#include "atp_libevent.h"
 
 namespace atp {
 
 /* Check the libatp events */
-static_assert(ATP_READ_EVENT == EV_READ);
-static_assert(ATP_WRITE_EVENT == EV_WRITE);
+static_assert(ATP_READ_EVENT == EV_READ, "CHECK ELIBVENT VERSION FOR EV_READ");
+static_assert(ATP_WRITE_EVENT == EV_WRITE, "CHECKL IBEVENT VERSION FOR EV_WRITE");
 
 Channel::Channel(EventLoop* event_loop, int fd, bool readable, bool writable) {
     event_loop_ = event_loop;
@@ -53,7 +54,7 @@ void Channel::detachFromEventLoop() {
 }
 
 void Channel::updateEvents() {
-    assert(event_loop_->threadContext());
+    assert(event_loop_->safety());
 
     /* Update the events to none/read/write */
     if (isNone()) {

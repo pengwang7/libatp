@@ -19,6 +19,9 @@ namespace atp {
 #define ATP_READ_EVENT  (0x02)
 #define ATP_WRITE_EVENT (0x04)
 
+/* Listen queue max size */
+#define ATP_SO_MAX_CONN (1024)
+
 /* Memory alignment */
 // example: 127以8个字节进行内存对齐,此处假设字长为8
 // 127 + (-127) & (8 - 1)
@@ -27,7 +30,7 @@ namespace atp {
 // res: 128
 #define ATP_ALIGN_PTR(PTR, ALIGNMENT) (PTR + (-(ssize_t)(PTR) & (ALIGNMENT - 1)))    
 
-#define event_safe_free(fn_, var_) do { fn_(var_), var_ = NULL } while(0);
+#define event_safe_free(_var, _freefn) do { _freefn((_var)), (_var) = NULL; } while(0)
 
 }/*end namespace atp*/
 #endif

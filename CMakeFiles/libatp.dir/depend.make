@@ -11,6 +11,14 @@ CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: examples/atp_mem
 CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: src/atp_debug.h
 CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o: src/atp_memory_pool.h
 
+CMakeFiles/libatp.dir/src/atp_channel.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
+CMakeFiles/libatp.dir/src/atp_channel.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
+CMakeFiles/libatp.dir/src/atp_channel.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
+CMakeFiles/libatp.dir/src/atp_channel.cpp.o: src/atp_channel.cpp
+CMakeFiles/libatp.dir/src/atp_channel.cpp.o: src/atp_channel.h
+CMakeFiles/libatp.dir/src/atp_channel.cpp.o: src/atp_debug.h
+CMakeFiles/libatp.dir/src/atp_channel.cpp.o: src/atp_libevent.h
+
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_debug.h
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_memory_policy.cpp
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_memory_pool.h

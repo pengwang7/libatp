@@ -150,6 +150,33 @@ examples/atp_memory_pool_benchmark.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.s
 .PHONY : examples/atp_memory_pool_benchmark.cpp.s
 
+src/atp_channel.o: src/atp_channel.cpp.o
+
+.PHONY : src/atp_channel.o
+
+# target to build an object file
+src/atp_channel.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_channel.cpp.o
+.PHONY : src/atp_channel.cpp.o
+
+src/atp_channel.i: src/atp_channel.cpp.i
+
+.PHONY : src/atp_channel.i
+
+# target to preprocess a source file
+src/atp_channel.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_channel.cpp.i
+.PHONY : src/atp_channel.cpp.i
+
+src/atp_channel.s: src/atp_channel.cpp.s
+
+.PHONY : src/atp_channel.s
+
+# target to generate assembly for a file
+src/atp_channel.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_channel.cpp.s
+.PHONY : src/atp_channel.cpp.s
+
 src/atp_memory_policy.o: src/atp_memory_policy.cpp.o
 
 .PHONY : src/atp_memory_policy.o
@@ -216,6 +243,9 @@ help:
 	@echo "... examples/atp_memory_pool_benchmark.o"
 	@echo "... examples/atp_memory_pool_benchmark.i"
 	@echo "... examples/atp_memory_pool_benchmark.s"
+	@echo "... src/atp_channel.o"
+	@echo "... src/atp_channel.i"
+	@echo "... src/atp_channel.s"
 	@echo "... src/atp_memory_policy.o"
 	@echo "... src/atp_memory_policy.i"
 	@echo "... src/atp_memory_policy.s"

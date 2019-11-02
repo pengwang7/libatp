@@ -38,11 +38,9 @@ private:
     EventLoop* event_loop_;
     int fd_;                                /* Listener file description */                                                                                                                             
                                                                                  
-    struct {                                                                     
-        std::string full_;                                                       
+    struct {                                                                                                                           
         std::string host_;                                                       
-        int port_;                                                               
-        int is_ipv6_;                                                            
+        int port_;                                                                                                                           
     } address_;                                                                  
                                                                                  
     std::unique_ptr<Channel> channel_;      /* Listen event channel */                                              

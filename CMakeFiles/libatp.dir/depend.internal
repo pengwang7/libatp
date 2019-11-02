@@ -11,6 +11,14 @@ CMakeFiles/libatp.dir/examples/atp_memory_pool_benchmark.cpp.o
  /home/pengwang/cloud_platform/project/libatp/examples/atp_memory_pool_benchmark.cpp
  src/atp_debug.h
  src/atp_memory_pool.h
+CMakeFiles/libatp.dir/src/atp_channel.cpp.o
+ /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
+ /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
+ /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_channel.cpp
+ /home/pengwang/cloud_platform/project/libatp/src/atp_channel.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_libevent.h
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o
  /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_memory_policy.cpp

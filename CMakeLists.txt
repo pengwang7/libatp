@@ -13,6 +13,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -fstrict-aliasing -Wno-invalid-off
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -lglog")
 
 set(BUTIL_SOURCES
+    ${PROJECT_SOURCE_DIR}/src/atp_channel.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_memory_pool.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_memory_policy.cpp
     ${PROJECT_SOURCE_DIR}/examples/atp_memory_pool_benchmark.cpp

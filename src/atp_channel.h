@@ -11,6 +11,8 @@ struct event_base;
 
 namespace atp {
 
+class EventLoop;
+
 class Channel {
 public:
     using EventCallbackPtr = std::function<void()>;
@@ -64,7 +66,7 @@ private:
 
 private:
     EventLoop* event_loop_;			/* IO event loop */
-    struct event* event_;			/* The libevent event */
+    struct event* event_;			/* The libevent event for read and write */
     int fd_;						/* The event file description */
     int events_;					/* The event is read or write or both */
     bool attached_;					/* The event is weather or not add to libevent event_base */
