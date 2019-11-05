@@ -40,13 +40,13 @@ EventLoop::~EventLoop() {
 }
 
 void EventLoop::dispatch() {
+    assert(event_watcher_->asyncWait());
+    
     int error = event_base_dispatch(event_base_);
     if (error == 1) {
         LOG(ERROR) << "EventLoop event_base_ no any event register!";
     } else if (error == -1) {
         LOG(ERROR) << "EventLoop event_base_ dispatch failed!";
-    } else {
-        LOG(INFO) << "EventLoop event_base_ dispatch success!";
     }
 }
 
@@ -60,6 +60,11 @@ void EventLoop::sendToQueue(const TaskEventPtr& task) {
     if (safety()) {
         /* If in loop thread, execute the task function */
         task();
+
+        if (ATP_DEBUG_ON) {
+            LOG(INFO) << "sendToQueue process a task";
+        }
+        
         return;
     }
 

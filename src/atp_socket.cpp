@@ -1,5 +1,12 @@
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>          /* See NOTES */
+#include <sys/socket.h>
+#include <netinet/tcp.h>
+
 #include "atp_socket.h"
 #include "atp_libevent.h"
+                                                        
 
 namespace atp {
 

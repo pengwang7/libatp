@@ -10,7 +10,7 @@ namespace atp {
 
 class EventLoop;
 
-/* The EventWatcher is basic class, set structure function is prcted,ote destructure function is public */
+/* The EventWatcher is basic class, set structure function is protected destructure function is public */
 class EventWatcher {
 public:
     using DoTasksEventPtr = std::function<void()>;

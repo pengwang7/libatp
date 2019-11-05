@@ -17,7 +17,7 @@ public:
     using NewConnCallbackPtr = std::function<void(int fd, const std::string& taddr, void* args)>;
 
 public:
-    explicit Listener(EventLoop* event_loop, const std::string& address);
+    explicit Listener(EventLoop* event_loop, const std::string& address, unsigned int port);
     ~Listener();
     
 public:
@@ -27,12 +27,12 @@ public:
 
     void stop();
 
-    void setNewConnCallback(NewConnCallbackPtr& cb) {
+    void setNewConnCallback(NewConnCallbackPtr cb) {
         new_conn_cb_ = cb;
     }
 
 private:
-    void accpetHandle();
+    void acceptHandle();
 
 private:
     EventLoop* event_loop_;
@@ -40,7 +40,7 @@ private:
                                                                                  
     struct {                                                                                                                           
         std::string host_;                                                       
-        int port_;                                                                                                                           
+        unsigned int port_;                                                                                                                           
     } address_;                                                                  
                                                                                  
     std::unique_ptr<Channel> channel_;      /* Listen event channel */                                              

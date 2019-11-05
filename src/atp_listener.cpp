@@ -1,12 +1,23 @@
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+#include "glog/logging.h"
+
+#include "atp_debug.h"
 #include "atp_socket.h"
 #include "atp_listener.h"
+#include "atp_channel.h"
 #include "atp_event_loop.h"
 
 namespace atp {
 
-Listener::Listener(EventLoop* event_loop, const std::string& address)
+Listener::Listener(EventLoop* event_loop, const std::string& address, unsigned int port)
     : event_loop_(event_loop), fd_(-1) {
-
+    address_.host_ = address;
+    address_.port_ = port;
 }
 
 Listener::~Listener() {
@@ -22,10 +33,15 @@ void Listener::listenning() {
     socket::setReuseAddr(fd_);
     socket::setReusePort(fd_);
     socket::setTCPDeferred(fd_);
-    socket::setKeepalive(fd_, true)
+    socket::setKeepalive(fd_, true);
 
     struct sockaddr_in baddr;
-    memset(&baddr, 0, sizeof(baddr))
+    memset(&baddr, 0, sizeof(baddr));
+
+    /* Set listen address and port */
+    baddr.sin_family = AF_INET;
+    baddr.sin_port = htons(address_.port_);
+    baddr.sin_addr.s_addr = inet_addr(address_.host_.c_str());
         
     if (bind(fd_, (struct sockaddr*)&baddr, sizeof(baddr)) < 0) {
         LOG(ERROR) << "Listen socket bind met error: " << strerror(errno);
@@ -44,10 +60,10 @@ void Listener::listenning() {
 
 void Listener::accept() {
     channel_.reset(new Channel(event_loop_, fd_, true, false));
-    channel_.setReadCallback(std::bind(&Listener::acceptHandle, this));
+    channel_->setReadCallback(std::bind(&Listener::acceptHandle, this));
 
     /* Attach listen channel event to owner event loop */
-    event_loop_->sendToQueue(std::bind(&Channel::attachToEventLoop, channel_.get());
+    event_loop_->sendToQueue(std::bind(&Channel::attachToEventLoop, channel_.get()));
 }
 
 void Listener::stop() {
@@ -56,7 +72,7 @@ void Listener::stop() {
     channel_->close();
 }
 
-void Listener::accpetHandle() {
+void Listener::acceptHandle() {
     assert(event_loop_->safety());
 
     struct sockaddr_in raddr;
