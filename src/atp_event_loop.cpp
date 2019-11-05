@@ -47,7 +47,7 @@ void EventLoop::dispatch() {
     }
 }
 
-/* 不可以直接调用stopHandle, 因为这个函数可以在任意线程进行调用 */
+/* 不可以直接调用stopHandle, 因为我们不确定调用stop的线程是哪一个 */
 void EventLoop::stop() {
     sendToQueue(std::bind(&EventLoop::stopHandle, this));
 }
@@ -101,7 +101,8 @@ void EventLoop::doInit() {
 }
 
 void EventLoop::doInitPipeEventWatcher() {
-
+    event_watcher_.reset(new PipeEventWatcher(this, std::bind(&EventLoop::doPendingTasks, this));
+    assert(event_watcher_.doInit());
 }
 
 void EventLoop::doPendingTasks() {

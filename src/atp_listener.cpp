@@ -60,7 +60,7 @@ void Listener::accpetHandle() {
 
     struct sockaddr_in raddr;
     socklen_t addr_len = sizeof(raddr);
-    int conn_fd = ::accept(fd_, reinterpret_cast<struct sockaddr*>(&baddr), &addr_len);
+    int conn_fd = ::accept(fd_, reinterpret_cast<struct sockaddr*>(&raddr), &addr_len);
     if (conn_fd == -1) {
         if (errno != EAGAIN && errno != EINTR) {
             LOG(ERROR) << "The accept met error: " << strerror(errno);

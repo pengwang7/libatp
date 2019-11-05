@@ -15,7 +15,7 @@ public:
     void sendToQueue(TaskEventPtr&& task);
 
 public:
-    srtuct event_base* GetInternalEventBase() {
+    srtuct event_base* getEventBase() const {
         return event_base_;
     }
 
@@ -37,7 +37,7 @@ private:
     void doPendingTasks();
     void stopHandle();
     
-    int getPendingTaskQueueSize() {
+    int getPendingTaskQueueSize() const {
         return pending_tasks_->size();
     }
     
