@@ -1,3 +1,18 @@
+#ifndef __ATP_EVENT_LOOP_H__
+#define __ATP_EVENT_LOOP_H__
+
+#include <memory>
+#include <mutex>
+#include <thread>
+#include <vector>
+#include <atomic>
+#include <functional>
+
+#include "atp_event_watcher.h"
+
+struct event;
+struct event_base;
+
 namespace atp {
 
 class EventLoop {
@@ -15,19 +30,19 @@ public:
     void sendToQueue(TaskEventPtr&& task);
 
 public:
-    srtuct event_base* getEventBase() const {
+    struct event_base* getEventBase() const {
         return event_base_;
     }
 
     bool safety() const {
-        thread_id_ == std::this_thread::get_id();
+        return thread_id_ == std::this_thread::get_id();
     }
 
     int pendingTaskQueueSize() const {
         return pending_tasks_size_.load();
     }
 
-    const std::thread::id& GetThreadId() {
+    const std::thread::id& getThreadId() {
         return thread_id_;
     }
 
@@ -56,3 +71,4 @@ private:
 };
 
 }/*end namespace atp*/
+#endif

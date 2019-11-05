@@ -1,7 +1,8 @@
 #include <string.h>
 
-#include "atp_channel.h"
 #include "atp_libevent.h"
+#include "atp_channel.h"
+#include "atp_event_loop.h"
 
 namespace atp {
 

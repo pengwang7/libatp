@@ -1,4 +1,14 @@
+#ifndef __ATP_EVENT_WATCHER_H__
+#define __ATP_EVENT_WATCHER_H__
+
+#include <functional>
+
+struct event;
+struct event_base;
+
 namespace atp {
+
+class EventLoop;
 
 /* The EventWatcher is basic class, set structure function is prcted,ote destructure function is public */
 class EventWatcher {
@@ -35,12 +45,12 @@ protected:
 /* PipeEventWatcher is a bridge for multi thread(main event_loop to IO event_loop) message notify */
 class PipeEventWatcher : public EventWatcher {
 public:
-    explicit PipeEventWatcher();
+    explicit PipeEventWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle);
     ~PipeEventWatcher();
     
 public:
     bool asyncWait();
-    void eventNotfiy();
+    void eventNotify();
     void getPipeInternalReadWriteFd(int* fd0, int* fd1);
     
 private:
@@ -59,3 +69,4 @@ public:
 };
 */
 }/*end namespace atp*/
+#endif

@@ -1,9 +1,17 @@
+#include <unistd.h>
+#include <string.h>
+
+#include "glog/logging.h"
+
+#include "atp_debug.h"
+#include "atp_libevent.h"
 #include "atp_event_watcher.h"
+#include "atp_event_loop.h"
 
 namespace atp {
 
 EventWatcher::EventWatcher(struct event_base* event_base, DoTasksEventPtr&& handle)
-    event_base_(event_base), event_(NULL), attached_(false), do_tasks_handle(std::move(handle)) {
+    : event_base_(event_base), event_(NULL), attached_(false), do_tasks_handle(std::move(handle)) {
 
     event_ = new event;
     memset(event_, 0, sizeof(*event_));
@@ -93,7 +101,7 @@ bool PipeEventWatcher::asyncWait() {
     return this->doWatch(NULL);
 }
 
-void PipeEventWatcher::eventNotfiy() {
+void PipeEventWatcher::eventNotify() {
     char flag = 'c';
 
     if (write(pipe_fds_[1], &flag, sizeof(flag)) != 1) {
@@ -129,13 +137,22 @@ bool PipeEventWatcher::doInitImpl() {
 }
 
 void PipeEventWatcher::doTerminateImpl() {
-    close(pipe_fds[0]);
-    close(pipe_fds[1]);
+    close(pipe_fds_[0]);
+    close(pipe_fds_[1]);
     memset(pipe_fds_, 0, sizeof(pipe_fds_));
 }
 
 void PipeEventWatcher::pipeEventNotifyHandle(int fd, short which, void* args) {
+    PipeEventWatcher* pipe_watcher = static_cast<PipeEventWatcher*>(args);
+    assert(pipe_watcher);
 
+    char buf[1];
+    if (read(pipe_watcher->pipe_fds_[0], buf, sizeof(buf)) == 1) {
+        pipe_watcher->do_tasks_handle();
+        return;
+    }
+
+    LOG(ERROR) << "The pipeEventNotifyHandle read error: " << strerror(errno);
 }
 
 }/* end namespace atp*/

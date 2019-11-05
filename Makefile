@@ -177,6 +177,87 @@ src/atp_channel.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_channel.cpp.s
 .PHONY : src/atp_channel.cpp.s
 
+src/atp_event_loop.o: src/atp_event_loop.cpp.o
+
+.PHONY : src/atp_event_loop.o
+
+# target to build an object file
+src/atp_event_loop.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o
+.PHONY : src/atp_event_loop.cpp.o
+
+src/atp_event_loop.i: src/atp_event_loop.cpp.i
+
+.PHONY : src/atp_event_loop.i
+
+# target to preprocess a source file
+src/atp_event_loop.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_loop.cpp.i
+.PHONY : src/atp_event_loop.cpp.i
+
+src/atp_event_loop.s: src/atp_event_loop.cpp.s
+
+.PHONY : src/atp_event_loop.s
+
+# target to generate assembly for a file
+src/atp_event_loop.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_loop.cpp.s
+.PHONY : src/atp_event_loop.cpp.s
+
+src/atp_event_watcher.o: src/atp_event_watcher.cpp.o
+
+.PHONY : src/atp_event_watcher.o
+
+# target to build an object file
+src/atp_event_watcher.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o
+.PHONY : src/atp_event_watcher.cpp.o
+
+src/atp_event_watcher.i: src/atp_event_watcher.cpp.i
+
+.PHONY : src/atp_event_watcher.i
+
+# target to preprocess a source file
+src/atp_event_watcher.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.i
+.PHONY : src/atp_event_watcher.cpp.i
+
+src/atp_event_watcher.s: src/atp_event_watcher.cpp.s
+
+.PHONY : src/atp_event_watcher.s
+
+# target to generate assembly for a file
+src/atp_event_watcher.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.s
+.PHONY : src/atp_event_watcher.cpp.s
+
+src/atp_libevent.o: src/atp_libevent.cpp.o
+
+.PHONY : src/atp_libevent.o
+
+# target to build an object file
+src/atp_libevent.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_libevent.cpp.o
+.PHONY : src/atp_libevent.cpp.o
+
+src/atp_libevent.i: src/atp_libevent.cpp.i
+
+.PHONY : src/atp_libevent.i
+
+# target to preprocess a source file
+src/atp_libevent.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_libevent.cpp.i
+.PHONY : src/atp_libevent.cpp.i
+
+src/atp_libevent.s: src/atp_libevent.cpp.s
+
+.PHONY : src/atp_libevent.s
+
+# target to generate assembly for a file
+src/atp_libevent.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_libevent.cpp.s
+.PHONY : src/atp_libevent.cpp.s
+
 src/atp_memory_policy.o: src/atp_memory_policy.cpp.o
 
 .PHONY : src/atp_memory_policy.o
@@ -246,6 +327,15 @@ help:
 	@echo "... src/atp_channel.o"
 	@echo "... src/atp_channel.i"
 	@echo "... src/atp_channel.s"
+	@echo "... src/atp_event_loop.o"
+	@echo "... src/atp_event_loop.i"
+	@echo "... src/atp_event_loop.s"
+	@echo "... src/atp_event_watcher.o"
+	@echo "... src/atp_event_watcher.i"
+	@echo "... src/atp_event_watcher.s"
+	@echo "... src/atp_libevent.o"
+	@echo "... src/atp_libevent.i"
+	@echo "... src/atp_libevent.s"
 	@echo "... src/atp_memory_policy.o"
 	@echo "... src/atp_memory_policy.i"
 	@echo "... src/atp_memory_policy.s"

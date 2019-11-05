@@ -1,4 +1,7 @@
+#include "glog/logging.h"
+
 #include "atp_debug.h"
+#include "atp_libevent.h"
 #include "atp_event_loop.h"
 
 namespace atp {
@@ -68,7 +71,7 @@ void EventLoop::sendToQueue(const TaskEventPtr& task) {
     ++ pending_tasks_size_;
     if (!notified_.load()) {
         notified_.store(true);
-        event_watcher_.notify();
+        event_watcher_->eventNotify();
     }
 }
 
@@ -87,7 +90,7 @@ void EventLoop::sendToQueue(TaskEventPtr&& task) {
     ++ pending_tasks_size_;
     if (!notified_.load()) {
         notified_.store(true);
-        event_watcher_.notify();
+        event_watcher_->eventNotify();
     }
 }
 
@@ -101,8 +104,8 @@ void EventLoop::doInit() {
 }
 
 void EventLoop::doInitPipeEventWatcher() {
-    event_watcher_.reset(new PipeEventWatcher(this, std::bind(&EventLoop::doPendingTasks, this));
-    assert(event_watcher_.doInit());
+    event_watcher_.reset(new PipeEventWatcher(this, std::bind(&EventLoop::doPendingTasks, this)));
+    assert(event_watcher_->doInit());
 }
 
 void EventLoop::doPendingTasks() {
