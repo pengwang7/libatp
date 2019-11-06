@@ -46,12 +46,6 @@ public:
         return thread_id_;
     }
 
-private:
-    void doInit();
-    void doInitPipeEventWatcher();
-    void doPendingTasks();
-    void stopHandle();
-    
     int getPendingTaskQueueSize() const {
         return pending_tasks_->size();
     }
@@ -59,6 +53,12 @@ private:
     bool pendingTaskQueueIsEmpty() {
         return pending_tasks_->empty();
     }
+
+private:
+    void doInit();
+    void doInitPipeEventWatcher();
+    void doPendingTasks();
+    void stopHandle();
     
 private:
     struct event_base* event_base_; /* The libevent event_base */

@@ -114,12 +114,51 @@ void EventLoop::doInitPipeEventWatcher() {
 }
 
 void EventLoop::doPendingTasks() {
+    /* Timely release pending_tasks_ accupation memory by std::vector swap method, */
+    /* tmp_pending_tasks will be destruction after this function */
+    std::vector<TaskEventPtr> tmp_pending_tasks;
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        notified_.store(false);
+        pending_tasks_->swap(tmp_pending_tasks);
+    }
 
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "The current tasks size: " << tmp_pending_tasks.size();
+    }
+
+    /* Execute other threads send to this thread(safety thread) tasks */
+    for (size_t i = 0; i < tmp_pending_tasks.size(); ++ i) {
+        tmp_pending_tasks[i]();
+        -- pending_tasks_size_;
+    }
 }
 
 void EventLoop::stopHandle() {
+    auto fn = [this]() {
+        while (true) {
+            if (pendingTaskQueueIsEmpty()) {
+                LOG(INFO) << "The stopHandle tmp_pending_tasks is empty";
+            }
 
+            if (ATP_DEBUG_ON) {
+                LOG(INFO) << "Now, doing tasks before event loop stop";
+            }
+            
+            doPendingTasks();
+        }
+    };
+
+    fn();
+
+    event_base_loopexit(event_base_, NULL);
+
+    LOG(INFO) << "The event loop is stopped";
+    
+    if (!pendingTaskQueueIsEmpty()) {
+        LOG(INFO) << "After event loop stopped, the tasks size: " << getPendingTaskQueueSize();
+        std::vector<TaskEventPtr>().swap(*pending_tasks_);
+    }
 }
 
 }/*end namespace atp*/
-
