@@ -20,7 +20,22 @@ namespace atp {
 #define ATP_WRITE_EVENT (0x04)
 
 /* Listen queue max size */
-#define ATP_SO_MAX_CONN (1024)
+#define ATP_SO_MAX_CONN (4096)
+
+/* Buffer init size and reserved prepend size */
+#define INIT_BUFFER_SIZE (1024)
+#define RESERVED_PREPEND_SIZE (8)
+
+#define htonll(x)                             \
+((((x) & 0xff00000000000000ull) >> 56)       \
+| (((x) & 0x00ff000000000000ull) >> 40)      \
+| (((x) & 0x0000ff0000000000ull) >> 24)      \
+| (((x) & 0x000000ff00000000ull) >> 8)       \
+| (((x) & 0x00000000ff000000ull) << 8)       \
+| (((x) & 0x0000000000ff0000ull) << 24)      \
+| (((x) & 0x000000000000ff00ull) << 40)      \
+| (((x) & 0x00000000000000ffull) << 56))
+
 
 /* Memory alignment */
 // example: 127以8个字节进行内存对齐,此处假设字长为8

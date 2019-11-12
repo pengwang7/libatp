@@ -14,6 +14,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -lglog")
 
 set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/atp_socket.cpp
+    #${PROJECT_SOURCE_DIR}/src/atp_buffer.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_libevent.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_channel.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_listener.cpp
