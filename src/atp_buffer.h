@@ -31,7 +31,7 @@ public:
 public:
     /* The buffer general interface */
     size_t prependableBytes() const {
-        return reserved_prepend_size_;
+        return read_index_;
     }
 
     /* The buffer can writable bytes */
@@ -54,14 +54,40 @@ public:
         return buffer_ + read_index_;
     }
 
-    char* beginWrite() {
+    char* writeBegin() {
         return buffer_ + write_index_;
     }
 	
-    const char* beginWrite() const {
+    const char* writeBegin() const {
         return buffer_ + write_index_;
     }
 
+private:
+    /* Judge the buffer whether or not have enough size, resize or move */
+    void grow(size_t length) {
+        size_t unread_bytes = unreadBytes();
+		
+        if (prependableBytes() + writableBytes() < reserved_prepend_size_ + length) {
+            size_t new_size = (caps_ << 1) + unreadBytes();
+            char* new_mem = new(std::nothrow) char[new_size];
+            assert(new_mem);
+
+            memcpy(new_mem + reserved_prepend_size_, buffer_ + read_index_, unread_bytes);
+            caps_ = new_size;
+            
+            delete[] buffer_;
+            buffer_ = new_mem;
+        } else {
+            assert(reserved_prepend_size_ < read_index_);
+            memmove(buffer_ + reserved_prepend_size_, buffer_ + read_index_, unread_bytes);
+        }
+
+        read_index_ = reserved_prepend_size_;
+        write_index_ = read_index_ + unread_bytes;
+        
+        assert(unreadBytes() == unread_bytes);
+        assert(writableBytes() >= length);
+	}
 	
 private:
     char* buffer_;					/* The buffer internal data pointer */
