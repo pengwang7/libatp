@@ -36,6 +36,7 @@ namespace atp {
 | (((x) & 0x000000000000ff00ull) << 40)      \
 | (((x) & 0x00000000000000ffull) << 56))
 
+#define ntohll(x) htonll(x)
 
 /* Memory alignment */
 // example: 127以8个字节进行内存对齐,此处假设字长为8

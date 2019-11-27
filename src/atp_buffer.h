@@ -1,6 +1,8 @@
 #ifndef __ATP_BUFFER_H__
 #define __ATP_BUFFER_H__
 
+#include <arpa/inet.h>
+
 #include "atp_debug.h"
 
 namespace atp {
@@ -62,6 +64,96 @@ public:
         return buffer_ + write_index_;
     }
 
+public:
+    int32_t peekInt32() {
+        if (unreadBytes() < sizeof(int32_t)) {
+            return -1;
+        }
+
+        int32_t x = 0;
+        memcpy(&x, getData(), sizeof(x));
+
+        /* The network byte order convert to local byte order */
+        return ntohl(x);
+    }
+
+    int64_t peekInt64() {
+        if (unreadBytes() < sizeof(int64_t)) {
+            return -1;
+        }
+
+        int64_t x = 0;
+        memcpy(&x, getData(), sizeof(x));
+
+        /* The network byte order convert to local byte order */
+        return ntohll(x);
+    }
+
+    int32_t readInt32() {
+        int32_t x = peekInt32();
+        retrieve(sizeof(x));
+
+        return x;
+    }
+
+    int64_t readInt64() {
+        int64_t x = peekInt64();
+        retrieve(sizeof(x));
+
+        return x;
+    }
+
+    void appendInt32(int32_t x) {
+        int32_t net_x = htonl(x);
+        append(&net_x, sizeof(net_x));
+    }
+
+    void appendInt64(int64_t x) {
+        int64_t net_x = htonll(x);
+        append(&net_x, sizeof(net_x));
+    }
+
+    void prependInt32(int32_t x) {
+        assert(sizeof(x) <= prependableBytes());
+        int32_t net_x = htonl(x);
+        read_index_ -= sizeof(net_x);
+        memcpy(buffer_ + read_index_, &net_x, sizeof(net_x));
+    }
+
+    void prependInt64(int64_t x) {
+        assert(sizeof(x) <= prependableBytes());
+        int64_t net_x = htonll(x);
+        read_index_ -= sizeof(net_x);
+        memcpy(buffer_ + read_index_, &net_x, sizeof(net_x));
+    }
+    
+public:
+    void reset() {
+        read_index_ = reserved_prepend_size_;
+        write_index_ = reserved_prepend_size_;
+    }
+    
+    void retrieve(size_t length) {
+        if (length < unreadBytes()) {
+            read_index_ += length;
+        } else {
+            reset();
+        }
+    }
+    
+    void append(const char* data, size_t length) {
+        if (writableBytes() < length) {
+            grow(length);
+        }
+
+        memcpy(writeBegin(), data, length);
+        write_index_ += length;
+    }
+
+    void append(const void* data, size_t length) {
+        append(static_cast<const char*>(data), length);
+    }
+    
 private:
     /* Judge the buffer whether or not have enough size, resize or move */
     void grow(size_t length) {
