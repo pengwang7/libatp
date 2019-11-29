@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 
 #include "atp_debug.h"
+#include "atp_slice.h"
 
 namespace atp {
 
@@ -128,6 +129,7 @@ public:
     }
     
 public:
+    /* The buffer read/write/reset interface */
     void reset() {
         read_index_ = reserved_prepend_size_;
         write_index_ = reserved_prepend_size_;
@@ -153,6 +155,9 @@ public:
     void append(const void* data, size_t length) {
         append(static_cast<const char*>(data), length);
     }
+
+    /* The reader read from socket to the local buffer */
+    void reader(int fd, std::string& error);
     
 private:
     /* Judge the buffer whether or not have enough size, resize or move */
@@ -179,7 +184,7 @@ private:
         
         assert(unreadBytes() == unread_bytes);
         assert(writableBytes() >= length);
-	}
+    }
 	
 private:
     char* buffer_;					/* The buffer internal data pointer */
