@@ -18,11 +18,11 @@ EventWatcher::EventWatcher(struct event_base* event_base, DoTasksEventPtr&& hand
 }
 
 EventWatcher::~EventWatcher() {
-    detachPipeEventAndFree();
+    detachEventAndFree();
     doTerminate();
 }
 
-bool EventWatcher::  doInit() {
+bool EventWatcher::doInit() {
     if (!doInitImpl()) {
         doTerminate();
         return false;
@@ -32,12 +32,12 @@ bool EventWatcher::  doInit() {
     return true;
 }
 
-void EventWatcher::  doCancel() {
+void EventWatcher::doCancel() {
     if (!event_) {
         return;
     }
     
-    detachPipeEventAndFree();
+    detachEventAndFree();
 
     /* If had cancel callback function, do it and clear */
     if (cancel_watcher_handle) {
@@ -46,11 +46,11 @@ void EventWatcher::  doCancel() {
     }
 }
 
-void EventWatcher::  doTerminate() {
+void EventWatcher::doTerminate() {
     doTerminateImpl();
 }
 
-void EventWatcher::detachPipeEventAndFree() {
+void EventWatcher::detachEventAndFree() {
     if (!event_) {
         return;
     }
@@ -153,6 +153,39 @@ void PipeEventWatcher::pipeEventNotifyHandle(int fd, short which, void* args) {
     }
 
     LOG(ERROR) << "The pipeEventNotifyHandle read error: " << strerror(errno);
+}
+
+
+TimerEventWatcher::TimerEventWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle, int delay_second)
+    : EventWatcher(event_loop->getEventBase(), std::move(handle)) {
+    tv_.tv_sec = delay_second;
+    tv_.tv_usec = 0;
+}
+
+bool TimerEventWatcher::asyncWait() {
+    return this->doWatch(&tv_);
+}
+
+bool TimerEventWatcher::doInitImpl() {
+    event_assign(this->event_, this->event_base_, -1, 0,
+        &TimerEventWatcher::timerEventExecuteHandle, this);
+
+    return true;
+}
+
+void TimerEventWatcher::doTerminateImpl() {
+    memset(&tv_, 0, sizeof(tv_));
+}
+
+void TimerEventWatcher::timerEventExecuteHandle(int fd, short which, void* args) {
+    TimerEventWatcher* timer_watcher = static_cast<TimerEventWatcher*>(args);
+    assert(timer_watcher);
+
+    timer_watcher->do_tasks_handle();
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "The timer expired.";
+    }
 }
 
 }/* end namespace atp*/

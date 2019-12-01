@@ -23,4 +23,8 @@ void Buffer::reader(int fd, std::string& error) {
     }
 }
 
+void Buffer::writer(int fd, std::string& error) {
+
+}
+
 }/*end namespace atp*/

@@ -29,6 +29,10 @@ public:
     void sendToQueue(const TaskEventPtr& task);
     void sendToQueue(TaskEventPtr&& task);
 
+    /* The timing task interface */
+    //TimerPtr runAfter(double delay_ms, const TaskEventPtr& func);
+    //TimerPtr runEvery(double delay_ms, const TaskEventPtr& func);
+    
 public:
     struct event_base* getEventBase() const {
         return event_base_;

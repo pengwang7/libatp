@@ -25,7 +25,7 @@ public:
     bool doInit();
     void doCancel();
     void doTerminate();
-    void detachPipeEventAndFree();
+    void detachEventAndFree();
     bool doWatch(struct timeval* tv);
 
 protected:
@@ -60,13 +60,18 @@ private:
     int pipe_fds_[2];
 };
 
-/*
+
 class TimerEventWatcher : public EventWatcher {
 public:
-
-public:
+    TimerEventWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle, int delay_second);
+    bool asyncWait();
     
+private:
+    bool doInitImpl() override;
+    void doTerminateImpl() override;
+    static void timerEventExecuteHandle(int fd, short which, void* args);
+    struct timeval tv_;
 };
-*/
+
 }/*end namespace atp*/
 #endif

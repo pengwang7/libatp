@@ -53,10 +53,6 @@ public:
         return caps_;
     }
 
-    const char* getData() const {
-        return buffer_ + read_index_;
-    }
-
     char* writeBegin() {
         return buffer_ + write_index_;
     }
@@ -72,7 +68,7 @@ public:
         }
 
         int32_t x = 0;
-        memcpy(&x, getData(), sizeof(x));
+        memcpy(&x, data(), sizeof(x));
 
         /* The network byte order convert to local byte order */
         return ntohl(x);
@@ -84,7 +80,7 @@ public:
         }
 
         int64_t x = 0;
-        memcpy(&x, getData(), sizeof(x));
+        memcpy(&x, data(), sizeof(x));
 
         /* The network byte order convert to local byte order */
         return ntohll(x);
@@ -92,14 +88,14 @@ public:
 
     int32_t readInt32() {
         int32_t x = peekInt32();
-        retrieve(sizeof(x));
+        remove(sizeof(x));
 
         return x;
     }
 
     int64_t readInt64() {
         int64_t x = peekInt64();
-        retrieve(sizeof(x));
+        remove(sizeof(x));
 
         return x;
     }
@@ -134,16 +130,16 @@ public:
         read_index_ = reserved_prepend_size_;
         write_index_ = reserved_prepend_size_;
     }
-    
-    void retrieve(size_t length) {
+
+    void remove(const size_t length) {
         if (length < unreadBytes()) {
             read_index_ += length;
         } else {
             reset();
         }
     }
-    
-    void append(const char* data, size_t length) {
+   
+    void append(const char* data, size_t const length) {
         if (writableBytes() < length) {
             grow(length);
         }
@@ -152,14 +148,34 @@ public:
         write_index_ += length;
     }
 
-    void append(const void* data, size_t length) {
+    void append(const void* data, const size_t length) {
         append(static_cast<const char*>(data), length);
+    }
+
+    void append(const slice& ss) {
+        append(ss.data(), ss.size());
+    }
+    
+    slice retrieve(const size_t length) {
+        if (length < unreadBytes()) {
+            slice ss(data(), length);
+            return ss;
+        }
+
+        slice ss(data(), unreadBytes());
+
+        return ss;
     }
 
     /* The reader read from socket to the local buffer */
     void reader(int fd, std::string& error);
+    void writer(int fd, std::string& error);
     
 private:
+    const char* data() const {
+        return buffer_ + read_index_;
+    }
+
     /* Judge the buffer whether or not have enough size, resize or move */
     void grow(size_t length) {
         size_t unread_bytes = unreadBytes();
