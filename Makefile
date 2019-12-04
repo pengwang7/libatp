@@ -150,6 +150,33 @@ examples/atp_listener_benchmark.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.s
 .PHONY : examples/atp_listener_benchmark.cpp.s
 
+src/atp_buffer.o: src/atp_buffer.cpp.o
+
+.PHONY : src/atp_buffer.o
+
+# target to build an object file
+src/atp_buffer.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_buffer.cpp.o
+.PHONY : src/atp_buffer.cpp.o
+
+src/atp_buffer.i: src/atp_buffer.cpp.i
+
+.PHONY : src/atp_buffer.i
+
+# target to preprocess a source file
+src/atp_buffer.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_buffer.cpp.i
+.PHONY : src/atp_buffer.cpp.i
+
+src/atp_buffer.s: src/atp_buffer.cpp.s
+
+.PHONY : src/atp_buffer.s
+
+# target to generate assembly for a file
+src/atp_buffer.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_buffer.cpp.s
+.PHONY : src/atp_buffer.cpp.s
+
 src/atp_channel.o: src/atp_channel.cpp.o
 
 .PHONY : src/atp_channel.o
@@ -176,6 +203,33 @@ src/atp_channel.s: src/atp_channel.cpp.s
 src/atp_channel.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_channel.cpp.s
 .PHONY : src/atp_channel.cpp.s
+
+src/atp_dynamic_thread_pool.o: src/atp_dynamic_thread_pool.cpp.o
+
+.PHONY : src/atp_dynamic_thread_pool.o
+
+# target to build an object file
+src/atp_dynamic_thread_pool.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o
+.PHONY : src/atp_dynamic_thread_pool.cpp.o
+
+src/atp_dynamic_thread_pool.i: src/atp_dynamic_thread_pool.cpp.i
+
+.PHONY : src/atp_dynamic_thread_pool.i
+
+# target to preprocess a source file
+src/atp_dynamic_thread_pool.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.i
+.PHONY : src/atp_dynamic_thread_pool.cpp.i
+
+src/atp_dynamic_thread_pool.s: src/atp_dynamic_thread_pool.cpp.s
+
+.PHONY : src/atp_dynamic_thread_pool.s
+
+# target to generate assembly for a file
+src/atp_dynamic_thread_pool.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.s
+.PHONY : src/atp_dynamic_thread_pool.cpp.s
 
 src/atp_event_loop.o: src/atp_event_loop.cpp.o
 
@@ -378,9 +432,15 @@ help:
 	@echo "... examples/atp_listener_benchmark.o"
 	@echo "... examples/atp_listener_benchmark.i"
 	@echo "... examples/atp_listener_benchmark.s"
+	@echo "... src/atp_buffer.o"
+	@echo "... src/atp_buffer.i"
+	@echo "... src/atp_buffer.s"
 	@echo "... src/atp_channel.o"
 	@echo "... src/atp_channel.i"
 	@echo "... src/atp_channel.s"
+	@echo "... src/atp_dynamic_thread_pool.o"
+	@echo "... src/atp_dynamic_thread_pool.i"
+	@echo "... src/atp_dynamic_thread_pool.s"
 	@echo "... src/atp_event_loop.o"
 	@echo "... src/atp_event_loop.i"
 	@echo "... src/atp_event_loop.s"

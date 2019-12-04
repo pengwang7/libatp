@@ -26,6 +26,9 @@ namespace atp {
 #define INIT_BUFFER_SIZE (1024)
 #define RESERVED_PREPEND_SIZE (8)
 
+/* The dynamic thread pool MAX threads */
+#define THREAD_POOL_MAX_THREADS (128)
+
 #define htonll(x)                             \
 ((((x) & 0xff00000000000000ull) >> 56)       \
 | (((x) & 0x00ff000000000000ull) >> 40)      \

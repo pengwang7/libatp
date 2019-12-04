@@ -81,9 +81,57 @@ CMakeFiles/libatp.dir/src/atp_socket.cpp.o.provides: CMakeFiles/libatp.dir/src/a
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o.provides.build: CMakeFiles/libatp.dir/src/atp_socket.cpp.o
 
 
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: CMakeFiles/libatp.dir/flags.make
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: src/atp_buffer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/libatp.dir/src/atp_buffer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_buffer.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_buffer.cpp
+
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/libatp.dir/src/atp_buffer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pengwang/cloud_platform/project/libatp/src/atp_buffer.cpp > CMakeFiles/libatp.dir/src/atp_buffer.cpp.i
+
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/libatp.dir/src/atp_buffer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pengwang/cloud_platform/project/libatp/src/atp_buffer.cpp -o CMakeFiles/libatp.dir/src/atp_buffer.cpp.s
+
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o.requires:
+
+.PHONY : CMakeFiles/libatp.dir/src/atp_buffer.cpp.o.requires
+
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o.provides: CMakeFiles/libatp.dir/src/atp_buffer.cpp.o.requires
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_buffer.cpp.o.provides.build
+.PHONY : CMakeFiles/libatp.dir/src/atp_buffer.cpp.o.provides
+
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o.provides.build: CMakeFiles/libatp.dir/src/atp_buffer.cpp.o
+
+
+CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o: CMakeFiles/libatp.dir/flags.make
+CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o: src/atp_dynamic_thread_pool.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_dynamic_thread_pool.cpp
+
+CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pengwang/cloud_platform/project/libatp/src/atp_dynamic_thread_pool.cpp > CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.i
+
+CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pengwang/cloud_platform/project/libatp/src/atp_dynamic_thread_pool.cpp -o CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.s
+
+CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o.requires:
+
+.PHONY : CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o.requires
+
+CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o.provides: CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o.requires
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o.provides.build
+.PHONY : CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o.provides
+
+CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o.provides.build: CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o
+
+
 CMakeFiles/libatp.dir/src/atp_libevent.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/src/atp_libevent.cpp.o: src/atp_libevent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/libatp.dir/src/atp_libevent.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/libatp.dir/src/atp_libevent.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_libevent.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_libevent.cpp
 
 CMakeFiles/libatp.dir/src/atp_libevent.cpp.i: cmake_force
@@ -107,7 +155,7 @@ CMakeFiles/libatp.dir/src/atp_libevent.cpp.o.provides.build: CMakeFiles/libatp.d
 
 CMakeFiles/libatp.dir/src/atp_channel.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/src/atp_channel.cpp.o: src/atp_channel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/libatp.dir/src/atp_channel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/libatp.dir/src/atp_channel.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_channel.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_channel.cpp
 
 CMakeFiles/libatp.dir/src/atp_channel.cpp.i: cmake_force
@@ -131,7 +179,7 @@ CMakeFiles/libatp.dir/src/atp_channel.cpp.o.provides.build: CMakeFiles/libatp.di
 
 CMakeFiles/libatp.dir/src/atp_listener.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/src/atp_listener.cpp.o: src/atp_listener.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/libatp.dir/src/atp_listener.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/libatp.dir/src/atp_listener.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_listener.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_listener.cpp
 
 CMakeFiles/libatp.dir/src/atp_listener.cpp.i: cmake_force
@@ -155,7 +203,7 @@ CMakeFiles/libatp.dir/src/atp_listener.cpp.o.provides.build: CMakeFiles/libatp.d
 
 CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: src/atp_memory_pool.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_memory_pool.cpp
 
 CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.i: cmake_force
@@ -179,7 +227,7 @@ CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o.provides.build: CMakeFiles/libat
 
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_memory_policy.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_memory_policy.cpp
 
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.i: cmake_force
@@ -203,7 +251,7 @@ CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o.provides.build: CMakeFiles/lib
 
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: src/atp_event_watcher.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_event_watcher.cpp
 
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.i: cmake_force
@@ -227,7 +275,7 @@ CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o.provides.build: CMakeFiles/lib
 
 CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o: src/atp_event_loop.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop.cpp
 
 CMakeFiles/libatp.dir/src/atp_event_loop.cpp.i: cmake_force
@@ -251,7 +299,7 @@ CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o.provides.build: CMakeFiles/libatp
 
 CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o: examples/atp_listener_benchmark.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o -c /home/pengwang/cloud_platform/project/libatp/examples/atp_listener_benchmark.cpp
 
 CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.i: cmake_force
@@ -276,6 +324,8 @@ CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o.provides.build: CMak
 # Object files for target libatp
 libatp_OBJECTS = \
 "CMakeFiles/libatp.dir/src/atp_socket.cpp.o" \
+"CMakeFiles/libatp.dir/src/atp_buffer.cpp.o" \
+"CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o" \
 "CMakeFiles/libatp.dir/src/atp_libevent.cpp.o" \
 "CMakeFiles/libatp.dir/src/atp_channel.cpp.o" \
 "CMakeFiles/libatp.dir/src/atp_listener.cpp.o" \
@@ -289,6 +339,8 @@ libatp_OBJECTS = \
 libatp_EXTERNAL_OBJECTS =
 
 libatp: CMakeFiles/libatp.dir/src/atp_socket.cpp.o
+libatp: CMakeFiles/libatp.dir/src/atp_buffer.cpp.o
+libatp: CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o
 libatp: CMakeFiles/libatp.dir/src/atp_libevent.cpp.o
 libatp: CMakeFiles/libatp.dir/src/atp_channel.cpp.o
 libatp: CMakeFiles/libatp.dir/src/atp_listener.cpp.o
@@ -302,7 +354,7 @@ libatp: /home/pengwang/cloud_platform/target/3rd/libevent/libevent_core.a
 libatp: /home/pengwang/cloud_platform/target/3rd/gflags/libgflags.so
 libatp: /home/pengwang/cloud_platform/target/3rd/glog/libglog.a
 libatp: CMakeFiles/libatp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable libatp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable libatp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/libatp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -311,6 +363,8 @@ CMakeFiles/libatp.dir/build: libatp
 .PHONY : CMakeFiles/libatp.dir/build
 
 CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_socket.cpp.o.requires
+CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_buffer.cpp.o.requires
+CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o.requires
 CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_libevent.cpp.o.requires
 CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_channel.cpp.o.requires
 CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_listener.cpp.o.requires

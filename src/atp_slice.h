@@ -31,7 +31,7 @@ public:
     
     void clear() { data_ = ""; size_ = 0; }
 
-    std::string ToString() const { return std::string(data_, size_); }
+    std::string toString() const { return std::string(data_, size_); }
 
     /* Slice operator symbol [], !=, == */
     char operator[](size_t pos) const { assert(pos < size_); return data_[pos]; }
