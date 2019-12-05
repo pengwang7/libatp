@@ -62,7 +62,7 @@ void DynamicThreadPool::DynamicThread::executer() {
 
 
     /* Run in this only had two case: 1. shutdown is true, 2. current tasks is empty and waiting threads >= core threads */
-    std::lock_guard<std::mutex> lock(lock_);
+    std::lock_guard<std::mutex> lock(pool_->lock_);
     pool_->current_threads_ --;
     pool_->dead_threads_.push_back(this);
 

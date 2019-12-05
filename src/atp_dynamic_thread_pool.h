@@ -56,14 +56,14 @@ private:
     };
 
     void executerImpl();
-    static void reaper(std::list<DynamicThread*>* tlist);
+    void reaper(std::list<DynamicThread*>* tlist);
     
 private:
     bool shutdown_;
     size_t core_threads_;                                   /* The dynamic thread pool minimum thread number */
     size_t current_threads_;                                /* The dynamic thread pool current thread number */
     size_t waiting_threads_;                                /* The dynamic thread pool current waiting thread number */
-    size_t max_threads_;                               /* The dynamic thread pool max thread number */
+    size_t max_threads_;                                    /* The dynamic thread pool max thread number */
 
     std::mutex lock_;
     std::condition_variable st_cond_;
