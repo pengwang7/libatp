@@ -25,6 +25,7 @@ public:
     virtual size_t getTaskQueueSize() const = 0; 
 };
 
+
 class StaticThreadPool final: public BaseThreadPool {
 public:
     StaticThreadPool(size_t total_threads);
@@ -38,8 +39,8 @@ public:
     ~DynamicThreadPool();
     
 public:
-    void add(const TaskPtr& callback) override;
-    size_t getTaskQueueSize() const override;
+    inline void add(const TaskPtr& callback) override;
+    inline size_t getTaskQueueSize() const override;
 
 private:
     class DynamicThread {
@@ -66,7 +67,7 @@ private:
     size_t max_threads_;                                    /* The dynamic thread pool max thread number */
 
     std::mutex lock_;
-    std::condition_variable st_cond_;
+    std::condition_variable cond_var_;
     std::queue<TaskPtr> callbacks_;
     std::list<DynamicThread*> dead_threads_;
 };
