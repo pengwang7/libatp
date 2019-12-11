@@ -3,6 +3,7 @@
 #include "atp_buffer.h"
 #include "atp_listener.h"
 #include "atp_event_loop.h"
+#include "atp_timing_cycle.h"
 
 using namespace atp;
 
@@ -70,9 +71,68 @@ void test_slice() {
     LOG(INFO) << "==22==:" << get_tslice_data(&ss);
 }
 
+void test_array() {
+    LOG(INFO) << "test_begin=====";
+
+    const int size = 10;
+    std::array<std::unique_ptr<int>, size> p;
+    for (int i = 0; i < size; ++ i) {
+        std::unique_ptr<int> a(new int (i));
+        p[i] = std::move(a);
+    }
+
+    for (int i = 0; i < size; ++ i) {
+        LOG(INFO) << "i: " << *p[i];
+    }
+    
+    LOG(INFO) << "test_end=====";
+}
+
+void test_cycle() {
+    CircularBuffer<int> cycle(3);
+    cycle.push_back(1);
+    cycle.push_back(2);
+    cycle.push_back(3);
+
+    cycle.traverse();
+
+    cycle.push_back(4);
+    cycle.push_back(5);
+
+    cycle.traverse();
+
+    cycle.push_back(6);
+
+    cycle.traverse();
+}
+
+void test_timing_wheel() {/*
+    TimingWheel timing_wheel(10, 1, "");
+    LOG(INFO) << timing_wheel.name();
+    
+    for (; ;) {
+        sleep(1);
+
+        LOG(INFO) << "add new conn";
+    
+    }
+    */
+}
+
 int main() {
     atp_logger_init();
 
+    /* Test timing wheel */
+    test_timing_wheel();
+    
+    /* Test circual buffer */
+    test_cycle();
+    
+    /* Test array */
+    test_array();
+
+    return 0;
+    
     /* Test slice*/
     test_slice();
     

@@ -29,6 +29,9 @@ namespace atp {
 /* The dynamic thread pool MAX threads */
 #define THREAD_POOL_MAX_THREADS (128)
 
+/* The connection read/write timeout ms */
+#define CONN_READ_WRITE_EXPIRES (300)
+
 #define htonll(x)                             \
 ((((x) & 0xff00000000000000ull) >> 56)       \
 | (((x) & 0x00ff000000000000ull) >> 40)      \
