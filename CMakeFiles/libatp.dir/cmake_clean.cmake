@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_libevent.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_channel.cpp.o"
+  "CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_listener.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"

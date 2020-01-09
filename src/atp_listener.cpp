@@ -25,7 +25,7 @@ Listener::~Listener() {
     fd_ = -1;
 }
 
-void Listener::listenning() {
+void Listener::listening() {
     fd_ = socket::createNonblockingSocket();
     assert(fd_ != -1);
 

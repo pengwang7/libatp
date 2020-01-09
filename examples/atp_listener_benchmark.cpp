@@ -106,8 +106,45 @@ void test_cycle() {
     cycle.traverse();
 }
 
-void test_timing_wheel() {/*
-    TimingWheel timing_wheel(10, 1, "");
+#if 0
+void test_on_timer(void* args) {
+	TimingWheel* timing = static_cast<TimingWheel*>(args);
+	
+	while (true) {
+		timing->cycle_buckets_.push_back(Bucket());
+		LOG(INFO) << "1 push a bucket!!!";
+		sleep(1);
+	}
+}
+
+
+
+void test_on_conn(void* args) {
+	TimingWheel* timing = static_cast<TimingWheel*>(args);
+	int i = 0;
+	while (true) {
+		
+		std::shared_ptr<Connection> conn(new Connection(++ i));
+		vec.push_back(conn);
+		SharedEntryPtr entry(new Entry(conn));
+		timing->push_back(entry);
+		LOG(INFO) << "2 push connection!!! id: " << i << "  time: " << time(nullptr);
+
+		sleep(2);
+	}
+}
+
+void test_timing_wheel() {
+	TimingWheel timing_wheel(10, 1, "");
+	std::unique_ptr<std::thread> thd(new std::thread(test_on_timer, &timing_wheel));
+	std::unique_ptr<std::thread> thd2(new std::thread(test_on_conn, &timing_wheel));
+
+	thd->join();
+	thd2->join();
+//	std::thread(test_on_timer, nullptr);
+
+
+/*
     LOG(INFO) << timing_wheel.name();
     
     for (; ;) {
@@ -118,13 +155,15 @@ void test_timing_wheel() {/*
     }
     */
 }
-
+#endif
 int main() {
     atp_logger_init();
 
     /* Test timing wheel */
-    test_timing_wheel();
-    
+    //test_timing_wheel();
+
+	//return 0;
+	
     /* Test circual buffer */
     test_cycle();
     
@@ -143,7 +182,7 @@ int main() {
     EventLoop* event_loop = new EventLoop();
     Listener* listener = new Listener(event_loop, std::string("0.0.0.0"), 5060);
     listener->setNewConnCallback(&new_conn_handle);
-    listener->listenning();
+    listener->listening();
     listener->accept();
     event_loop->dispatch();
     

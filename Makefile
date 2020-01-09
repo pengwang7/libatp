@@ -420,6 +420,33 @@ src/atp_socket.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_socket.cpp.s
 .PHONY : src/atp_socket.cpp.s
 
+src/atp_tcp_conn.o: src/atp_tcp_conn.cpp.o
+
+.PHONY : src/atp_tcp_conn.o
+
+# target to build an object file
+src/atp_tcp_conn.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o
+.PHONY : src/atp_tcp_conn.cpp.o
+
+src/atp_tcp_conn.i: src/atp_tcp_conn.cpp.i
+
+.PHONY : src/atp_tcp_conn.i
+
+# target to preprocess a source file
+src/atp_tcp_conn.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.i
+.PHONY : src/atp_tcp_conn.cpp.i
+
+src/atp_tcp_conn.s: src/atp_tcp_conn.cpp.s
+
+.PHONY : src/atp_tcp_conn.s
+
+# target to generate assembly for a file
+src/atp_tcp_conn.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.s
+.PHONY : src/atp_tcp_conn.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -462,6 +489,9 @@ help:
 	@echo "... src/atp_socket.o"
 	@echo "... src/atp_socket.i"
 	@echo "... src/atp_socket.s"
+	@echo "... src/atp_tcp_conn.o"
+	@echo "... src/atp_tcp_conn.i"
+	@echo "... src/atp_tcp_conn.s"
 .PHONY : help
 
 

@@ -1,24 +1,91 @@
-#ifndef __ATP_CONNECTION__H__
+#ifndef __ATP_CONNECTION_H__
 #define __ATP_CONNECTION_H__
+
+#include <string>
+
+#include "atp_cbs.h"
+#include "atp_buffer.h"
 
 namespace atp {
 
+class Channel;
+class EventLoop;
+
 class Connection {
 public:
-    explicit Connection() {
-
-    }
+    explicit Connection(EventLoop* event_loop, int fd, int id, std::string& remote_addr);
     
-    ~Connection() {
-
-    }
+    ~Connection();
 
 public:
-    void shutdown() {
+	void attachToEventLoop();
+    void shutdown();
 
-    }
+public:
+	int64_t send(const void* data, size_t len);
+	int64_t send(Buffer* buffer);
+	void close();
+	
+public:
+	/* For application layer set Connection read and write callback function. */
+	void setConnectionCallback(const ConnectionCallback& fn) {
+		conn_fn_ = fn;
+	}
+
+	void setReadMessageCallback(const ReadMessageCallback& fn) {
+		read_fn_ = fn;
+	}
+
+	void setWriteCompleteCallback(const WriteCompleteCallback& fn) {
+		write_complete_fn_ = fn;
+	}
+
+	void setTimedoutCallback(const TimedoutCallback& fn) {
+		timedout_fn_ = fn;
+	}
+
+	void setCloseCallback(const CloseCallback& fn) {
+		close_fn_ = fn;
+	}
+	
+private:
+	void netFdReadHandle();
+	void netFdWriteHandle();
+	void netFdCloseHandle();
+	void netFdErrorHandle();
+	
+private:
+	EventLoop* event_loop_;
+	
+	int fd_;
+	int id_;
+
+	/* Record remote address. */
+	std::string remote_addr_;
+
+	/* For the event realy read and write. */
+	std::unique_ptr<Channel> chan_;
+
+	/* The buffer for this Connection read and write. */
+	Buffer read_buffer_;
+	Buffer write_buffer_;
+
+	/* When a Connection established, broken down, connecting failed, this callback will be called. */
+    ConnectionCallback		conn_fn_;
+
+	/* When a Connection had data for read, this callback will be called. */
+    ReadMessageCallback		read_fn_;
+
+    /* When a Connection write all data to file description kernel buffer, this callback will be called. */
+	WriteCompleteCallback	write_complete_fn_;
+
+	/* When a Connection is timeout, this callback will be called. */
+	TimedoutCallback		timedout_fn_;
+
+	/* When a Connection closed, this callback will be called. */
+	CloseCallback			close_fn_;
 };
 
 }/*end namespace atp*/
 
-#endif
+#endif /* __ATP_CONNECTION_H__ */

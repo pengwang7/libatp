@@ -108,3 +108,11 @@ CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_libevent.h
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_socket.cpp
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_socket.h
 
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_buffer.h
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_cbs.h
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_channel.h
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_debug.h
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_slice.h
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_tcp_conn.cpp
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_tcp_conn.h
+

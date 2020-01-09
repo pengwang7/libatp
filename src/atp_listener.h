@@ -21,7 +21,7 @@ public:
     ~Listener();
     
 public:
-    void listenning();
+    void listening();
 
     void accept();
 

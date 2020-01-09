@@ -18,6 +18,7 @@ set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/atp_dynamic_thread_pool.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_libevent.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_channel.cpp
+    ${PROJECT_SOURCE_DIR}/src/atp_tcp_conn.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_listener.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_memory_pool.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_memory_policy.cpp
