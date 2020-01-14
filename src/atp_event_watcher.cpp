@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <string.h>
+#include <sys/eventfd.h>
 
 #include "glog/logging.h"
 
@@ -84,6 +85,67 @@ bool EventWatcher::doWatch(struct timeval* tv) {
     attached_ = true;
 
     return true;
+}
+
+
+EventfdWatcher::EventfdWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle, int eventfd_flags)
+    : EventWatcher(event_loop->getEventBase(), std::move(handle)) {
+    event_fd_ = -1;
+    eventfd_flags_ = eventfd_flags;
+}
+
+EventfdWatcher::~EventfdWatcher() {
+    this->doTerminate();
+}
+
+bool EventfdWatcher::asyncWait() {
+    this->doWatch(NULL);
+}
+
+void EventfdWatcher::eventNotify() {
+    uint64_t data = 3399;
+    if (write(event_fd_, &data, sizeof(uint64_t)) != sizeof(uint64_t)) {
+        LOG(ERROR) << "Event notify write error: " << strerror(errno);
+        return;
+    }
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "The event notify success!";
+    }
+}
+
+void EventfdWatcher::getEventfd(int* fd) {
+    *fd = event_fd_;
+}
+
+bool EventfdWatcher::doInitImpl() {
+    event_fd_ = eventfd(0, eventfd_flags_);
+    if (event_fd_ < 0) {
+        this->doTerminate();
+        return false;
+    }
+
+    event_assign(this->event_, this->event_base_, event_fd_, EV_READ | EV_PERSIST,
+        &EventfdWatcher::eventfdNotifyHandle, this);
+
+    return true;    
+}
+
+void EventfdWatcher::doTerminateImpl() {
+    close(event_fd_);
+    event_fd_ = -1;
+    eventfd_flags_ = 0;
+}
+
+void EventfdWatcher::eventfdNotifyHandle(int fd, short which, void* args) {
+    EventfdWatcher* eventfd_watcher = static_cast<EventfdWatcher*>(args);
+    assert(eventfd_watcher);
+
+    uint64_t data;
+    if (read(eventfd_watcher->event_fd_, &data, sizeof(uint64_t)) == sizeof(uint64_t)) {
+        eventfd_watcher->do_tasks_handle();
+        return;
+    }
 }
 
 

@@ -104,12 +104,16 @@ void EventLoop::doInit() {
     assert(pending_tasks_ != NULL);
 
     thread_id_ = std::this_thread::get_id();
-    
-    doInitPipeEventWatcher();
+
+    doInitEventWatcher();
 }
 
-void EventLoop::doInitPipeEventWatcher() {
-    event_watcher_.reset(new PipeEventWatcher(this, std::bind(&EventLoop::doPendingTasks, this)));
+void EventLoop::doInitEventWatcher() {
+#ifdef HAVE_EVENTFD
+    event_watcher_.reset(new EventfdWatcher(this, std::bind(&EventLoop::doPendingTasks, this)), EFD_NONBLOCK | EFD_CLOEXEC);  
+#else
+    event_watcher_.reset(new PipeEventWatcher(this, std::bind(&EventLoop::doPendingTasks, this)));  
+#endif
     assert(event_watcher_->doInit());
 }
 

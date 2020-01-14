@@ -60,7 +60,7 @@ public:
 
 private:
     void doInit();
-    void doInitPipeEventWatcher();
+    void doInitEventWatcher();
     void doPendingTasks();
     void stopHandle();
     
@@ -68,7 +68,11 @@ private:
     struct event_base* event_base_; /* The libevent event_base */
     std::mutex mutex_;
     std::thread::id thread_id_;     /* This event_loop in this thread */
+#ifdef HAVE_EVENTFD
+    std::unique_ptr<EventfdWatcher> event_watcher_;
+#else
     std::unique_ptr<PipeEventWatcher> event_watcher_;
+#endif
     std::vector<TaskEventPtr>* pending_tasks_;
     std::atomic<int> pending_tasks_size_;
     std::atomic<bool> notified_;

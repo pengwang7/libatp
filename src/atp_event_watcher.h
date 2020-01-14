@@ -8,6 +8,9 @@ struct event_base;
 
 namespace atp {
 
+#define HAVE_EVENTFD
+#define HAVE_EVENTPIPE
+
 class EventLoop;
 
 /* The EventWatcher is basic class, set structure function is protected destructure function is public */
@@ -39,6 +42,26 @@ protected:
     bool attached_;                         /* If attached_ is true, the event_ is already attached to event_base_ */
     DoTasksEventPtr do_tasks_handle;
     DoTasksEventPtr cancel_watcher_handle;
+};
+
+
+/* EventfdWatcher is a bridge for multi thread(main event_loop to IO event_loop) message notify(Linux >= 2.6.27) */
+class EventfdWatcher : public EventWatcher {
+public:
+	explicit EventfdWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle, int eventfd_flags);
+	~EventfdWatcher();
+
+public:
+	bool asyncWait();
+    void eventNotify();
+    void getEventfd(int* fd);
+
+private:
+    bool doInitImpl() override;
+    void doTerminateImpl() override;
+    static void eventfdNotifyHandle(int fd, short which, void* args);
+	int event_fd_;
+    int eventfd_flags_;
 };
 
 
