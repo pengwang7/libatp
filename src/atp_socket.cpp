@@ -10,6 +10,9 @@
 
 namespace atp {
 
+class SocketFactory {
+
+};
 namespace socket {
 
 int createNonblockingSocket() {

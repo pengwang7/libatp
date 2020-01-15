@@ -113,6 +113,8 @@ CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o
  /home/pengwang/cloud_platform/project/libatp/src/atp_cbs.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_channel.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_event_watcher.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_slice.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_tcp_conn.cpp
  /home/pengwang/cloud_platform/project/libatp/src/atp_tcp_conn.h

@@ -1,6 +1,5 @@
 #include <unistd.h>
 #include <string.h>
-#include <sys/eventfd.h>
 
 #include "glog/logging.h"
 
@@ -99,7 +98,7 @@ EventfdWatcher::~EventfdWatcher() {
 }
 
 bool EventfdWatcher::asyncWait() {
-    this->doWatch(NULL);
+    return this->doWatch(NULL);
 }
 
 void EventfdWatcher::eventNotify() {
@@ -119,7 +118,7 @@ void EventfdWatcher::getEventfd(int* fd) {
 }
 
 bool EventfdWatcher::doInitImpl() {
-    event_fd_ = eventfd(0, eventfd_flags_);
+    event_fd_ = evutil_make_internal_eventfd(0, eventfd_flags_);
     if (event_fd_ < 0) {
         this->doTerminate();
         return false;

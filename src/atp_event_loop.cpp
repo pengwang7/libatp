@@ -110,7 +110,7 @@ void EventLoop::doInit() {
 
 void EventLoop::doInitEventWatcher() {
 #ifdef HAVE_EVENTFD
-    event_watcher_.reset(new EventfdWatcher(this, std::bind(&EventLoop::doPendingTasks, this)), EFD_NONBLOCK | EFD_CLOEXEC);  
+    event_watcher_.reset(new EventfdWatcher(this, std::bind(&EventLoop::doPendingTasks, this), 0));  
 #else
     event_watcher_.reset(new PipeEventWatcher(this, std::bind(&EventLoop::doPendingTasks, this)));  
 #endif

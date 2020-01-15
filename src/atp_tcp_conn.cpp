@@ -1,7 +1,8 @@
 #include <unistd.h>
 
-#include "atp_tcp_conn.h"
 #include "atp_channel.h"
+#include "atp_tcp_conn.h"
+#include "atp_event_loop.h"
 
 namespace atp {
 
@@ -26,11 +27,18 @@ Connection::~Connection() {
 }
 
 void Connection::attachToEventLoop() {
+    auto self = shared_from_this();
+    auto fn = [self]() {
+        assert(self->event_loop_->safety());
+        self->chan_->enableEvents(true, false);
+        self->chan_->attachToEventLoop();
+    };
 
+    event_loop_->sendToQueue(fn);
 }
 
 void Connection::shutdown() {
-
+    
 }
 
 int64_t Connection::send(const void* data, size_t len) {
@@ -42,7 +50,13 @@ int64_t Connection::send(Buffer* buffer) {
 }
 
 void Connection::close() {
+    auto self = shared_from_this();
+    auto fn = [self]() {
+        assert(self->event_loop_->safety());
+        self->netFdCloseHandle();
+    };
 
+    event_loop_->sendToQueue(fn);
 }
 
 void Connection::netFdReadHandle() {

@@ -11,10 +11,9 @@ namespace atp {
 class Channel;
 class EventLoop;
 
-class Connection {
+class Connection         : public std::enable_shared_from_this<Connection> {
 public:
     explicit Connection(EventLoop* event_loop, int fd, int id, std::string& remote_addr);
-    
     ~Connection();
 
 public:

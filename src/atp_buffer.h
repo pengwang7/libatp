@@ -8,6 +8,206 @@
 
 namespace atp {
 
+class ByteBuffer {
+public:
+    ByteBuffer(size_t prepend_size = RESERVED_PREPEND_SIZE, size_t initial_size = INIT_BUFFER_SIZE) {
+    /* The prepend_size is the header size, initial_size is the body size */
+        caps_ = prepend_size + initial_size;
+        reserved_prepend_size_ = prepend_size;
+        read_index_ = write_index_ = prepend_size;
+
+        buffer_ = new(std::nothrow) char[caps_];
+        
+        assert(buffer_ != NULL);
+    }
+    
+    ByteBuffer() {
+        delete[] buffer_;
+        buffer_ = NULL;
+
+        caps_ = 0;
+        read_index_ = 0;
+        write_index_ = 0;
+        reserved_prepend_size_ = 0;
+    }
+
+public:
+    const char* data() const {
+        return buffer_ + read_index_;
+    }
+
+    void setData(char* buffer) {
+        buffer_ = buffer;
+    }
+
+    char* getData() {
+        return buffer_;
+    }
+
+    void updateReadIndex(size_t read_index) {
+        read_index_ = read_index;
+    }
+
+    void updateWriteIndex(size_t write_index) {
+        write_index_ = write_index;
+    }
+    
+    size_t prependableBytes() const {
+        return read_index_;
+    }
+
+    size_t prependHeaderBytes() const {
+        return reserved_prepend_size_;
+    }
+
+    /* The buffer can writable bytes */
+    size_t writableBytes() const {
+        assert(caps_ >= write_index_);
+        return caps_ - write_index_;
+    }
+
+    /* The buffer can readable bytes */
+    size_t unreadBytes() const {
+        assert(write_index_ >= read_index_);
+        return write_index_ - read_index_;
+    }
+
+    void setCaps(size_t new_caps) {
+        caps_ = new_caps;
+    }
+    
+    size_t getCaps() const {
+        return caps_;
+    }
+
+    char* writeBegin() {
+        return buffer_ + write_index_;
+    }
+    
+    const char* writeBegin() const {
+        return buffer_ + write_index_;
+    }
+
+    void reset() {
+        read_index_ = reserved_prepend_size_;
+        write_index_ = reserved_prepend_size_;
+    }
+
+private:
+    char* buffer_;                  /* The buffer internal data pointer */
+    size_t caps_;                   /* The buffer capacity, it also buffer_ length */
+    size_t read_index_;             /* The buffer read index */
+    size_t write_index_;            /* The buffer write index */
+    size_t reserved_prepend_size_;  /* The buffer reserved prepend size, default 8 bytes */
+};
+
+
+class ByteBufferReader {
+public:
+    explicit ByteBufferReader(ByteBuffer& buffer) : buffer_(buffer) {}
+    ~ByteBufferReader() {}
+    
+public:
+    void remove(size_t length) {
+        if (length < buffer_.unreadBytes()) {
+            buffer_.updateReadIndex(buffer_.prependableBytes() + length);
+        } else {
+            buffer_.reset();
+        }
+    }
+    
+    int32_t peekInt32() {
+        if (buffer_.unreadBytes() < sizeof(int32_t)) {
+            return -1;
+        }
+
+        int32_t x = 0;
+        memcpy(&x, buffer_.data(), sizeof(x));
+
+        return ntohl(x);
+    }
+
+    int64_t peekInt64() {
+        if (buffer_.unreadBytes() < sizeof(int64_t)) {
+            return -1;
+        }
+
+        int64_t x = 0;
+        memcpy(&x, buffer_.data(), sizeof(x));
+
+        return ntohll(x);
+    }
+
+    int32_t readInt32() {
+        int32_t x = peekInt32();
+        remove(sizeof(x));
+
+        return x;
+    }
+
+    int64_t readInt64() {
+        int64_t x = peekInt64();
+        remove(sizeof(x));
+
+        return x;
+    }
+
+    slice consume(const size_t length) {
+        if (length < buffer_.unreadBytes()) {
+            slice ss(buffer_.data(), length);
+            remove(length);
+        
+            return ss;
+        }
+
+        slice ss(buffer_.data(), buffer_.unreadBytes());
+        remove(buffer_.unreadBytes());
+
+        return ss;
+    }
+
+private:
+    ByteBuffer& buffer_;
+};
+
+class ByteBufferWriter {
+public:
+    explicit ByteBufferWriter(ByteBuffer& buffer) : buffer_(buffer) {}
+    ~ByteBufferWriter() {}
+
+public:
+    /* Judge the buffer whether or not have enough size, resize or move */
+    void grow(size_t length) {
+        char* buffer = buffer_.getData();
+        size_t unread_bytes = buffer_.unreadBytes();
+        size_t reserved_prepend_size = buffer_.prependHeaderBytes();
+		
+        if (buffer_.prependableBytes() + buffer_.writableBytes() < reserved_prepend_size + length) {
+            size_t new_size = (buffer_.getCaps() << 1) + buffer_.unreadBytes();
+            char* new_mem = new(std::nothrow) char[new_size];
+            assert(new_mem);
+
+            memcpy(new_mem + reserved_prepend_size, buffer_.data(), unread_bytes);
+            buffer_.setCaps(new_size);
+            
+            delete[] buffer;
+            buffer_.setData(new_mem);
+        } else {
+            assert(reserved_prepend_size < buffer_.prependableBytes());
+            memmove(buffer + reserved_prepend_size, buffer_.data(), unread_bytes);
+        }
+
+        buffer_.updateReadIndex(reserved_prepend_size);
+        buffer_.updateWriteIndex(buffer_.prependableBytes() + unread_bytes);
+        
+        assert(buffer_.unreadBytes() == unread_bytes);
+        assert(buffer_.writableBytes() >= length);
+    }
+
+private:
+    ByteBuffer& buffer_;
+};
+
 class Buffer {
 public:
     Buffer(size_t prepend_size = RESERVED_PREPEND_SIZE, size_t initial_size = INIT_BUFFER_SIZE) {
@@ -159,6 +359,7 @@ public:
     slice retrieve(const size_t length) {
         if (length < unreadBytes()) {
             slice ss(data(), length);
+            remove(length);
             return ss;
         }
 
