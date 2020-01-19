@@ -18,11 +18,11 @@ public:
 
 public:
 	void attachToEventLoop();
-    void shutdown();
+    //void shutdown();
 
 public:
-	int64_t send(const void* data, size_t len);
-	int64_t send(Buffer* buffer);
+	void send(const void* data, size_t len);
+	void send(Buffer* buffer);
 	void close();
 	
 public:

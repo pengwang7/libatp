@@ -24,6 +24,8 @@ public:
 
 public:
     const char* data() const { return data_; }
+
+    const void* void_type_data() const { return data_; }
     
     size_t size() const { return size_; }
     

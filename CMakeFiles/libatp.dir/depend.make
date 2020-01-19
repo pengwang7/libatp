@@ -18,9 +18,13 @@ CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o: src/atp_slice.h
 CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o: src/atp_tcp_conn.h
 CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o: src/atp_timing_cycle.h
 
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
 CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: src/atp_buffer.cpp
 CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: src/atp_buffer.h
 CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: src/atp_debug.h
+CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: src/atp_libevent.h
 CMakeFiles/libatp.dir/src/atp_buffer.cpp.o: src/atp_slice.h
 
 CMakeFiles/libatp.dir/src/atp_channel.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
@@ -108,12 +112,16 @@ CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_libevent.h
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_socket.cpp
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_socket.h
 
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_buffer.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_cbs.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_channel.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_debug.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_event_loop.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_event_watcher.h
+CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_libevent.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_slice.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_tcp_conn.cpp
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_tcp_conn.h

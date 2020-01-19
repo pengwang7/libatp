@@ -249,6 +249,10 @@ public:
         return write_index_ - read_index_;
     }
 
+    const char* data() const {
+        return buffer_ + read_index_;
+    }
+
     size_t getCaps() const {
         return caps_;
     }
@@ -364,6 +368,7 @@ public:
         }
 
         slice ss(data(), unreadBytes());
+        reset();
 
         return ss;
     }
@@ -373,10 +378,6 @@ public:
     void writer(int fd, std::string& error);
     
 private:
-    const char* data() const {
-        return buffer_ + read_index_;
-    }
-
     /* Judge the buffer whether or not have enough size, resize or move */
     void grow(size_t length) {
         size_t unread_bytes = unreadBytes();

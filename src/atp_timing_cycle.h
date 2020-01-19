@@ -80,7 +80,7 @@ struct Entry {
         ~Entry() {
             SharedConnectionPtr conn = conn_.lock();
             if (conn) {
-                conn->shutdown();
+                conn->close();
             }
         }
 

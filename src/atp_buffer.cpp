@@ -1,4 +1,5 @@
 #include "atp_buffer.h"
+#include "atp_libevent.h"
 
 namespace atp {
 
@@ -14,12 +15,22 @@ void Buffer::reader(int fd, std::string& error) {
     const int iov_count = (writable < sizeof(extrbuffer)) ? 2 : 1;
     const ssize_t n = readv(fd, iov, iov_count);
     if (n < 0) {
-        error = std::string(strerror(errno));
+        if (EVUTIL_ERR_RW_RETRIABLE(errno)) {
+            error = std::string("retriable");
+        } else {
+            error = std::string(strerror(errno));
+        }
     } else if (static_cast<size_t>(n) <= writable) {
         write_index_ += n;
     } else {
         write_index_ = caps_;
         append(extrbuffer, n - writable);
+    }
+
+    if (n == 0) {
+        error = std::string("closed");
+    } else if (n > 0) {
+        error = std::string("success");
     }
 }
 

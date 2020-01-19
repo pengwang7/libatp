@@ -136,6 +136,7 @@ std::string Channel::eventsToString() const {
 void Channel::eventHandle(int fd, short which) {
     assert(fd == fd_);
 
+    /* Call Connection layer read/write callback */
     if ((which & ATP_READ_EVENT) && read_cb_) {
         read_cb_();
     }
