@@ -142,7 +142,7 @@ public:
             char* new_mem = new(std::nothrow) char[new_size];
             assert(new_mem);
 
-			memset(new_mem, 0, new_size);
+            memset(new_mem, 0, new_size);
             memcpy(new_mem + reserved_prepend_size, buffer_.data(), unread_bytes);
             buffer_.setNewCaps(new_size);
             
@@ -209,7 +209,7 @@ public:
         if (n < 0 && EVUTIL_ERR_RW_RETRIABLE(errno)) {
             return RETRIABLE_ERROR;
         }
-
+        
         return n;
     }
     
