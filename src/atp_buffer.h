@@ -224,21 +224,21 @@ public:
     ~ByteBufferReader() {}
     
 public:
-	void decrease(size_t length) {
-		assert(length > 0);
+    void decrease(size_t length) {
+        assert(length > 0);
 
-		size_t available_len = buffer_.getCaps() - buffer_.prependHeaderBytes() - buffer_.unreadBytes();
-		if (buffer_.writableBytes() < length && available_len >= length) {
-			size_t unread_bytes = buffer_.unreadBytes();
-			memmove(buffer_.getCoreBuffer() + buffer_.prependHeaderBytes(), buffer_.data(), unread_bytes);
-			assert(unread_bytes = buffer_.unreadBytes());
-		}
+        size_t available_len = buffer_.getCaps() - buffer_.prependHeaderBytes() - buffer_.unreadBytes();
+        if (buffer_.writableBytes() < length && available_len >= length) {
+            size_t unread_bytes = buffer_.unreadBytes();
+            memmove(buffer_.getCoreBuffer() + buffer_.prependHeaderBytes(), buffer_.data(), unread_bytes);
+            assert(unread_bytes = buffer_.unreadBytes());
+        }
 
-		if (buffer_.writableBytes() >= length) {
-			char* truncation = buffer_.getCoreBuffer() + buffer_.getCaps() - length;
-			delete[] truncation;
-			buffer_.setNewCaps(buffer_.getCaps() - length);
-		}
+        if (buffer_.writableBytes() >= length) {
+            char* truncation = buffer_.getCoreBuffer() + buffer_.getCaps() - length;
+            delete[] truncation;
+            buffer_.setNewCaps(buffer_.getCaps() - length);
+        }
 	}
 	
     /* Remove constant length data for byte buffer */
