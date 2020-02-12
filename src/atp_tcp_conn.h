@@ -76,7 +76,7 @@ private:
 	/* When a Connection established, broken down, connecting failed, this callback will be called. */
     ConnectionCallback		conn_fn_;
 
-	/* When a Connection had data for read, this callback will be called. */
+    /* When a Connection had data for read, this callback will be called. */
     ReadMessageCallback		read_fn_;
 
     /* When a Connection write all data to file description kernel buffer, this callback will be called. */
