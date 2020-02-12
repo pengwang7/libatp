@@ -32,6 +32,9 @@ namespace atp {
 /* The connection read/write timeout ms */
 #define CONN_READ_WRITE_EXPIRES (300)
 
+/* The buffer retriable error */
+#define RETRIABLE_ERROR (-11)
+
 #define htonll(x)                             \
 ((((x) & 0xff00000000000000ull) >> 56)       \
 | (((x) & 0x00ff000000000000ull) >> 40)      \

@@ -17,12 +17,16 @@ public:
     ~Connection();
 
 public:
+    /* Attach the connection fd to libevent event_base. */
 	void attachToEventLoop();
     //void shutdown();
 
 public:
+    /* Send data to peer for application layer. */
 	void send(const void* data, size_t len);
 	void send(Buffer* buffer);
+
+    /* Close connection for application layer. */
 	void close();
 	
 public:

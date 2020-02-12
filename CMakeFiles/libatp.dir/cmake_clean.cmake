@@ -10,7 +10,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o"
-  "CMakeFiles/libatp.dir/examples/atp_listener_benchmark.cpp.o"
+  "CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o"
   "libatp.pdb"
   "libatp"
 )
