@@ -150,33 +150,6 @@ examples/atp_buffer_benchmark.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.s
 .PHONY : examples/atp_buffer_benchmark.cpp.s
 
-src/atp_buffer.o: src/atp_buffer.cpp.o
-
-.PHONY : src/atp_buffer.o
-
-# target to build an object file
-src/atp_buffer.cpp.o:
-	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_buffer.cpp.o
-.PHONY : src/atp_buffer.cpp.o
-
-src/atp_buffer.i: src/atp_buffer.cpp.i
-
-.PHONY : src/atp_buffer.i
-
-# target to preprocess a source file
-src/atp_buffer.cpp.i:
-	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_buffer.cpp.i
-.PHONY : src/atp_buffer.cpp.i
-
-src/atp_buffer.s: src/atp_buffer.cpp.s
-
-.PHONY : src/atp_buffer.s
-
-# target to generate assembly for a file
-src/atp_buffer.cpp.s:
-	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_buffer.cpp.s
-.PHONY : src/atp_buffer.cpp.s
-
 src/atp_channel.o: src/atp_channel.cpp.o
 
 .PHONY : src/atp_channel.o
@@ -459,9 +432,6 @@ help:
 	@echo "... examples/atp_buffer_benchmark.o"
 	@echo "... examples/atp_buffer_benchmark.i"
 	@echo "... examples/atp_buffer_benchmark.s"
-	@echo "... src/atp_buffer.o"
-	@echo "... src/atp_buffer.i"
-	@echo "... src/atp_buffer.s"
 	@echo "... src/atp_channel.o"
 	@echo "... src/atp_channel.i"
 	@echo "... src/atp_channel.s"

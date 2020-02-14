@@ -63,7 +63,8 @@ void Connection::send(const void* data, size_t len) {
 
         /* Special case only for send remaining data to peer. */
         if (remaining_data_size > 0) {
-            write_buffer_.append((char*)data + remaining_data_size, remaining_data_size);
+            ByteBufferWriter writer(write_buffer_);
+            writer.append(static_cast<const char*>(data) + nwrite, remaining_data_size);
             chan_->enableEvents(false, true);
         }
     };
@@ -71,15 +72,15 @@ void Connection::send(const void* data, size_t len) {
     event_loop_->sendToQueue(fn);
 }
 
-void Connection::send(Buffer* buffer) {
+void Connection::send(ByteBuffer* buffer) {
     if (!buffer) {
         return;
     }
 
+    ByteBufferReader reader(*buffer);
     size_t len = buffer->unreadBytes();
-    slice se = buffer->retrieve(len);
 
-    send(se.void_type_data(), len);
+    send(reader.consume(len).void_type_data(), len);
 }
 
 void Connection::close() {
@@ -93,17 +94,11 @@ void Connection::close() {
 }
 
 void Connection::netFdReadHandle() {
-    std::string error_message;
-    read_buffer_.reader(fd_, error_message);
-    if (error_message == "success") {
-        /* Call Application layer read callback. */
-        read_fn_(shared_from_this(), &read_buffer_);
-
-    } else if (error_message == "closed") {
-        netFdCloseHandle();
-
-    } else if (error_message != "retriable") {
+    ByteBufferReader reader(read_buffer_);
+    if (reader.read(fd_) < 0) {
         netFdErrorHandle();
+    } else {
+        read_fn_(shared_from_this(), &read_buffer_);
     }
 }
 
@@ -113,7 +108,8 @@ void Connection::netFdWriteHandle() {
     /* The handle only for send remaining data, when the write buffer data size > fd kernel buffer size. */
     ssize_t n = ::send(fd_, write_buffer_.data(), write_buffer_.unreadBytes(), MSG_NOSIGNAL);
     if (n > 0) {
-        write_buffer_.retrieve(n);
+        ByteBufferReader reader(write_buffer_);
+        reader.remove(n);
 
         if (write_buffer_.unreadBytes() == 0) {
             chan_->disableEvents(true, false);

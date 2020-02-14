@@ -16,15 +16,6 @@ CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o
  src/atp_debug.h
  src/atp_libevent.h
  src/atp_slice.h
-CMakeFiles/libatp.dir/src/atp_buffer.cpp.o
- /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
- /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
- /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
- /home/pengwang/cloud_platform/project/libatp/src/atp_buffer.cpp
- /home/pengwang/cloud_platform/project/libatp/src/atp_buffer.h
- /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
- /home/pengwang/cloud_platform/project/libatp/src/atp_libevent.h
- /home/pengwang/cloud_platform/project/libatp/src/atp_slice.h
 CMakeFiles/libatp.dir/src/atp_channel.cpp.o
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
@@ -111,6 +102,16 @@ CMakeFiles/libatp.dir/src/atp_socket.cpp.o
  /home/pengwang/cloud_platform/project/libatp/src/atp_socket.cpp
  /home/pengwang/cloud_platform/project/libatp/src/atp_socket.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/allocator.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/autolink.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/config.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/features.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/forwards.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/json.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/reader.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/value.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/version.h
+ /home/pengwang/cloud_platform/framework/3rd/jsoncpp/writer.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h

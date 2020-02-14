@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.9.6)
 project(libatp)
 
-
-
 include_directories(
     /home/pengwang/cloud_platform/framework/3rd
     /home/pengwang/cloud_platform/project/libatp/src
@@ -14,7 +12,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -lglog")
 
 set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/atp_socket.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_buffer.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_dynamic_thread_pool.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_libevent.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_channel.cpp
@@ -52,6 +49,7 @@ set(BUTIL_SOURCES
 )
 
 add_executable(${PROJECT_NAME} ${BUTIL_SOURCES})
+target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/jsoncpp/libjsoncpp.a)
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/libevent/libevent_core.a)
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/gflags/libgflags.so)
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/glog/libglog.a)
