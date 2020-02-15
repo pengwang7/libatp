@@ -1,73 +1,124 @@
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 #include <sys/types.h>          /* See NOTES */
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/tcp.h>
 
+#include "atp_debug.h"
 #include "atp_socket.h"
 #include "atp_libevent.h"
                                                         
 
 namespace atp {
 
-class SocketFactory {
+bool SocketImpl::getOption(int opt_id) {
+    return true;
+}
 
-};
-namespace socket {
+void SocketImpl::setOption(int opt_id, int on) {
+    switch (opt_id) {
+    case O_NONBLOCK:
+        on == 1 ? evutil_make_socket_nonblocking(fd_) : 0;
+        break;
 
-int createNonblockingSocket() {
-    int fd = ::socket(AF_INET, SOCK_STREAM, 0);
-    if (fd == -1) {
-        return -1;
+    case SO_REUSEADDR:
+        on == 1 ? evutil_make_listen_socket_reuseable(fd_) : 0;
+        break;
+
+    case SO_REUSEPORT:
+        on == 1 ? evutil_make_listen_socket_reuseable_port(fd_) : 0;
+        break;
+
+    case TCP_DEFER_ACCEPT:
+        on == 1 ? evutil_make_tcp_listen_socket_deferred(fd_) : 0;
+        break;
+    
+    case TCP_NODELAY:
+        setsockopt(fd_, IPPROTO_TCP, TCP_NODELAY, &on, static_cast<socklen_t>(sizeof(on)));
+        break;
+
+    case TCP_QUICKACK:
+        setsockopt(fd_, IPPROTO_TCP, TCP_QUICKACK, &on, static_cast<socklen_t>(sizeof(on)));
+        break;
+/*
+    // TCP_DEFER_ACCEPT == SO_KEEPALIVE
+    case SO_KEEPALIVE:
+        setsockopt(fd_, SOL_SOCKET, SO_KEEPALIVE, &on, static_cast<socklen_t>(sizeof(on)));
+        break;
+*/
+    }
+}
+
+int SocketImpl::create(bool stream) {
+    if (stream) {
+        fd_ = ::socket(AF_INET, SOCK_STREAM, 0);
+        if (fd_ < 0) {
+            return -1;
+        }
+
+        if (evutil_make_socket_nonblocking(fd_) < 0) {
+            goto error;
+        }
+        
+        if (fcntl(fd_, F_SETFD, 1) == - 1) {
+            goto error;
+        }
+
+        return fd_;
     }
 
-    if (evutil_make_socket_nonblocking(fd) < 0) {
-        goto error;
-    }
-
-    if (fcntl(fd, F_SETFD, 1) == - 1) {
-        goto error;
-    }
-
-    return fd;
-
+    /* Current can't suport other socket type */
 error:
-    close(fd);
-    fd = 0;
+    ::close(fd_);
+    fd_ = 0;
     return -1;
 }
 
-void setNonblocking(int fd) {
-    evutil_make_socket_nonblocking(fd);
+int SocketImpl::connect(std::string& ip, int port) {
+    return 0;
 }
 
-void setReuseAddr(int fd) {
-    evutil_make_listen_socket_reuseable(fd);
+int SocketImpl::bind(std::string& ip, int port) {
+    ip_ = ip;
+    port_ = port;
+    
+    struct sockaddr_in baddr;
+    memset(&baddr, 0, sizeof(baddr));
+
+    /* Set listen address and port */
+    baddr.sin_family = AF_INET;
+    baddr.sin_port = htons(port_);
+    baddr.sin_addr.s_addr = inet_addr(ip_.c_str());
+        
+    if (::bind(fd_, (struct sockaddr*)&baddr, sizeof(baddr)) < 0) {
+        return -1;
+    }
+
+    return 0;
 }
 
-void setReusePort(int fd) {
-    evutil_make_listen_socket_reuseable_port(fd);
+int SocketImpl::listen(int backlog) {
+    int SO_MAX_CONN = 0;
+    backlog <= 0 ? SO_MAX_CONN = ATP_SO_MAX_CONN : SO_MAX_CONN = backlog;
+    if (::listen(fd_, SO_MAX_CONN) < 0) {
+        return -1;
+    }
+
+    return 0;
 }
 
-void setTCPDeferred(int fd) {
-    evutil_make_tcp_listen_socket_deferred(fd);
+int SocketImpl::accept(std::string& remote_addr) {
+    struct sockaddr_in raddr;
+    socklen_t addr_len = sizeof(raddr);
+    int conn_fd = ::accept(fd_, reinterpret_cast<struct sockaddr*>(&raddr), &addr_len);
+    return conn_fd;
 }
 
-void setTCPNoDelay(int fd, bool on) {
-    int optval = on ? 1 : 0;
-    setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &optval, static_cast<socklen_t>(sizeof(optval)));
+void SocketImpl::close() {
+    ::close(fd_);
+    fd_ = -1;
 }
-
-void setQuickAck(int fd, bool on) {
-    int optval = on ? 1 : 0;                                                     
-    setsockopt(fd, IPPROTO_TCP, TCP_QUICKACK, &optval, static_cast<socklen_t>(sizeof(optval)));
-}
-
-void setKeepalive(int fd, bool on) {
-    int optval = on ? 1 : 0;
-    setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &optval, static_cast<socklen_t>(sizeof(optval)));
-}
-
-}/*end namespace socket*/
 
 }/*end namespace atp*/

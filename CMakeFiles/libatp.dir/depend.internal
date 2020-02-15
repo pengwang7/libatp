@@ -98,6 +98,7 @@ CMakeFiles/libatp.dir/src/atp_socket.cpp.o
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_libevent.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_socket.cpp
  /home/pengwang/cloud_platform/project/libatp/src/atp_socket.h

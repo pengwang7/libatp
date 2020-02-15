@@ -97,6 +97,7 @@ CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o: src/atp_memory_pool.h
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
+CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_debug.h
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_libevent.h
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_socket.cpp
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_socket.h

@@ -12,7 +12,7 @@ namespace atp {
 class Channel;
 class EventLoop;
 
-class Listener {
+class Listener : public SocketImpl {
 public:
     using NewConnCallbackPtr = std::function<void(int fd, const std::string& taddr, void* args)>;
 

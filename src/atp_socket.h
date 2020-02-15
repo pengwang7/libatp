@@ -2,32 +2,38 @@
 
 namespace atp {
 
-namespace socket {
+class SocketOptions {
+public:
+    virtual bool getOption(int opt_id) = 0;
+    virtual void setOption(int opt_id, int on) = 0;
+};
+
+class SocketImpl : public SocketOptions {
+protected:
+    bool getOption(int opt_id) override;
+
+    void setOption(int opt_id, int on) override;
+
+protected:
+    int create(bool stream);
+    
+    int connect(std::string& ip, int port);
+
+    int bind(std::string& ip, int port);
+
+    int listen(int backlog);
+
+    int accept(std::string& remote_addr);
+
+    void close();
+    
+protected:
+    int fd_;
+    int port_;
+    std::string ip_;
+};
 
 /* Create a socket and set nonblocking */ 
 int createNonblockingSocket();
-
-/* Set socket is nonblocking */
-void setNonblocking(int fd);
-
-/* Set socket reuseable addr */
-void setReuseAddr(int fd);
-
-/* Set socket reuseable port */
-void setReusePort(int fd);
-
-/* Set listenning socket deferred ACK*/
-void setTCPDeferred(int fd);
-
-/* Set socket no delay for socket send data */
-void setTCPNoDelay(int fd, bool on);
-
-/* Set socket quick ack for socket recv data */
-void setQuickAck(int fd, bool on);
-
-/* Set socket keepalive */
-void setKeepalive(int fd, bool on);
-                                         
-}/*end namespace socket*/
 
 }/*end namespace atp*/

@@ -21,11 +21,12 @@ Listener::Listener(EventLoop* event_loop, const std::string& address, unsigned i
 }
 
 Listener::~Listener() {
-    close(fd_);
+    ::close(fd_);
     fd_ = -1;
 }
 
 void Listener::listening() {
+#if 0
     fd_ = socket::createNonblockingSocket();
     assert(fd_ != -1);
 
@@ -56,6 +57,7 @@ void Listener::listening() {
     if (ATP_DEBUG_ON) {
         LOG(INFO) << "Listen success, fd: " << fd_;
     }
+#endif
 }
 
 void Listener::accept() {
@@ -74,7 +76,7 @@ void Listener::stop() {
 
 void Listener::acceptHandle() {
     assert(event_loop_->safety());
-
+#if 0
     struct sockaddr_in raddr;
     socklen_t addr_len = sizeof(raddr);
     int conn_fd = ::accept(fd_, reinterpret_cast<struct sockaddr*>(&raddr), &addr_len);
@@ -93,6 +95,7 @@ void Listener::acceptHandle() {
     if (new_conn_cb_) {
         new_conn_cb_(conn_fd, std::string(""), NULL);
     }
+#endif
 }
 
 }/*end namespace atp*/
