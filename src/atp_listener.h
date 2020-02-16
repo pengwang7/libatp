@@ -6,6 +6,7 @@
 #include <functional>
 
 #include "atp_debug.h"
+#include "atp_uuid.h"
 
 namespace atp {
 

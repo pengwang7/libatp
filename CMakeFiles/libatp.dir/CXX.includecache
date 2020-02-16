@@ -383,6 +383,8 @@ functional
 -
 atp_debug.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
+atp_uuid.h
+/home/pengwang/cloud_platform/project/libatp/src/atp_uuid.h
 
 /home/pengwang/cloud_platform/project/libatp/src/atp_memory_policy.cpp
 stdlib.h
@@ -469,6 +471,18 @@ atp_buffer.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_buffer.h
 jsoncpp/json.h
 /home/pengwang/cloud_platform/project/libatp/src/jsoncpp/json.h
+
+/home/pengwang/cloud_platform/project/libatp/src/atp_uuid.h
+fcntl.h
+-
+assert.h
+-
+uuid/uuid.h
+-
+string
+-
+algorithm
+-
 
 src/atp_buffer.h
 arpa/inet.h

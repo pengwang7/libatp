@@ -79,6 +79,7 @@ CMakeFiles/libatp.dir/src/atp_listener.cpp.o: src/atp_event_watcher.h
 CMakeFiles/libatp.dir/src/atp_listener.cpp.o: src/atp_listener.cpp
 CMakeFiles/libatp.dir/src/atp_listener.cpp.o: src/atp_listener.h
 CMakeFiles/libatp.dir/src/atp_listener.cpp.o: src/atp_socket.h
+CMakeFiles/libatp.dir/src/atp_listener.cpp.o: src/atp_uuid.h
 
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_debug.h
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o: src/atp_memory_policy.cpp

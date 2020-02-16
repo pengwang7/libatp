@@ -8,7 +8,7 @@ include_directories(
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O0 -pg -pipe -Wall -g -W")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -fstrict-aliasing -Wno-invalid-offsetof -Wno-unused-parameter -fno-omit-frame-pointer -Wno-unused-function")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -lglog")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -luuid -lglog")
 
 set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/atp_socket.cpp

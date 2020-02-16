@@ -80,6 +80,7 @@ CMakeFiles/libatp.dir/src/atp_listener.cpp.o
  /home/pengwang/cloud_platform/project/libatp/src/atp_listener.cpp
  /home/pengwang/cloud_platform/project/libatp/src/atp_listener.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_socket.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_uuid.h
 CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o
  /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_memory_policy.cpp
