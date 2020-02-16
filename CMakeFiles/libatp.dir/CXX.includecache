@@ -423,17 +423,7 @@ string
 /home/pengwang/cloud_platform/project/libatp/src/atp_socket.cpp
 fcntl.h
 -
-unistd.h
--
 string.h
--
-sys/types.h
--
-arpa/inet.h
--
-sys/socket.h
--
-netinet/tcp.h
 -
 atp_debug.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
@@ -444,6 +434,16 @@ atp_libevent.h
 
 /home/pengwang/cloud_platform/project/libatp/src/atp_socket.h
 string
+-
+unistd.h
+-
+sys/types.h
+-
+arpa/inet.h
+-
+sys/socket.h
+-
+netinet/tcp.h
 -
 
 /home/pengwang/cloud_platform/project/libatp/src/atp_tcp_conn.cpp

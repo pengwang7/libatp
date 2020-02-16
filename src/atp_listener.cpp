@@ -25,39 +25,22 @@ Listener::~Listener() {
     fd_ = -1;
 }
 
-void Listener::listening() {
-#if 0
-    fd_ = socket::createNonblockingSocket();
+void Listener::listen() {
+    fd_ = this->create(true);
     assert(fd_ != -1);
 
-    /* Set listen socket fd options */
-    socket::setReuseAddr(fd_);
-    socket::setReusePort(fd_);
-    socket::setTCPDeferred(fd_);
-    socket::setKeepalive(fd_, true);
+    /* Setl socket flags for listen fd */
+    this->setfd(fd_);
+    this->setOption(SO_REUSEADDR, 1);
+    this->setOption(SO_REUSEPORT, 1);
+    this->setOption(TCP_DEFER_ACCEPT, 1);
 
-    struct sockaddr_in baddr;
-    memset(&baddr, 0, sizeof(baddr));
-
-    /* Set listen address and port */
-    baddr.sin_family = AF_INET;
-    baddr.sin_port = htons(address_.port_);
-    baddr.sin_addr.s_addr = inet_addr(address_.host_.c_str());
-        
-    if (bind(fd_, (struct sockaddr*)&baddr, sizeof(baddr)) < 0) {
-        LOG(ERROR) << "Listen socket bind met error: " << strerror(errno);
-        return;
-    }
-
-    if (listen(fd_, ATP_SO_MAX_CONN) < 0) {
-        LOG(ERROR) << "Listen met error: " << strerror(errno);
-        return;
-    }
+    assert(this->bind(address_.host_, address_.port_) == 0);
+    assert(this->SocketImpl::listen(ATP_SO_MAX_CONN) == 0);
 
     if (ATP_DEBUG_ON) {
-        LOG(INFO) << "Listen success, fd: " << fd_;
+        LOG(INFO) << "The Server listen fd: " << fd_ << " address: " << address_.host_ << ":" << address_.port_;
     }
-#endif
 }
 
 void Listener::accept() {
@@ -76,26 +59,26 @@ void Listener::stop() {
 
 void Listener::acceptHandle() {
     assert(event_loop_->safety());
-#if 0
-    struct sockaddr_in raddr;
-    socklen_t addr_len = sizeof(raddr);
-    int conn_fd = ::accept(fd_, reinterpret_cast<struct sockaddr*>(&raddr), &addr_len);
+
+    std::string remote_address;
+    int conn_fd = this->SocketImpl::accept(remote_address);
     if (conn_fd == -1) {
         if (errno != EAGAIN && errno != EINTR) {
-            LOG(ERROR) << "The accept met error: " << strerror(errno);
+            LOG(ERROR) << "Accept connection met error: " << strerror(errno);
         }
+
         return;
     }
 
-    socket::setNonblocking(conn_fd);
-    socket::setTCPNoDelay(conn_fd, true);
-    socket::setQuickAck(conn_fd, true);
-
-    /* Notify application layer accept a new connection */
+    this->setfd(conn_fd);
+    this->setOption(O_NONBLOCK, 1);
+    this->setOption(TCP_NODELAY, 1);
+    this->setOption(TCP_QUICKACK, 1);
+    
+    /* Notify application layer accept a new connectoin */
     if (new_conn_cb_) {
-        new_conn_cb_(conn_fd, std::string(""), NULL);
+        new_conn_cb_(conn_fd, remote_address, NULL);
     }
-#endif
 }
 
 }/*end namespace atp*/

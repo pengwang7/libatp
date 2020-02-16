@@ -1,16 +1,10 @@
 #include <fcntl.h>
-#include <unistd.h>
 #include <string.h>
-#include <sys/types.h>          /* See NOTES */
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <netinet/tcp.h>
 
 #include "atp_debug.h"
 #include "atp_socket.h"
 #include "atp_libevent.h"
                                                         
-
 namespace atp {
 
 bool SocketImpl::getOption(int opt_id) {
@@ -49,6 +43,10 @@ void SocketImpl::setOption(int opt_id, int on) {
         break;
 */
     }
+}
+
+void SocketImpl::setfd(int fd) {
+    fd_ = fd;
 }
 
 int SocketImpl::create(bool stream) {

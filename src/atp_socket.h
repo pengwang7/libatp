@@ -1,4 +1,12 @@
+#ifndef __ATP_SOCKET_H__
+#define __ATP_SOCKET_H__
+
 #include <string>
+#include <unistd.h>
+#include <sys/types.h>          /* See NOTES */
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/tcp.h>
 
 namespace atp {
 
@@ -9,12 +17,18 @@ public:
 };
 
 class SocketImpl : public SocketOptions {
+public:
+    SocketImpl() {}
+    ~SocketImpl() {}
+    
 protected:
     bool getOption(int opt_id) override;
 
     void setOption(int opt_id, int on) override;
 
 protected:
+    void setfd(int fd);
+    
     int create(bool stream);
     
     int connect(std::string& ip, int port);
@@ -27,13 +41,12 @@ protected:
 
     void close();
     
-protected:
+private:
     int fd_;
     int port_;
     std::string ip_;
 };
 
-/* Create a socket and set nonblocking */ 
-int createNonblockingSocket();
-
 }/*end namespace atp*/
+
+#endif /* __ATP_SOCKET_H__ */

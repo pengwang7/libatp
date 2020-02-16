@@ -22,7 +22,7 @@ public:
     ~Listener();
     
 public:
-    void listening();
+    void listen();
 
     void accept();
 
