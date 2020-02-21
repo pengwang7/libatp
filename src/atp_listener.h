@@ -7,6 +7,7 @@
 
 #include "atp_debug.h"
 #include "atp_uuid.h"
+#include "atp_socket.h"
 
 namespace atp {
 

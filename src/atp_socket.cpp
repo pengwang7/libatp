@@ -1,5 +1,4 @@
 #include <fcntl.h>
-#include <string.h>
 
 #include "atp_debug.h"
 #include "atp_socket.h"

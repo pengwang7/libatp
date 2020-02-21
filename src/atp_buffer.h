@@ -18,6 +18,7 @@ public:
         read_index_ = write_index_ = prepend_size;
 
         buffer_ = new(std::nothrow) char[caps_];
+        memset(buffer_, 0, caps_);
         
         assert(buffer_ != NULL);
     }
@@ -136,28 +137,30 @@ public:
         char* buffer = buffer_.getCoreBuffer();
         size_t unread_bytes = buffer_.unreadBytes();
         size_t reserved_prepend_size = buffer_.prependHeaderBytes();
-		
+
         if (buffer_.prependableBytes() + buffer_.writableBytes() < reserved_prepend_size + length) {
-            size_t new_size = (buffer_.getCaps() << 1) + buffer_.unreadBytes();
+            size_t new_size = (buffer_.getCaps() << 1) + length;
             char* new_mem = new(std::nothrow) char[new_size];
             assert(new_mem);
 
             memset(new_mem, 0, new_size);
             memcpy(new_mem + reserved_prepend_size, buffer_.data(), unread_bytes);
-            buffer_.setNewCaps(new_size);
             
             delete[] buffer;
             buffer_.setCoreBuffer(new_mem);
+
+            size_t new_write_index = reserved_prepend_size + unread_bytes;
+            buffer_.updateReadWriteIndex(reserved_prepend_size, new_write_index, false);
+            buffer_.setNewCaps(new_size);
         } else {
             assert(reserved_prepend_size < buffer_.prependableBytes());
             memmove(buffer + reserved_prepend_size, buffer_.data(), unread_bytes);
-        }
+            size_t new_write_index = reserved_prepend_size + unread_bytes;
+            buffer_.updateReadWriteIndex(reserved_prepend_size, new_write_index, false);
 
-        size_t new_write_index = buffer_.prependableBytes() + unread_bytes;
-        buffer_.updateReadWriteIndex(reserved_prepend_size, new_write_index, false);
-        
-        assert(buffer_.unreadBytes() == unread_bytes);
-        assert(buffer_.writableBytes() >= length);
+            assert(buffer_.unreadBytes() == unread_bytes);
+            assert(buffer_.writableBytes() >= length);
+        }
     }
 
     void prependInt32(int32_t x) {
@@ -226,8 +229,10 @@ public:
 public:
     /* Provide a buffer decrease operation to prevent excessive memroy usage */
     void decrease(size_t length) {
-        assert(length > 0);
-
+        if (length == 0) {
+            return;
+        }
+        
         size_t available_len = buffer_.getCaps() - buffer_.prependHeaderBytes() - buffer_.unreadBytes();
         if (buffer_.writableBytes() < length && available_len >= length) {
             size_t unread_bytes = buffer_.unreadBytes();
@@ -236,9 +241,20 @@ public:
         }
 
         if (buffer_.writableBytes() >= length) {
-            char* truncation = buffer_.getCoreBuffer() + buffer_.getCaps() - length;
-            delete[] truncation;
-            buffer_.setNewCaps(buffer_.getCaps() - length);
+            size_t reserved_prepend_size = buffer_.prependHeaderBytes();
+            size_t new_size = buffer_.getCaps() + reserved_prepend_size - length;
+            char* new_mem = new(std::nothrow) char[new_size];
+            assert(new_mem);
+
+            memset(new_mem, 0, new_size);
+            memcpy(new_mem + reserved_prepend_size, buffer_.data(), buffer_.unreadBytes());
+            buffer_.setNewCaps(new_size);
+            char* old_buffer = buffer_.getCoreBuffer();
+            delete[] old_buffer;
+            old_buffer = nullptr;
+            
+            buffer_.setCoreBuffer(new_mem);
+            buffer_.updateReadWriteIndex(reserved_prepend_size, reserved_prepend_size + buffer_.unreadBytes(), false);
         }
 	}
 	

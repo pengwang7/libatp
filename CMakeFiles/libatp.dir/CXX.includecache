@@ -351,18 +351,6 @@ libevent/event2/event_struct.h
 /home/pengwang/cloud_platform/project/libatp/src/libevent/event2/event_struct.h
 
 /home/pengwang/cloud_platform/project/libatp/src/atp_listener.cpp
-unistd.h
--
-sys/types.h
--
-sys/socket.h
--
-netinet/in.h
--
-arpa/inet.h
--
-glog/logging.h
-/home/pengwang/cloud_platform/project/libatp/src/glog/logging.h
 atp_debug.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
 atp_socket.h
@@ -373,6 +361,8 @@ atp_channel.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_channel.h
 atp_event_loop.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop.h
+glog/logging.h
+/home/pengwang/cloud_platform/project/libatp/src/glog/logging.h
 
 /home/pengwang/cloud_platform/project/libatp/src/atp_listener.h
 string
@@ -385,6 +375,8 @@ atp_debug.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
 atp_uuid.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_uuid.h
+atp_socket.h
+/home/pengwang/cloud_platform/project/libatp/src/atp_socket.h
 
 /home/pengwang/cloud_platform/project/libatp/src/atp_memory_policy.cpp
 stdlib.h
@@ -423,8 +415,6 @@ string
 /home/pengwang/cloud_platform/project/libatp/src/atp_socket.cpp
 fcntl.h
 -
-string.h
--
 atp_debug.h
 /home/pengwang/cloud_platform/project/libatp/src/atp_debug.h
 atp_socket.h
@@ -434,6 +424,8 @@ atp_libevent.h
 
 /home/pengwang/cloud_platform/project/libatp/src/atp_socket.h
 string
+-
+string.h
 -
 unistd.h
 -

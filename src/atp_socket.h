@@ -2,6 +2,7 @@
 #define __ATP_SOCKET_H__
 
 #include <string>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>          /* See NOTES */
 #include <arpa/inet.h>

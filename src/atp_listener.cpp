@@ -1,16 +1,9 @@
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
-#include "glog/logging.h"
-
 #include "atp_debug.h"
 #include "atp_socket.h"
 #include "atp_listener.h"
 #include "atp_channel.h"
 #include "atp_event_loop.h"
+#include "glog/logging.h"
 
 namespace atp {
 
@@ -37,7 +30,7 @@ void Listener::listen() {
 
     assert(this->bind(address_.host_, address_.port_) == 0);
     assert(this->SocketImpl::listen(ATP_SO_MAX_CONN) == 0);
-
+    
     if (ATP_DEBUG_ON) {
         LOG(INFO) << "The Server listen fd: " << fd_ << " address: " << address_.host_ << ":" << address_.port_;
     }

@@ -40,6 +40,10 @@ public:
         return toString(uuid);
     }
 
+    uuid_t* generateUUID(std::string uuid) {
+        return toUUID(uuid);
+    }
+
     int compareUUID(uuid_t l, uuid_t r) {
         return uuid_compare(l, r);
     }
