@@ -5,7 +5,7 @@
 
 namespace atp {
 
-struct STATE_MACHINE_INTERFACE {
+struct STATE_MECHINE_INTERFACE {
 public:
     enum SERVICE_STATE {
         STATE_NULL          = 1 << 0,
