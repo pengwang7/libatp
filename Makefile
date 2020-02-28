@@ -231,6 +231,33 @@ src/atp_event_loop.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_loop.cpp.s
 .PHONY : src/atp_event_loop.cpp.s
 
+src/atp_event_loop_thread_pool.o: src/atp_event_loop_thread_pool.cpp.o
+
+.PHONY : src/atp_event_loop_thread_pool.o
+
+# target to build an object file
+src/atp_event_loop_thread_pool.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o
+.PHONY : src/atp_event_loop_thread_pool.cpp.o
+
+src/atp_event_loop_thread_pool.i: src/atp_event_loop_thread_pool.cpp.i
+
+.PHONY : src/atp_event_loop_thread_pool.i
+
+# target to preprocess a source file
+src/atp_event_loop_thread_pool.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.i
+.PHONY : src/atp_event_loop_thread_pool.cpp.i
+
+src/atp_event_loop_thread_pool.s: src/atp_event_loop_thread_pool.cpp.s
+
+.PHONY : src/atp_event_loop_thread_pool.s
+
+# target to generate assembly for a file
+src/atp_event_loop_thread_pool.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.s
+.PHONY : src/atp_event_loop_thread_pool.cpp.s
+
 src/atp_event_watcher.o: src/atp_event_watcher.cpp.o
 
 .PHONY : src/atp_event_watcher.o
@@ -441,6 +468,9 @@ help:
 	@echo "... src/atp_event_loop.o"
 	@echo "... src/atp_event_loop.i"
 	@echo "... src/atp_event_loop.s"
+	@echo "... src/atp_event_loop_thread_pool.o"
+	@echo "... src/atp_event_loop_thread_pool.i"
+	@echo "... src/atp_event_loop_thread_pool.s"
 	@echo "... src/atp_event_watcher.o"
 	@echo "... src/atp_event_watcher.i"
 	@echo "... src/atp_event_watcher.s"

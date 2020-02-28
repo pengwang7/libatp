@@ -45,6 +45,12 @@ CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o
  /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_event_watcher.h
  /home/pengwang/cloud_platform/project/libatp/src/atp_libevent.h
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o
+ /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop_thread_pool.cpp
+ /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop_thread_pool.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_event_watcher.h
+ /home/pengwang/cloud_platform/project/libatp/src/atp_state_machine.h
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o
  /home/pengwang/cloud_platform/framework/3rd/gflags/gflags.h
  /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_declare.h

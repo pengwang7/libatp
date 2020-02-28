@@ -297,9 +297,33 @@ CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o.provides: CMakeFiles/libatp.dir/s
 CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o.provides.build: CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o
 
 
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o: CMakeFiles/libatp.dir/flags.make
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o: src/atp_event_loop_thread_pool.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o -c /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop_thread_pool.cpp
+
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop_thread_pool.cpp > CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.i
+
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pengwang/cloud_platform/project/libatp/src/atp_event_loop_thread_pool.cpp -o CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.s
+
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o.requires:
+
+.PHONY : CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o.requires
+
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o.provides: CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o.requires
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o.provides.build
+.PHONY : CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o.provides
+
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o.provides.build: CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o
+
+
 CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o: CMakeFiles/libatp.dir/flags.make
 CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o: examples/atp_buffer_benchmark.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o -c /home/pengwang/cloud_platform/project/libatp/examples/atp_buffer_benchmark.cpp
 
 CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.i: cmake_force
@@ -333,6 +357,7 @@ libatp_OBJECTS = \
 "CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o" \
 "CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o" \
 "CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o" \
+"CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o" \
 "CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o"
 
 # External object files for target libatp
@@ -348,6 +373,7 @@ libatp: CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o
 libatp: CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o
 libatp: CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o
 libatp: CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o
+libatp: CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o
 libatp: CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o
 libatp: CMakeFiles/libatp.dir/build.make
 libatp: /home/pengwang/cloud_platform/target/3rd/jsoncpp/libjsoncpp.a
@@ -355,7 +381,7 @@ libatp: /home/pengwang/cloud_platform/target/3rd/libevent/libevent_core.a
 libatp: /home/pengwang/cloud_platform/target/3rd/gflags/libgflags.so
 libatp: /home/pengwang/cloud_platform/target/3rd/glog/libglog.a
 libatp: CMakeFiles/libatp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable libatp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pengwang/cloud_platform/project/libatp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable libatp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/libatp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -373,6 +399,7 @@ CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o.
 CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o.requires
 CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o.requires
 CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o.requires
+CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o.requires
 CMakeFiles/libatp.dir/requires: CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o.requires
 
 .PHONY : CMakeFiles/libatp.dir/requires

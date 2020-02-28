@@ -1,11 +1,11 @@
-#ifndef __ATP_STATUS_H__
-#define __ATP_STATUS_H__
+#ifndef __ATP_STATE_MACHINE_H__
+#define __ATP_STATE_MACHINE_H__
 
 #include <atomic>
 
 namespace atp {
 
-struct STATE_MECHINE_INTERFACE {
+struct STATE_MACHINE_INTERFACE {
 public:
     enum SERVICE_STATE {
         STATE_NULL          = 1 << 0,
@@ -26,4 +26,4 @@ protected:
 
 } /* end namespace atp */
 
-#endif /* ATP_STATUS_H__ */
+#endif /* __ATP_STATE_MACHINE_H__ */

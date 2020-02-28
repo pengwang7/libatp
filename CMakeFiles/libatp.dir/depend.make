@@ -45,6 +45,12 @@ CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o: src/atp_event_loop.h
 CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o: src/atp_event_watcher.h
 CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o: src/atp_libevent.h
 
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o: src/atp_event_loop.h
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o: src/atp_event_loop_thread_pool.cpp
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o: src/atp_event_loop_thread_pool.h
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o: src/atp_event_watcher.h
+CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o: src/atp_state_machine.h
+
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags.h
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_declare.h
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_gflags.h

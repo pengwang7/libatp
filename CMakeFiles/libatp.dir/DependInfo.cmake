@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pengwang/cloud_platform/project/libatp/src/atp_channel.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_channel.cpp.o"
   "/home/pengwang/cloud_platform/project/libatp/src/atp_dynamic_thread_pool.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o"
   "/home/pengwang/cloud_platform/project/libatp/src/atp_event_loop.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o"
+  "/home/pengwang/cloud_platform/project/libatp/src/atp_event_loop_thread_pool.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o"
   "/home/pengwang/cloud_platform/project/libatp/src/atp_event_watcher.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o"
   "/home/pengwang/cloud_platform/project/libatp/src/atp_libevent.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_libevent.cpp.o"
   "/home/pengwang/cloud_platform/project/libatp/src/atp_listener.cpp" "/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir/src/atp_listener.cpp.o"
