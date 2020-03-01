@@ -2,6 +2,7 @@
 
 #include "atp_listener.h"
 #include "atp_event_loop.h"
+#include "atp_event_loop_thread_pool.h"
 
 using namespace atp;
 
@@ -25,6 +26,28 @@ static void new_conn_handle(int fd, const std::string& taddr, void* args) {
 }
 
 int main() {
+    atp_logger_init();
+    {
+        const int thd_size = 1;
+        EventLoopPool* pool = new EventLoopPool(thd_size);
+        assert(pool);
+
+        LOG(INFO) << "main: " << std::this_thread::get_id();
+        assert(pool->autoStart());
+        assert(pool->autoStop());
+        
+        LOG(INFO) << "event loop pool stop, wait join thread ...";
+
+        pool->autoJoin();
+
+        delete pool;
+    } 
+    atp_logger_close();
+
+    return 0;
+}
+
+int main01() {
     atp_logger_init();
 
     EventLoop* event_loop = new EventLoop();

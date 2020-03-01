@@ -41,6 +41,8 @@ EventLoop::~EventLoop() {
 
 void EventLoop::dispatch() {
     assert(event_watcher_->asyncWait());
+
+    thread_id_ = std::this_thread::get_id();
     
     int error = event_base_dispatch(event_base_);
     if (error == 1) {
@@ -103,8 +105,6 @@ void EventLoop::doInit() {
     pending_tasks_ = new std::vector<TaskEventPtr>();
     assert(pending_tasks_ != NULL);
 
-    thread_id_ = std::this_thread::get_id();
-
     doInitEventWatcher();
 }
 
@@ -131,18 +131,25 @@ void EventLoop::doPendingTasks() {
         LOG(INFO) << "The current tasks size: " << tmp_pending_tasks.size();
     }
 
+    LOG(INFO) << "do tasks thread id: " << std::this_thread::get_id();
+
     /* Execute other threads send to this thread(safety thread) tasks */
     for (size_t i = 0; i < tmp_pending_tasks.size(); ++ i) {
         tmp_pending_tasks[i]();
         -- pending_tasks_size_;
     }
+
+    event_base_loopexit(event_base_, NULL);
 }
 
 void EventLoop::stopHandle() {
+    /* If event_base_dispatch(base) and event_base_loopexit(base) in two different threads, */
+    /* The loop will not exit, So we need to ensure that execute in the same thread */
     auto fn = [this]() {
         while (true) {
             if (pendingTaskQueueIsEmpty()) {
                 LOG(INFO) << "The stopHandle tmp_pending_tasks is empty";
+                break;
             }
 
             if (ATP_DEBUG_ON) {
@@ -156,8 +163,6 @@ void EventLoop::stopHandle() {
     fn();
 
     event_base_loopexit(event_base_, NULL);
-
-    LOG(INFO) << "The event loop is stopped";
     
     if (!pendingTaskQueueIsEmpty()) {
         LOG(INFO) << "After event loop stopped, the tasks size: " << getPendingTaskQueueSize();

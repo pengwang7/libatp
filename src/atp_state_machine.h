@@ -20,6 +20,32 @@ public:
         return state_.load() == state;
     }
 
+    SERVICE_STATE STATE() {
+        return state_.load();
+    }
+    
+    std::string STATE_TO_STRING(SERVICE_STATE state) const {
+        switch (state) {
+            case STATE_NULL:
+                return std::string("STATE-NULL");
+
+            case STATE_INIT:
+                return std::string("STATE-INIT");
+
+            case STATE_RUNNING:
+                return std::string("STATE-RUNNING");
+
+            case STATE_STOPPING:
+                return std::string("STATE-STOPPING");
+
+            case STATE_STOPPED:
+                return std::string("STATE-STOPPED");
+
+            default:
+                return std::string("STATE-INVALID");
+        }
+    }
+
 protected:
     std::atomic<SERVICE_STATE> state_ = { STATE_NULL };
 };

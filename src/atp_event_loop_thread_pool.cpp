@@ -23,7 +23,6 @@ EventLoopThread::~EventLoopThread() {
 bool EventLoopThread::start() {
     thread_.reset(new std::thread(std::bind(&EventLoopThread::executer, this)));
     if (thread_.get() != nullptr) {
-        state_.store(STATE_RUNNING);
         return true;
     }
 
@@ -38,8 +37,8 @@ void EventLoopThread::join() {
 }
 
 void EventLoopThread::stop() {
-    state_.store(STATE_STOPPING);
     event_loop_->stop();
+    state_.store(STATE_STOPPED);
 }
 
 EventLoop* EventLoopThread::getEventLoop() const {
@@ -47,10 +46,12 @@ EventLoop* EventLoopThread::getEventLoop() const {
 }
 
 std::thread::id EventLoopThread::getThreadId() const {
-    return thread_->get_id();
+    return std::thread::id();
 }
 
 void EventLoopThread::executer() {
+    state_.store(STATE_RUNNING);
+
     event_loop_->dispatch();
 
     state_.store(STATE_STOPPED);
@@ -69,10 +70,10 @@ EventLoopPool::~EventLoopPool() {
 bool EventLoopPool::autoStart() {
     if (threads_num_ == 0) {
         state_.store(STATE_STOPPED);
-        return true;
+        return false;
     }
 
-    this->state_.store(STATE_INIT);
+    state_.store(STATE_INIT);
     
     for (size_t i = 0; i < threads_num_; ++ i) {
         std::shared_ptr<EventLoopThread> thd(new EventLoopThread());
@@ -82,9 +83,10 @@ bool EventLoopPool::autoStart() {
         }
 
         while (!thd->CHECK_STATE(STATE_RUNNING)) {
-            sleep(1);
+            usleep(5000);
         }
 
+        assert(thd->CHECK_STATE(STATE_RUNNING));
         threads_.push_back(thd);
     }
 
@@ -94,7 +96,7 @@ bool EventLoopPool::autoStart() {
 }
 
 void EventLoopPool::autoJoin() {
-    assert(CHECK_STATE(STATE_RUNNING));
+    assert(CHECK_STATE(STATE_STOPPED));
         
     for (auto& thd : threads_) {
         thd->join();     
@@ -123,7 +125,7 @@ bool EventLoopPool::autoStop() {
 
     /* If the thread not change state to STATE_STOPPED after 15s, then thread pool stop failed. */
     while (!stop_fn()) {
-        sleep(1);
+        usleep(10000);
         ++ sleep_seconds;
 
         if (sleep_seconds >= 15) {
