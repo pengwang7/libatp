@@ -45,6 +45,7 @@ protected:
 private:
     int fd_;
     int port_;
+    int flags_;
     std::string ip_;
 };
 

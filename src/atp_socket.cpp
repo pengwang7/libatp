@@ -6,8 +6,44 @@
                                                         
 namespace atp {
 
+static int get_socket_nonblocking(int fd);
+
+static int get_socket_nonblocking(int fd) {
+    int mask = fcntl(fd, F_GETFL, NULL);
+
+    int opt_val = mask & O_NONBLOCK;
+
+    return (opt_val == 0);
+}
+
 bool SocketImpl::getOption(int opt_id) {
-    return true;
+    int opt_val = 0;
+    socklen_t opt_len = sizeof(opt_val);
+    
+    switch (opt_id) {
+    case O_NONBLOCK:
+        opt_val = get_socket_nonblocking(fd_);
+        break;
+    case SO_REUSEADDR:
+        getsockopt(fd_, SOL_SOCKET, SO_REUSEADDR, &opt_val, &opt_len);
+        break;
+    case SO_REUSEPORT:
+        getsockopt(fd_, SOL_SOCKET, SO_REUSEPORT, &opt_val, &opt_len);
+        break;
+    case TCP_DEFER_ACCEPT:
+        getsockopt(fd_, IPPROTO_TCP, TCP_DEFER_ACCEPT, &opt_val, &opt_len);
+        break;
+    case TCP_NODELAY:
+        getsockopt(fd_, IPPROTO_TCP, TCP_NODELAY, &opt_val, &opt_len);
+        break;
+    case TCP_QUICKACK:
+        getsockopt(fd_, IPPROTO_TCP, TCP_QUICKACK, &opt_val, &opt_len);
+        break;
+    default:
+        return false;
+    }
+    
+    return (opt_val == 1);
 }
 
 void SocketImpl::setOption(int opt_id, int on) {
