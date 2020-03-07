@@ -1,5 +1,6 @@
 #include "glog/logging.h"
 
+#include "atp_uuid.h"
 #include "atp_listener.h"
 #include "atp_event_loop.h"
 #include "atp_event_loop_thread_pool.h"
@@ -26,6 +27,19 @@ static void new_conn_handle(int fd, const std::string& taddr, void* args) {
 }
 
 int main() {
+    atp_logger_init();
+    LOG(INFO) << "uuid test";
+
+    UUIDGenerator generator;
+
+    LOG(INFO) << generator.generateUUID();
+    LOG(INFO) << generator.generateUUID().length();
+    atp_logger_close();
+    
+    return 0;
+}
+
+int main02() {
     atp_logger_init();
     {
         const int thd_size = 1;

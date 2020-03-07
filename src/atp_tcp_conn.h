@@ -2,61 +2,23 @@
 #define __ATP_CONNECTION_H__
 
 #include <string>
-#include <sstream>
 
 #include "atp_cbs.h"
 #include "atp_buffer.h"
-#include "jsoncpp/json.h"
 
 namespace atp {
 
 class Channel;
 class EventLoop;
 
-class Codec {
-public:
-    explicit Codec() {}
-    ~Codec() {}
-
-public:
-    std::string encode(const Json::Value& table) {
-        std::string res("");
-        if (table == Json::Value::null) {
-            return res;
-        }
-
-        std::ostringstream out;
-        Json::StreamWriterBuilder streamBuilder;
-        std::unique_ptr<Json::StreamWriter> streamWriter(streamBuilder.newStreamWriter());
-        streamWriter->write(table, &out);
-        res = out.str();
-
-        return res;
-    }
-
-    int decode(const std::string str, Json::Value& table) {
-        JSONCPP_STRING errs;
-        Json::CharReaderBuilder charBuilder;
-        std::unique_ptr<Json::CharReader> charReader(charBuilder.newCharReader());
-        int res = charReader->parse(str.c_str(), str.c_str() + str.length(), &table, &errs);
-        if (!res || !errs.empty()) {
-            return -1;
-        }
-        
-        return 0;
-    }
-};
-
-
 class Connection         : public std::enable_shared_from_this<Connection> {
 public:
-    explicit Connection(EventLoop* event_loop, int fd, int id, std::string& remote_addr);
+    explicit Connection(EventLoop* event_loop, int fd, std::string id, std::string& remote_addr);
     ~Connection();
 
 public:
     /* Attach the connection fd to libevent event_base. */
 	void attachToEventLoop();
-    //void shutdown();
 
 public:
     /* Send data to peer for application layer. */
@@ -98,7 +60,7 @@ private:
 	EventLoop* event_loop_;
 	
 	int fd_;
-	int id_;
+	std::string id_;
 
 	/* Record remote address. */
 	std::string remote_addr_;

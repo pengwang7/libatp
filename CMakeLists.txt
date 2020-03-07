@@ -22,7 +22,7 @@ set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/atp_event_watcher.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_event_loop.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_event_loop_thread_pool.cpp
-
+    ${PROJECT_SOURCE_DIR}/src/atp_tcp_server.cpp
 
     # benchmark
     #${PROJECT_SOURCE_DIR}/examples/atp_buffer_benchmark.cpp

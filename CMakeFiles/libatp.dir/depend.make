@@ -110,16 +110,6 @@ CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_libevent.h
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_socket.cpp
 CMakeFiles/libatp.dir/src/atp_socket.cpp.o: src/atp_socket.h
 
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/allocator.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/autolink.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/config.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/features.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/forwards.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/json.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/reader.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/value.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/version.h
-CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/writer.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
@@ -133,4 +123,34 @@ CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_libevent.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_slice.h
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_tcp_conn.cpp
 CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o: src/atp_tcp_conn.h
+
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/allocator.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/autolink.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/config.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/features.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/forwards.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/json.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/reader.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/value.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/version.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/jsoncpp/writer.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_buffer.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_cbs.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_debug.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_dynamic_thread_pool.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_event_loop.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_event_loop_thread_pool.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_event_watcher.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_libevent.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_listener.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_slice.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_socket.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_state_machine.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_tcp_conn.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_tcp_server.cpp
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_tcp_server.h
+CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o: src/atp_uuid.h
 

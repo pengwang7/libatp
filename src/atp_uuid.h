@@ -2,7 +2,9 @@
 #define __ATP_UUID_H__
 
 #include <fcntl.h>
+#include <string.h>
 #include <assert.h>
+#include <unistd.h>
 #include <uuid/uuid.h>
 
 #include <string>

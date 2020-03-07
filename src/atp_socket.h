@@ -19,8 +19,8 @@ public:
 
 class SocketImpl : public SocketOptions {
 public:
-    SocketImpl() {}
-    ~SocketImpl() {}
+    explicit SocketImpl() {}
+    virtual ~SocketImpl() {}
     
 protected:
     bool getOption(int opt_id) override;
