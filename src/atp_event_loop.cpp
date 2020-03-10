@@ -42,6 +42,7 @@ EventLoop::~EventLoop() {
 void EventLoop::dispatch() {
     assert(event_watcher_->asyncWait());
 
+    /* Last set thread id, event_loop in realy running thread env */
     thread_id_ = std::this_thread::get_id();
     
     int error = event_base_dispatch(event_base_);
@@ -60,6 +61,7 @@ void EventLoop::stop() {
 /* 判断任务是否可以在当前前程中执行 如果可以则直接执行 否则 路由到对应的线程进行执行 */
 void EventLoop::sendToQueue(const TaskEventPtr& task) {
     if (safety()) {
+        LOG(INFO) << "in thread same thread";
         /* If in loop thread, execute the task function */
         task();
 
@@ -69,6 +71,8 @@ void EventLoop::sendToQueue(const TaskEventPtr& task) {
         
         return;
     }
+    
+    LOG(INFO) << "send to other threads";
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -84,10 +88,13 @@ void EventLoop::sendToQueue(const TaskEventPtr& task) {
 
 void EventLoop::sendToQueue(TaskEventPtr&& task) {
     if (safety()) {
+        LOG(INFO) << "in thread same thread";
         /* If in loop thread, execute the task function */
         task();
         return;
     }
+
+    LOG(INFO) << "send to other threads";
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -102,6 +109,10 @@ void EventLoop::sendToQueue(TaskEventPtr&& task) {
 }
 
 void EventLoop::doInit() {
+    /* First set thread id, When used multi threads mode, */ 
+    /* the create event_loop thread and dispatch event_loop thread not in the same thread, */
+    /* The first set for listener, because that init used sendToQueue */
+    thread_id_ = std::this_thread::get_id();
     pending_tasks_ = new std::vector<TaskEventPtr>();
     assert(pending_tasks_ != NULL);
 

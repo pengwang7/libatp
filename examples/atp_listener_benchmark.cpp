@@ -4,6 +4,7 @@
 #include "atp_listener.h"
 #include "atp_event_loop.h"
 #include "atp_event_loop_thread_pool.h"
+#include "atp_tcp_server.h"
 
 using namespace atp;
 
@@ -26,7 +27,55 @@ static void new_conn_handle(int fd, const std::string& taddr, void* args) {
     LOG(INFO) << "fd = " << fd << "  remote address = " << taddr;
 }
 
+class EchoServer {
+public:
+    EchoServer() {
+        srvaddr_.addr_ = "0.0.0.0";
+        srvaddr_.port_ = 7788;
+        /*
+        for (int i = 0; i < 4; ++ i) {
+
+        }
+        */
+        server_.reset(new Server("echo-server", srvaddr_, 4));
+        server_->setConnectionCallback(std::bind(&EchoServer::onConnection, this, std::placeholders::_1));
+        server_->setMessageCallback(std::bind(&EchoServer::onMessage, this, std::placeholders::_1, std::placeholders::_2));
+
+        LOG(INFO) <<"EchoServer Init.";
+    }
+
+    ~EchoServer() {
+        LOG(INFO) << "EchoServer destroy.";
+    }
+
+public:
+    void start() {
+        server_->start();
+    }
+    
+private:
+    void onConnection(const SharedConnectionPtr& conn) {
+
+    }
+    
+    void onMessage(const SharedConnectionPtr& conn, ByteBuffer* buffer) {
+
+    }
+
+private:
+    std::unique_ptr<Server> server_;
+    ServerAddress srvaddr_;
+};
+
 int main() {
+    std::unique_ptr<EchoServer> echo_server;
+    echo_server.reset(new EchoServer());
+    echo_server->start();
+    
+    return 0;
+}
+
+int main03() {
     atp_logger_init();
     LOG(INFO) << "uuid test";
 

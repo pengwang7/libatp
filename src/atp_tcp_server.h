@@ -62,7 +62,7 @@ public:
     ~Server();
 
 public:
-    bool start();
+    void start();
     void stop();
 
 public:

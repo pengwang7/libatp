@@ -50,7 +50,7 @@ Server::~Server() {
     state_.store(STATE_STOPPED);
 }
 
-bool Server::start() {
+void Server::start() {
     /* Start listener to listenning baddr and port. */
     listener_->listen();
 
@@ -65,8 +65,8 @@ bool Server::start() {
 
     /* Update server state to running. */
     state_.store(STATE_RUNNING);
-    
-    return true;
+
+    control_event_loop_->dispatch();
 }
 
 void Server::stop() {
@@ -101,6 +101,9 @@ void Server::handleNewConnection(int fd, const std::string& taddr, void* args) {
 
     std::string tt_addr("test-address1");
     SharedConnectionPtr conn(new Connection(event_loop, fd, uuid_generator_->generateUUID(), tt_addr));
+    conn->setConnectionCallback(conn_fn_);
+    conn->setReadMessageCallback(message_fn_);
+    
     assert(conn);
 
     event_loop->sendToQueue(std::bind(&Connection::attachToEventLoop, conn));
