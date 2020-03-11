@@ -1,7 +1,6 @@
 #ifndef __SERVICE_H__
 #define __SERVICE_H__
 
-#include <string>
 #include <sstream>
 
 #include "jsoncpp/json.h"
@@ -80,6 +79,8 @@ private:
     void stopEventLoopPool();
     void handleNewConnection(int fd, const std::string& taddr, void* args);
     EventLoop* getIOEventLoop();
+    void hashTableInsert(std::pair<std::string, SharedConnectionPtr>& pair_val);
+    void hashTableRemove(std::string& uuid);
 
 private:
     std::string service_name_;
@@ -90,6 +91,7 @@ private:
     std::unique_ptr<DynamicThreadPool> dynamic_thread_pool_;
     std::unique_ptr<UUIDGenerator> uuid_generator_;
     std::unique_ptr<Codec> json_codec_;
+    std::unique_ptr<HashTableConn> conns_table_;
 
     ConnectionCallback conn_fn_;
     ReadMessageCallback message_fn_;

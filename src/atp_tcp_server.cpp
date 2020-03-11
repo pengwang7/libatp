@@ -23,17 +23,19 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
 
     control_event_loop_.reset(new EventLoop());
     listener_.reset(new Listener(control_event_loop_.get(), server_address_.addr_, server_address_.port_));
-    event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
+    //event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
     dynamic_thread_pool_.reset(new DynamicThreadPool(thread_num_));
     uuid_generator_.reset(new UUIDGenerator());
     json_codec_.reset(new Codec());
+    conns_table_.reset(new HashTableConn());
 
     assert(control_event_loop_ != nullptr);
     assert(listener_ != nullptr);
-    assert(event_loop_thread_pool_ != nullptr);
+    //assert(event_loop_thread_pool_ != nullptr);
     assert(dynamic_thread_pool_ != nullptr);
     assert(uuid_generator_ != nullptr);
     assert(json_codec_ != nullptr);
+    assert(conns_table_ != nullptr);
     assert(server_address_.addr_.length() != 0);
     assert(server_address_.port_ > 0);
 
@@ -55,7 +57,7 @@ void Server::start() {
     listener_->listen();
 
     /* Start event_loop_pool, it mabe had none event_loop_thread. */
-    startEventLoopPool();
+    //startEventLoopPool();
 
     /* Bind listener server layer handle. */
     listener_->setNewConnCallback(std::bind(&Server::handleNewConnection, this,
@@ -107,11 +109,22 @@ void Server::handleNewConnection(int fd, const std::string& taddr, void* args) {
     assert(conn);
 
     event_loop->sendToQueue(std::bind(&Connection::attachToEventLoop, conn));
+    std::pair<std::string, SharedConnectionPtr> pair_value;
+    pair_value = std::make_pair(conn->getUUID(), conn);
+    hashTableInsert(pair_value);
 }
 
 EventLoop* Server::getIOEventLoop() {
     assert(CHECK_STATE(STATE_RUNNING));
     return event_loop_thread_pool_->getIOEventLoop();
+}
+
+void Server::hashTableInsert(std::pair<std::string, SharedConnectionPtr>& pair_val) {
+    conns_table_->insert(pair_val);
+}
+
+void Server::hashTableRemove(std::string& uuid) {
+    conns_table_->erase(uuid);
 }
 
 } /* end namespace atp */

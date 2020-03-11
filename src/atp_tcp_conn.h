@@ -29,6 +29,11 @@ public:
 	void close();
 	
 public:
+    /* Get connection uuid. */
+    std::string getUUID() {
+        return id_;
+    }
+
 	/* For application layer set Connection read and write callback function. */
 	void setConnectionCallback(const ConnectionCallback& fn) {
 		conn_fn_ = fn;

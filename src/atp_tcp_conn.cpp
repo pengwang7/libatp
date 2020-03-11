@@ -29,14 +29,13 @@ Connection::~Connection() {
 }
 
 void Connection::attachToEventLoop() {
-    auto self = shared_from_this();
-    auto fn = [self]() {
-        assert(self->event_loop_->safety());
-        self->chan_->enableEvents(true, false);
-        self->chan_->attachToEventLoop();
-    };
+    assert(event_loop_->safety());
 
-    event_loop_->sendToQueue(fn);
+    chan_->enableEvents(true, false);
+
+    if (conn_fn_) {
+        conn_fn_(shared_from_this());
+    }
 }
 
 void Connection::send(const void* data, size_t len) {
@@ -94,6 +93,7 @@ void Connection::close() {
 }
 
 void Connection::netFdReadHandle() {
+    printf("net fd read handle\n");
     ByteBufferReader reader(read_buffer_);
     if (reader.read(fd_) < 0) {
         netFdErrorHandle();

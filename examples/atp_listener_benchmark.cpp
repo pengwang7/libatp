@@ -37,7 +37,7 @@ public:
 
         }
         */
-        server_.reset(new Server("echo-server", srvaddr_, 4));
+        server_.reset(new Server("echo-server", srvaddr_, 0));
         server_->setConnectionCallback(std::bind(&EchoServer::onConnection, this, std::placeholders::_1));
         server_->setMessageCallback(std::bind(&EchoServer::onMessage, this, std::placeholders::_1, std::placeholders::_2));
 
@@ -55,11 +55,11 @@ public:
     
 private:
     void onConnection(const SharedConnectionPtr& conn) {
-
+        LOG(INFO) << "on connection.";
     }
     
     void onMessage(const SharedConnectionPtr& conn, ByteBuffer* buffer) {
-
+        LOG(INFO) << "on message.";
     }
 
 private:
