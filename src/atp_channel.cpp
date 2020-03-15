@@ -75,6 +75,9 @@ void Channel::close() {
         delete event_;
         event_ = NULL;
     }
+
+    read_cb_ = EventCallbackPtr();
+    write_cb_ = EventCallbackPtr();
 }
 
 void Channel::enableEvents(bool readable, bool writable) {

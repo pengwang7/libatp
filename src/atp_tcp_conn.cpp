@@ -13,7 +13,7 @@ Connection::Connection(EventLoop* event_loop, int fd, std::string id, std::strin
 
 	/* Check the args is validity. */
 	assert(event_loop_ != nullptr);
-	assert(fd_ > 0);
+	assert(fd_ >= 0);
 	assert(id_.length() > 0);
 	assert(remote_addr_ != "");
 
@@ -26,6 +26,7 @@ Connection::Connection(EventLoop* event_loop, int fd, std::string id, std::strin
 Connection::~Connection() {
 	::close(fd_);
 	fd_ = -1;
+    printf("destroy connection.\n");
 }
 
 void Connection::attachToEventLoop() {
@@ -38,6 +39,7 @@ void Connection::attachToEventLoop() {
     }
 }
 
+/* Send data to remote client. */
 void Connection::send(const void* data, size_t len) {
     if (!data || len <= 0) {
         return;
@@ -86,6 +88,7 @@ void Connection::close() {
     auto self = shared_from_this();
     auto fn = [self]() {
         assert(self->event_loop_->safety());
+        printf("===========close 1=====.\n");
         self->netFdCloseHandle();
     };
 
@@ -95,10 +98,14 @@ void Connection::close() {
 void Connection::netFdReadHandle() {
     printf("net fd read handle\n");
     ByteBufferReader reader(read_buffer_);
-    if (reader.read(fd_) < 0) {
+    if (reader.read(fd_) == 0) {
+        printf("peer close.\n");
         netFdErrorHandle();
-    } else {
-        read_fn_(shared_from_this(), &read_buffer_);
+        return;
+    }
+    
+    if (read_fn_) {
+        read_fn_(shared_from_this(), read_buffer_);
     }
 }
 
@@ -123,10 +130,12 @@ void Connection::netFdWriteHandle() {
 }
 
 void Connection::netFdCloseHandle() {
+    printf("net fd close handle.\n");
     chan_->disableAllEvents();
     chan_->close();
 
     if (close_fn_) {
+        printf("===close 2.==\n");
         close_fn_(shared_from_this());
     }
 }

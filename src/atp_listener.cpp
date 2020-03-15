@@ -63,10 +63,11 @@ void Listener::acceptHandle() {
         return;
     }
 
-    this->setfd(conn_fd);
-    this->setOption(O_NONBLOCK, 1);
-    this->setOption(TCP_NODELAY, 1);
-    this->setOption(TCP_QUICKACK, 1);
+    setfd(conn_fd);
+    setOption(O_NONBLOCK, 1);
+    setOption(TCP_NODELAY, 1);
+    setOption(TCP_QUICKACK, 1);
+    setfd(fd_);
     
     /* Notify application layer accept a new connectoin */
     if (new_conn_cb_) {

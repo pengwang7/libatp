@@ -6,6 +6,7 @@
 #include "jsoncpp/json.h"
 
 #include "atp_cbs.h"
+#include "atp_tcp_conn.h"
 
 namespace atp {
 
@@ -54,8 +55,7 @@ public:
     }
 };
 
-
-class Server      : public STATE_MACHINE_INTERFACE {
+class Server     : public STATE_MACHINE_INTERFACE {
 public:
     explicit Server(std::string name, ServerAddress server_address, int thread_nums);
     ~Server();
@@ -77,14 +77,16 @@ private:
     int getSystemCPUProcessers();
     void startEventLoopPool();
     void stopEventLoopPool();
-    void handleNewConnection(int fd, const std::string& taddr, void* args);
+    void handleNewConnection(int fd, std::string& taddr, void* args);
+    void handleCloseConnection(const ConnectionPtr& conn);
     EventLoop* getIOEventLoop();
-    void hashTableInsert(std::pair<std::string, SharedConnectionPtr>& pair_val);
-    void hashTableRemove(std::string& uuid);
+    void hashTableInsert(std::pair<std::string, ConnectionPtr>& pair_val);
+    void hashTableRemove(std::string uuid);
 
 private:
     std::string service_name_;
     ServerAddress server_address_;
+
     std::unique_ptr<EventLoop> control_event_loop_;
     std::unique_ptr<Listener> listener_;
     std::unique_ptr<EventLoopPool> event_loop_thread_pool_;
@@ -92,9 +94,11 @@ private:
     std::unique_ptr<UUIDGenerator> uuid_generator_;
     std::unique_ptr<Codec> json_codec_;
     std::unique_ptr<HashTableConn> conns_table_;
+    HashTableConn tmp_table;
 
     ConnectionCallback conn_fn_;
     ReadMessageCallback message_fn_;
+    CloseCallback close_fn_;
     int thread_num_;
 };
 

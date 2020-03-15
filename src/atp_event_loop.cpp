@@ -149,8 +149,6 @@ void EventLoop::doPendingTasks() {
         tmp_pending_tasks[i]();
         -- pending_tasks_size_;
     }
-
-    event_base_loopexit(event_base_, NULL);
 }
 
 void EventLoop::stopHandle() {

@@ -23,7 +23,7 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
 
     control_event_loop_.reset(new EventLoop());
     listener_.reset(new Listener(control_event_loop_.get(), server_address_.addr_, server_address_.port_));
-    //event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
+    event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
     dynamic_thread_pool_.reset(new DynamicThreadPool(thread_num_));
     uuid_generator_.reset(new UUIDGenerator());
     json_codec_.reset(new Codec());
@@ -31,7 +31,7 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
 
     assert(control_event_loop_ != nullptr);
     assert(listener_ != nullptr);
-    //assert(event_loop_thread_pool_ != nullptr);
+    assert(event_loop_thread_pool_ != nullptr);
     assert(dynamic_thread_pool_ != nullptr);
     assert(uuid_generator_ != nullptr);
     assert(json_codec_ != nullptr);
@@ -57,7 +57,7 @@ void Server::start() {
     listener_->listen();
 
     /* Start event_loop_pool, it mabe had none event_loop_thread. */
-    //startEventLoopPool();
+    startEventLoopPool();
 
     /* Bind listener server layer handle. */
     listener_->setNewConnCallback(std::bind(&Server::handleNewConnection, this,
@@ -94,24 +94,32 @@ void Server::stopEventLoopPool() {
     event_loop_thread_pool_->autoStop();
 }
 
-void Server::handleNewConnection(int fd, const std::string& taddr, void* args) {
+void Server::handleNewConnection(int fd, std::string& taddr, void* args) {
     assert(CHECK_STATE(STATE_RUNNING));
 
     EventLoop* event_loop = nullptr;
     thread_num_ == 0 ? event_loop = control_event_loop_.get() : event_loop = getIOEventLoop();
     assert(event_loop != nullptr);
 
-    std::string tt_addr("test-address1");
-    SharedConnectionPtr conn(new Connection(event_loop, fd, uuid_generator_->generateUUID(), tt_addr));
+    ConnectionPtr conn(new Connection(event_loop, fd, uuid_generator_->generateUUID(), taddr));
     conn->setConnectionCallback(conn_fn_);
     conn->setReadMessageCallback(message_fn_);
+    conn->setCloseCallback(std::bind(&Server::handleCloseConnection, this, std::placeholders::_1));
     
     assert(conn);
 
     event_loop->sendToQueue(std::bind(&Connection::attachToEventLoop, conn));
-    std::pair<std::string, SharedConnectionPtr> pair_value;
+    std::pair<std::string, ConnectionPtr> pair_value;
     pair_value = std::make_pair(conn->getUUID(), conn);
     hashTableInsert(pair_value);
+}
+
+void Server::handleCloseConnection(const ConnectionPtr& conn) {
+    auto fn = [this, conn]() {
+        this->hashTableRemove(conn->getUUID());
+    };
+
+    control_event_loop_->sendToQueue(fn);
 }
 
 EventLoop* Server::getIOEventLoop() {
@@ -119,11 +127,13 @@ EventLoop* Server::getIOEventLoop() {
     return event_loop_thread_pool_->getIOEventLoop();
 }
 
-void Server::hashTableInsert(std::pair<std::string, SharedConnectionPtr>& pair_val) {
+void Server::hashTableInsert(std::pair<std::string, ConnectionPtr>& pair_val) {
+    printf("insert conn uuid:%s\n", pair_val.first.c_str());
     conns_table_->insert(pair_val);
 }
 
-void Server::hashTableRemove(std::string& uuid) {
+void Server::hashTableRemove(std::string uuid) {
+    printf("remove conn uuid:%s\n", uuid.c_str());
     conns_table_->erase(uuid);
 }
 

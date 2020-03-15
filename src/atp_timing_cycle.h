@@ -79,7 +79,7 @@ struct Entry {
         }
 
         ~Entry() {
-            SharedConnectionPtr conn = conn_.lock();
+            ConnectionPtr conn = conn_.lock();
             if (conn) {
                 conn->close();
             }

@@ -29,9 +29,14 @@ public:
 	void close();
 	
 public:
-    /* Get connection uuid. */
+    /* Get already generate connection uuid. */
     std::string getUUID() {
         return id_;
+    }
+
+    /* Get the connection remote ip address. */
+    std::string getAddress() {
+        return remote_addr_;
     }
 
 	/* For application layer set Connection read and write callback function. */
@@ -76,8 +81,6 @@ private:
 	/* The buffer for this Connection read and write. */
     ByteBuffer read_buffer_;
     ByteBuffer write_buffer_;
-	//Buffer read_buffer_;
-	//Buffer write_buffer_;
 
 	/* When a Connection established, broken down, connecting failed, this callback will be called. */
     ConnectionCallback		conn_fn_;

@@ -16,7 +16,7 @@ class EventLoop;
 
 class Listener : public SocketImpl {
 public:
-    using NewConnCallbackPtr = std::function<void(int fd, const std::string& taddr, void* args)>;
+    using NewConnCallbackPtr = std::function<void(int fd, std::string& taddr, void* args)>;
 
 public:
     explicit Listener(EventLoop* event_loop, const std::string& address, unsigned int port);

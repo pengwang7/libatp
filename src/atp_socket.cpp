@@ -143,9 +143,12 @@ int SocketImpl::listen(int backlog) {
 }
 
 int SocketImpl::accept(std::string& remote_addr) {
+    char buf[INET_ADDRSTRLEN];
     struct sockaddr_in raddr;
     socklen_t addr_len = sizeof(raddr);
     int conn_fd = ::accept(fd_, reinterpret_cast<struct sockaddr*>(&raddr), &addr_len);
+    remote_addr = inet_ntop(raddr.sin_family, &raddr.sin_addr, buf, sizeof(buf));
+
     return conn_fd;
 }
 

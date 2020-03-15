@@ -31,6 +31,8 @@ public:
         read_index_ = 0;
         write_index_ = 0;
         reserved_prepend_size_ = 0;
+
+        printf("~destroy buffer\n");
     }
 
 public:
@@ -318,7 +320,7 @@ public:
             if (EVUTIL_ERR_RW_RETRIABLE(errno)) {
                 return RETRIABLE_ERROR;
             } else {
-                return -1;
+                return n;
             }
         } else if (static_cast<size_t>(n) <= writable) {
             buffer_.updateReadWriteIndex(0, n, true);

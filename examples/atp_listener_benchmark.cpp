@@ -27,6 +27,12 @@ static void new_conn_handle(int fd, const std::string& taddr, void* args) {
     LOG(INFO) << "fd = " << fd << "  remote address = " << taddr;
 }
 
+class tt {
+public:
+    tt() {
+        LOG(INFO) << "wangpeng";
+    }
+};
 class EchoServer {
 public:
     EchoServer() {
@@ -37,7 +43,9 @@ public:
 
         }
         */
+
         server_.reset(new Server("echo-server", srvaddr_, 0));
+
         server_->setConnectionCallback(std::bind(&EchoServer::onConnection, this, std::placeholders::_1));
         server_->setMessageCallback(std::bind(&EchoServer::onMessage, this, std::placeholders::_1, std::placeholders::_2));
 
@@ -54,14 +62,23 @@ public:
     }
     
 private:
-    void onConnection(const SharedConnectionPtr& conn) {
+    void onConnection(const ConnectionPtr& conn) {
         LOG(INFO) << "on connection.";
-    }
-    
-    void onMessage(const SharedConnectionPtr& conn, ByteBuffer* buffer) {
-        LOG(INFO) << "on message.";
+
+        LOG(INFO) << "remote address: " << conn->getAddress();
     }
 
+    void onMessage(const ConnectionPtr& conn, ByteBuffer& buffer) {
+        LOG(INFO) << "on message.";
+
+        ByteBufferReader reader(buffer);
+        LOG(INFO) << "data: " << reader.consume(8192).data();
+    }
+/*
+    void onClose(const ConnectionPtr& conn) {
+        LOG(INFO) << "on close connection.";
+    }
+*/
 private:
     std::unique_ptr<Server> server_;
     ServerAddress srvaddr_;

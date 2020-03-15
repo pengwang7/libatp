@@ -11,14 +11,14 @@ namespace atp {
 class ByteBuffer;
 class Connection;
 
-using SharedConnectionPtr = std::shared_ptr<Connection>;
-using HashTableConn = std::unordered_map<std::string, SharedConnectionPtr>;
+using ConnectionPtr = std::shared_ptr<Connection>;
+using HashTableConn = std::unordered_map<std::string, ConnectionPtr>;
 
-using ConnectionCallback = std::function<void(const SharedConnectionPtr&)>;
-using ReadMessageCallback = std::function<void(const SharedConnectionPtr&, ByteBuffer*)>;
-using WriteCompleteCallback = std::function<void(const SharedConnectionPtr&)>;
-using TimedoutCallback = std::function<void(const SharedConnectionPtr&)>;
-using CloseCallback = std::function<void(const SharedConnectionPtr&)>;
+using ConnectionCallback = std::function<void(const ConnectionPtr&)>;
+using ReadMessageCallback = std::function<void(const ConnectionPtr&, ByteBuffer&)>;
+using WriteCompleteCallback = std::function<void(const ConnectionPtr&)>;
+using TimedoutCallback = std::function<void(const ConnectionPtr&)>;
+using CloseCallback = std::function<void(const ConnectionPtr&)>;
 
 }/*end namespace atp*/
 
