@@ -94,7 +94,6 @@ private:
     std::unique_ptr<UUIDGenerator> uuid_generator_;
     std::unique_ptr<Codec> json_codec_;
     std::unique_ptr<HashTableConn> conns_table_;
-    HashTableConn tmp_table;
 
     ConnectionCallback conn_fn_;
     ReadMessageCallback message_fn_;

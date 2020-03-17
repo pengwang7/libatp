@@ -52,6 +52,8 @@ std::thread::id EventLoopThread::getThreadId() const {
 void EventLoopThread::executer() {
     state_.store(STATE_RUNNING);
 
+	printf("thread id:%ld\n", pthread_self());
+	printf("thread event_loop:%p\n", event_loop_.get());
     event_loop_->dispatch();
 
     state_.store(STATE_STOPPED);

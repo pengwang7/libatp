@@ -119,6 +119,8 @@ void Server::handleCloseConnection(const ConnectionPtr& conn) {
         this->hashTableRemove(conn->getUUID());
     };
 
+	/* Thinking about why used control_event_loop_ not used conn event_loop it self. */
+	/* We only have one container to store connections And want to reduce the lib lock. */
     control_event_loop_->sendToQueue(fn);
 }
 

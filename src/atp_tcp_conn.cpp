@@ -88,17 +88,17 @@ void Connection::close() {
     auto self = shared_from_this();
     auto fn = [self]() {
         assert(self->event_loop_->safety());
-        printf("===========close 1=====.\n");
         self->netFdCloseHandle();
     };
 
+	printf("====close====\n");
     event_loop_->sendToQueue(fn);
 }
 
 void Connection::netFdReadHandle() {
     printf("net fd read handle\n");
     ByteBufferReader reader(read_buffer_);
-    if (reader.read(fd_) == 0) {
+    if (reader.read(fd_) <= 0) {
         printf("peer close.\n");
         netFdErrorHandle();
         return;
@@ -130,12 +130,10 @@ void Connection::netFdWriteHandle() {
 }
 
 void Connection::netFdCloseHandle() {
-    printf("net fd close handle.\n");
     chan_->disableAllEvents();
     chan_->close();
 
     if (close_fn_) {
-        printf("===close 2.==\n");
         close_fn_(shared_from_this());
     }
 }
