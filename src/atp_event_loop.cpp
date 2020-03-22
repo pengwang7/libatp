@@ -61,18 +61,19 @@ void EventLoop::stop() {
 /* 判断任务是否可以在当前前程中执行 如果可以则直接执行 否则 路由到对应的线程进行执行 */
 void EventLoop::sendToQueue(const TaskEventPtr& task) {
     if (safety()) {
-        LOG(INFO) << "in thread same thread";
+		if (ATP_DEBUG_ON) {
+			LOG(INFO) << "in thread same thread";
+		}
+        
         /* If in loop thread, execute the task function */
         task();
 
-        if (ATP_DEBUG_ON) {
-            LOG(INFO) << "sendToQueue process a task";
-        }
-        
         return;
     }
-    
-    LOG(INFO) << "send to other threads";
+
+	if (ATP_DEBUG_ON) {
+		LOG(INFO) << "send to other threads";
+	}
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -88,13 +89,13 @@ void EventLoop::sendToQueue(const TaskEventPtr& task) {
 
 void EventLoop::sendToQueue(TaskEventPtr&& task) {
     if (safety()) {
-        LOG(INFO) << "in thread same thread";
+        //LOG(INFO) << "in thread same thread";
         /* If in loop thread, execute the task function */
         task();
         return;
     }
 
-    LOG(INFO) << "send to other threads";
+    //LOG(INFO) << "send to other threads";
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -129,9 +130,10 @@ void EventLoop::doInitEventWatcher() {
 }
 
 void EventLoop::doPendingTasks() {
-    /* Timely release pending_tasks_ accupation memory by std::vector swap method, */
-    /* tmp_pending_tasks will be destruction after this function */
-    std::vector<TaskEventPtr> tmp_pending_tasks;
+	/* Why used a tmp_pending_tasks in here? */
+	/* 1.This is to prevent call this func blocking by insert new tasks */
+	/* 2.Timely release pending_tasks_ accupation memory by std::vector swap method */
+	std::vector<TaskEventPtr> tmp_pending_tasks;
     {
         std::lock_guard<std::mutex> lock(mutex_);
         notified_.store(false);
@@ -142,7 +144,7 @@ void EventLoop::doPendingTasks() {
         LOG(INFO) << "The current tasks size: " << tmp_pending_tasks.size();
     }
 
-    LOG(INFO) << "do tasks thread id: " << std::this_thread::get_id();
+    //LOG(INFO) << "do tasks thread id: " << std::this_thread::get_id();
 
     /* Execute other threads send to this thread(safety thread) tasks */
     for (size_t i = 0; i < tmp_pending_tasks.size(); ++ i) {

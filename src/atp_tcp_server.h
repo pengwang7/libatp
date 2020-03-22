@@ -7,6 +7,7 @@
 
 #include "atp_cbs.h"
 #include "atp_tcp_conn.h"
+#include "atp_state_machine.h"
 
 namespace atp {
 

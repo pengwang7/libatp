@@ -31,8 +31,6 @@ public:
         read_index_ = 0;
         write_index_ = 0;
         reserved_prepend_size_ = 0;
-
-        printf("~destroy buffer\n");
     }
 
 public:

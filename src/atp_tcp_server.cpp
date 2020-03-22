@@ -3,8 +3,8 @@
 #include "atp_uuid.h"
 #include "atp_tcp_conn.h"
 #include "atp_listener.h"
-#include "atp_dynamic_thread_pool.h"
 #include "atp_event_loop.h"
+#include "atp_dynamic_thread_pool.h"
 #include "atp_event_loop_thread_pool.h"
 #include "atp_tcp_server.h"
 
@@ -130,12 +130,10 @@ EventLoop* Server::getIOEventLoop() {
 }
 
 void Server::hashTableInsert(std::pair<std::string, ConnectionPtr>& pair_val) {
-    printf("insert conn uuid:%s\n", pair_val.first.c_str());
     conns_table_->insert(pair_val);
 }
 
 void Server::hashTableRemove(std::string uuid) {
-    printf("remove conn uuid:%s\n", uuid.c_str());
     conns_table_->erase(uuid);
 }
 

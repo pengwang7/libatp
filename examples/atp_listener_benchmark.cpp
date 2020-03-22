@@ -32,11 +32,6 @@ public:
     EchoServer() {
         srvaddr_.addr_ = "0.0.0.0";
         srvaddr_.port_ = 7788;
-        /*
-        for (int i = 0; i < 4; ++ i) {
-
-        }
-        */
 
         server_.reset(new Server("echo-server", srvaddr_, 4));
 
@@ -67,6 +62,7 @@ private:
 
         ByteBufferReader reader(buffer);
         LOG(INFO) << "data: " << reader.consume(8192).data();
+		conn->close();
     }
 
 private:

@@ -26,7 +26,6 @@ Connection::Connection(EventLoop* event_loop, int fd, std::string id, std::strin
 Connection::~Connection() {
 	::close(fd_);
 	fd_ = -1;
-    printf("destroy connection.\n");
 }
 
 void Connection::attachToEventLoop() {
@@ -91,15 +90,12 @@ void Connection::close() {
         self->netFdCloseHandle();
     };
 
-	printf("====close====\n");
     event_loop_->sendToQueue(fn);
 }
 
 void Connection::netFdReadHandle() {
-    printf("net fd read handle\n");
     ByteBufferReader reader(read_buffer_);
     if (reader.read(fd_) <= 0) {
-        printf("peer close.\n");
         netFdErrorHandle();
         return;
     }
