@@ -13,8 +13,8 @@ namespace atp {
 
 class SocketOptions {
 public:
-    virtual bool getOption(int opt_id) = 0;
-    virtual void setOption(int opt_id, int on) = 0;
+    virtual bool getOption(int fd, int opt_id) = 0;
+    virtual void setOption(int fd, int opt_id, int on) = 0;
 };
 
 class SocketImpl : public SocketOptions {
@@ -23,9 +23,9 @@ public:
     virtual ~SocketImpl() {}
     
 protected:
-    bool getOption(int opt_id) override;
+    bool getOption(int fd, int opt_id) override;
 
-    void setOption(int opt_id, int on) override;
+    void setOption(int fd, int opt_id, int on) override;
 
 protected:
     void setfd(int fd);

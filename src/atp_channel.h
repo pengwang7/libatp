@@ -61,6 +61,7 @@ public:
     }
 
 private:
+	/* Using two eventHandle to avoid the limitation of static function */
     void eventHandle(int fd, short which);
     static void eventHandle(int fd, short which, void* args);
 

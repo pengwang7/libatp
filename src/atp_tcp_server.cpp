@@ -7,8 +7,14 @@
 #include "atp_dynamic_thread_pool.h"
 #include "atp_event_loop_thread_pool.h"
 #include "atp_tcp_server.h"
+#include "glog/logging.h"
 
 namespace atp {
+
+int getSystemCPUProcessers() {
+    /* Get current available CPU. */
+    return get_nprocs();
+}
 
 Server::Server(std::string name, ServerAddress server_address, int thread_num) {
     /* Initialize all components for the server. */
@@ -16,22 +22,21 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
     service_name_ = name;
     server_address_ = server_address;
     thread_num_ = thread_num;
-
-    if (thread_num_ < 0) {
-        thread_num_ = getSystemCPUProcessers() * 2;
-    }
+	dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
 
     control_event_loop_.reset(new EventLoop());
     listener_.reset(new Listener(control_event_loop_.get(), server_address_.addr_, server_address_.port_));
-    event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
     dynamic_thread_pool_.reset(new DynamicThreadPool(thread_num_));
     uuid_generator_.reset(new UUIDGenerator());
     json_codec_.reset(new Codec());
     conns_table_.reset(new HashTableConn());
 
+	if (thread_num_ > 0) {
+		event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
+	}
+	
     assert(control_event_loop_ != nullptr);
     assert(listener_ != nullptr);
-    assert(event_loop_thread_pool_ != nullptr);
     assert(dynamic_thread_pool_ != nullptr);
     assert(uuid_generator_ != nullptr);
     assert(json_codec_ != nullptr);
@@ -39,6 +44,10 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
     assert(server_address_.addr_.length() != 0);
     assert(server_address_.port_ > 0);
 
+	if (thread_num_ > 0) {
+		assert(event_loop_thread_pool_ != nullptr);
+	}
+	
     if (service_name_.length() == 0) {
         service_name_ = "SERVER-" + uuid_generator_->generateUUID();
     }
@@ -50,6 +59,9 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
 
 Server::~Server() {
     state_.store(STATE_STOPPED);
+	if (ATP_DEBUG_ON) {
+		LOG(INFO) << "[~Server] destroy server: " << service_name_;
+	}
 }
 
 void Server::start() {
@@ -77,21 +89,16 @@ void Server::stop() {
     state_.store(STATE_STOPPED);
 }
 
-int Server::getSystemCPUProcessers() {
-    /* Get current available CPU. */
-    return get_nprocs();
-}
-
 void Server::startEventLoopPool() {
-    if (event_loop_thread_pool_->autoStart()) {
-        /* One listener mode. */
-    } else {
-        /* Multi listener mode. */
-    }
+	if (thread_num_ > 0) {
+		event_loop_thread_pool_->autoStart();
+	}
 }
 
 void Server::stopEventLoopPool() {
-    event_loop_thread_pool_->autoStop();
+	if (thread_num_) {
+		event_loop_thread_pool_->autoStop();
+	}
 }
 
 void Server::handleNewConnection(int fd, std::string& taddr, void* args) {
@@ -119,7 +126,7 @@ void Server::handleCloseConnection(const ConnectionPtr& conn) {
         this->hashTableRemove(conn->getUUID());
     };
 
-	/* Thinking about why used control_event_loop_ not used conn event_loop it self. */
+	/* Thinking about this why used control_event_loop_ not used conn event_loop it self. */
 	/* We only have one container to store connections And want to reduce the lib lock. */
     control_event_loop_->sendToQueue(fn);
 }
@@ -129,11 +136,23 @@ EventLoop* Server::getIOEventLoop() {
     return event_loop_thread_pool_->getIOEventLoop();
 }
 
+size_t Server::hashTableSize() {
+	return conns_table_->size();
+}
+
 void Server::hashTableInsert(std::pair<std::string, ConnectionPtr>& pair_val) {
+	if (ATP_DEBUG_ON) {
+		LOG(INFO) << "[hashTableInsert] conn uuid: " << pair_val.first;
+	}
+	
     conns_table_->insert(pair_val);
 }
 
 void Server::hashTableRemove(std::string uuid) {
+	if (ATP_DEBUG_ON) {
+		LOG(INFO) << "[hashTableRemove] conn uuid: " << uuid;
+	}
+	
     conns_table_->erase(uuid);
 }
 

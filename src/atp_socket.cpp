@@ -16,28 +16,28 @@ static int get_socket_nonblocking(int fd) {
     return (opt_val == 0);
 }
 
-bool SocketImpl::getOption(int opt_id) {
+bool SocketImpl::getOption(int fd, int opt_id) {
     int opt_val = 0;
     socklen_t opt_len = sizeof(opt_val);
     
     switch (opt_id) {
     case O_NONBLOCK:
-        opt_val = get_socket_nonblocking(fd_);
+        opt_val = get_socket_nonblocking(fd);
         break;
     case SO_REUSEADDR:
-        getsockopt(fd_, SOL_SOCKET, SO_REUSEADDR, &opt_val, &opt_len);
+        getsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &opt_val, &opt_len);
         break;
     case SO_REUSEPORT:
-        getsockopt(fd_, SOL_SOCKET, SO_REUSEPORT, &opt_val, &opt_len);
+        getsockopt(fd, SOL_SOCKET, SO_REUSEPORT, &opt_val, &opt_len);
         break;
     case TCP_DEFER_ACCEPT:
-        getsockopt(fd_, IPPROTO_TCP, TCP_DEFER_ACCEPT, &opt_val, &opt_len);
+        getsockopt(fd, IPPROTO_TCP, TCP_DEFER_ACCEPT, &opt_val, &opt_len);
         break;
     case TCP_NODELAY:
-        getsockopt(fd_, IPPROTO_TCP, TCP_NODELAY, &opt_val, &opt_len);
+        getsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &opt_val, &opt_len);
         break;
     case TCP_QUICKACK:
-        getsockopt(fd_, IPPROTO_TCP, TCP_QUICKACK, &opt_val, &opt_len);
+        getsockopt(fd, IPPROTO_TCP, TCP_QUICKACK, &opt_val, &opt_len);
         break;
     default:
         return false;
@@ -46,30 +46,30 @@ bool SocketImpl::getOption(int opt_id) {
     return (opt_val == 1);
 }
 
-void SocketImpl::setOption(int opt_id, int on) {
+void SocketImpl::setOption(int fd, int opt_id, int on) {
     switch (opt_id) {
     case O_NONBLOCK:
-        on == 1 ? evutil_make_socket_nonblocking(fd_) : 0;
+        on == 1 ? evutil_make_socket_nonblocking(fd) : 0;
         break;
 
     case SO_REUSEADDR:
-        on == 1 ? evutil_make_listen_socket_reuseable(fd_) : 0;
+        on == 1 ? evutil_make_listen_socket_reuseable(fd) : 0;
         break;
 
     case SO_REUSEPORT:
-        on == 1 ? evutil_make_listen_socket_reuseable_port(fd_) : 0;
+        on == 1 ? evutil_make_listen_socket_reuseable_port(fd) : 0;
         break;
 
     case TCP_DEFER_ACCEPT:
-        on == 1 ? evutil_make_tcp_listen_socket_deferred(fd_) : 0;
+        on == 1 ? evutil_make_tcp_listen_socket_deferred(fd) : 0;
         break;
     
     case TCP_NODELAY:
-        setsockopt(fd_, IPPROTO_TCP, TCP_NODELAY, &on, static_cast<socklen_t>(sizeof(on)));
+        setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &on, static_cast<socklen_t>(sizeof(on)));
         break;
 
     case TCP_QUICKACK:
-        setsockopt(fd_, IPPROTO_TCP, TCP_QUICKACK, &on, static_cast<socklen_t>(sizeof(on)));
+        setsockopt(fd, IPPROTO_TCP, TCP_QUICKACK, &on, static_cast<socklen_t>(sizeof(on)));
         break;
 /*
     // TCP_DEFER_ACCEPT == SO_KEEPALIVE

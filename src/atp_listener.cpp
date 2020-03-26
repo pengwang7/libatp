@@ -8,36 +8,31 @@
 namespace atp {
 
 Listener::Listener(EventLoop* event_loop, const std::string& address, unsigned int port)
-    : event_loop_(event_loop), fd_(-1) {
+    : event_loop_(event_loop), listen_fd_(-1) {
     address_.host_ = address;
     address_.port_ = port;
 }
 
 Listener::~Listener() {
-    ::close(fd_);
-    fd_ = -1;
+    ::close(listen_fd_);
+    listen_fd_ = -1;
 }
 
 void Listener::listen() {
-    fd_ = this->create(true);
-    assert(fd_ != -1);
+    listen_fd_ = create(true);
+    assert(listen_fd_ != -1);
 
-    /* Setl socket flags for listen fd */
-    this->setfd(fd_);
-    this->setOption(SO_REUSEADDR, 1);
-    this->setOption(SO_REUSEPORT, 1);
-    this->setOption(TCP_DEFER_ACCEPT, 1);
+    /* Set socket flags for listen fd */
+    setOption(listen_fd_, SO_REUSEADDR, 1);
+    setOption(listen_fd_, SO_REUSEPORT, 1);
+    setOption(listen_fd_, TCP_DEFER_ACCEPT, 1);
 
-    assert(this->bind(address_.host_, address_.port_) == 0);
-    assert(this->SocketImpl::listen(ATP_SO_MAX_CONN) == 0);
-    
-    if (ATP_DEBUG_ON) {
-        LOG(INFO) << "The Server listen fd: " << fd_ << " address: " << address_.host_ << ":" << address_.port_;
-    }
+    assert(bind(address_.host_, address_.port_) == 0);
+    assert(SocketImpl::listen(ATP_SO_MAX_CONN) == 0);
 }
 
 void Listener::accept() {
-    channel_.reset(new Channel(event_loop_, fd_, true, false));
+    channel_.reset(new Channel(event_loop_, listen_fd_, true, false));
     channel_->setReadCallback(std::bind(&Listener::acceptHandle, this));
 
     /* Attach listen channel event to owner event loop */
@@ -54,7 +49,7 @@ void Listener::acceptHandle() {
     assert(event_loop_->safety());
 
     std::string remote_address;
-    int conn_fd = this->SocketImpl::accept(remote_address);
+    int conn_fd = SocketImpl::accept(remote_address);
     if (conn_fd == -1) {
         if (errno != EAGAIN && errno != EINTR) {
             LOG(ERROR) << "Accept connection met error: " << strerror(errno);
@@ -63,11 +58,10 @@ void Listener::acceptHandle() {
         return;
     }
 
-    setfd(conn_fd);
-    setOption(O_NONBLOCK, 1);
-    setOption(TCP_NODELAY, 1);
-    setOption(TCP_QUICKACK, 1);
-    setfd(fd_);
+	/* TCP_NODELAY and TCP_QUICKACK are need to used together. */
+    setOption(conn_fd, O_NONBLOCK, 1);
+    setOption(conn_fd, TCP_NODELAY, 1);
+    setOption(conn_fd, TCP_QUICKACK, 1);
     
     /* Notify application layer accept a new connectoin */
     if (new_conn_cb_) {

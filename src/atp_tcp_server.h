@@ -22,6 +22,8 @@ typedef struct {
     unsigned int port_;
 } ServerAddress;
 
+int getSystemCPUProcessers();
+
 class Codec {
 public:
     explicit Codec() {}
@@ -75,12 +77,12 @@ public:
     }
 
 private:
-    int getSystemCPUProcessers();
     void startEventLoopPool();
     void stopEventLoopPool();
     void handleNewConnection(int fd, std::string& taddr, void* args);
     void handleCloseConnection(const ConnectionPtr& conn);
     EventLoop* getIOEventLoop();
+	size_t hashTableSize();
     void hashTableInsert(std::pair<std::string, ConnectionPtr>& pair_val);
     void hashTableRemove(std::string uuid);
 
@@ -100,6 +102,7 @@ private:
     ReadMessageCallback message_fn_;
     CloseCallback close_fn_;
     int thread_num_;
+	int dynamic_thread_pool_size_;
 };
 
 } /* end namespace atp */;
