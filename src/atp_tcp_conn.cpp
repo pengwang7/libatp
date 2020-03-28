@@ -5,6 +5,7 @@
 #include "atp_tcp_conn.h"
 #include "atp_libevent.h"
 #include "atp_event_loop.h"
+#include "glog/logging.h"
 
 namespace atp {
 
@@ -21,11 +22,19 @@ Connection::Connection(EventLoop* event_loop, int fd, std::string id, std::strin
 	chan_.reset(new Channel(event_loop_, fd_, false, false));
 	chan_->setReadCallback(std::bind(&Connection::netFdReadHandle, this));
 	chan_->setWriteCallback(std::bind(&Connection::netFdWriteHandle, this));
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "[Connection] create connection: " << id_;
+    }
 }
 
 Connection::~Connection() {
 	::close(fd_);
 	fd_ = -1;
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "[~Connection] destroy connection: " << id_;
+    }
 }
 
 void Connection::attachToEventLoop() {
@@ -48,7 +57,7 @@ void Connection::send(const void* data, size_t len) {
         ssize_t nwrite = 0;
         size_t remaining_data_size = len;
 
-        /* In gerernal, however, send data to peer dose not pass through channel and write buffer. */
+        /* In gereral, however, send data to peer dose not pass through channel and write buffer. */
         if (!chan_->isWritable() && write_buffer_.unreadBytes() == 0) {
             nwrite = ::send(fd_, static_cast<const char*>(data), len, MSG_NOSIGNAL);
             if (nwrite >= 0) {

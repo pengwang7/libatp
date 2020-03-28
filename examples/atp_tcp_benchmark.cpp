@@ -26,7 +26,7 @@ public:
 			.port_ = 7788,
 		};
 			
-		server_.reset(new Server("resp-200-server", srvaddr, 2));
+		server_.reset(new Server("resp-200-server", srvaddr, 6));
 		server_->setConnectionCallback(std::bind(&Resp200Server::onConnection, this, std::placeholders::_1));
 		server_->setMessageCallback(std::bind(&Resp200Server::onMessage, this, std::placeholders::_1, std::placeholders::_2));
 	}
@@ -41,13 +41,17 @@ public:
 	
 private:
 	void onConnection(const ConnectionPtr& conn) {
-		LOG(INFO) << "Resp200Server conn uuid: " << conn->getUUID();
-	}
+        if (ATP_DEBUG_ON) {
+            LOG(INFO) << "Resp200Server conn uuid: " << conn->getUUID();
+        }
+    }
 
 	void onMessage(const ConnectionPtr& conn, ByteBuffer& read_buf) {
 		ByteBufferReader io_reader(read_buf);
-		LOG(INFO) << "Resp200Server conn read data: " << io_reader.consume(65535).toString();
-
+        if (ATP_DEBUG_ON) {
+            LOG(INFO) << "Resp200Server conn read data: " << io_reader.consume(65535).toString();
+        }
+	
 		std::string resp_200_message = "";
 		resp_200_message += "HTTP1.1/ 200 OK\r\n";
 		resp_200_message += "Server: Resp200Server\r\n";

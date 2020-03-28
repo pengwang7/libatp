@@ -54,6 +54,10 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
 
     assert(service_name_.length() != 0);
 
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "[Server] create server: " << service_name_;
+    }
+
     state_.store(STATE_INIT);
 }
 
@@ -96,7 +100,7 @@ void Server::startEventLoopPool() {
 }
 
 void Server::stopEventLoopPool() {
-	if (thread_num_) {
+	if (thread_num_ > 0) {
 		event_loop_thread_pool_->autoStop();
 	}
 }

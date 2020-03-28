@@ -61,7 +61,10 @@ private:
         LOG(INFO) << "on message.";
 
         ByteBufferReader reader(buffer);
-        LOG(INFO) << "data: " << reader.consume(8192).data();
+        if (ATP_DEBUG_ON) {
+            LOG(INFO) << "data: " << reader.consume(8192).data();
+        }
+
 		conn->close();
     }
 
