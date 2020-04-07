@@ -32,10 +32,10 @@ inline void DynamicThreadPool::add(const TaskPtr& callback) {
     std::lock_guard<std::mutex> lock(lock_);
     callbacks_.push(callback);
 
-    /* 1. waiting_threads_ is 0 and current_threads_ > max_threads_, wait a idle thread form pool do task */
-    /* 2. waiting_threads_ is 0 and current_threads_ <= max_threads_, create a new thread do task */
+    /* 1. waiting_threads_ is 0 and current_threads_ >= max_threads_, wait a idle thread form pool do task */
+    /* 2. waiting_threads_ is 0 and current_threads_ < max_threads_, create a new thread do task */
     /* 3. waiting_threads_ is not 0, notify pool thread do task */
-    if (waiting_threads_ == 0 && current_threads_ > max_threads_) {
+    if (waiting_threads_ == 0 && current_threads_ >= max_threads_) {
         return;
     } else if (waiting_threads_ == 0) {
         ++ current_threads_;
@@ -54,8 +54,7 @@ void DynamicThreadPool::executerImpl() {
         std::unique_lock<std::mutex> lock(lock_);
         if (!shutdown_ && callbacks_.empty()) {
             if (waiting_threads_ >= core_threads_) {
-                //lock.unlock();
-                /* It will be auto unlock */ 
+                lock.unlock();
                 return;
             }
 
