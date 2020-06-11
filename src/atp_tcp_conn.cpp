@@ -124,7 +124,7 @@ void Connection::netFdWriteHandle() {
         reader.remove(n);
 
         if (write_buffer_.unreadBytes() == 0) {
-            chan_->disableEvents(true, false);
+            chan_->disableEvents(false, true);
             if (write_complete_fn_) {
                 write_complete_fn_(shared_from_this());
             }
