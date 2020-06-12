@@ -1,3 +1,3 @@
-/home/pengwang/cloud_platform/project/libatp/CMakeFiles/rebuild_cache.dir
-/home/pengwang/cloud_platform/project/libatp/CMakeFiles/edit_cache.dir
-/home/pengwang/cloud_platform/project/libatp/CMakeFiles/libatp.dir
+/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/rebuild_cache.dir
+/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/edit_cache.dir
+/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir

@@ -15,6 +15,8 @@ struct event_base;
 
 namespace atp {
 
+class CycleTimer;
+
 class EventLoop {
 public:
     using TaskEventPtr = std::function<void()>;
@@ -25,14 +27,15 @@ public:
 
 public:
     void dispatch();
+
     void stop();
+
     void sendToQueue(const TaskEventPtr& task);
+
     void sendToQueue(TaskEventPtr&& task);
 
-    /* The timing task interface */
-    //TimerPtr runAfter(double delay_ms, const TaskEventPtr& func);
-    //TimerPtr runEvery(double delay_ms, const TaskEventPtr& func);
-    
+    std::shared_ptr<CycleTimer> addCycleTask(int delay_ms, const TaskEventPtr& task, bool persist);
+        
 public:
     struct event_base* getEventBase() const {
         return event_base_;

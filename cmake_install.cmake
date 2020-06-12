@@ -1,4 +1,4 @@
-# Install script for directory: /home/pengwang/cloud_platform/project/libatp
+# Install script for directory: /home/pengwang/cloud_platform/project/github/libatp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/pengwang/cloud_platform/project/libatp/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/pengwang/cloud_platform/project/github/libatp/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -31,6 +31,10 @@ public:
     void detachEventAndFree();
     bool doWatch(struct timeval* tv);
 
+    void setCancelCallback(DoTasksEventPtr&& cb) {
+        cancel_watcher_handle = cb;
+    }
+
 protected:
     /* The derived class must impl */
     virtual bool doInitImpl() = 0;

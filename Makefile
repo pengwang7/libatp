@@ -48,10 +48,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pengwang/cloud_platform/project/libatp
+CMAKE_SOURCE_DIR = /home/pengwang/cloud_platform/project/github/libatp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pengwang/cloud_platform/project/libatp
+CMAKE_BINARY_DIR = /home/pengwang/cloud_platform/project/github/libatp
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pengwang/cloud_platform/project/libatp/CMakeFiles /home/pengwang/cloud_platform/project/libatp/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pengwang/cloud_platform/project/github/libatp/CMakeFiles /home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pengwang/cloud_platform/project/libatp/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pengwang/cloud_platform/project/github/libatp/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -474,6 +474,33 @@ src/atp_tcp_server.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.s
 .PHONY : src/atp_tcp_server.cpp.s
 
+src/atp_timer.o: src/atp_timer.cpp.o
+
+.PHONY : src/atp_timer.o
+
+# target to build an object file
+src/atp_timer.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_timer.cpp.o
+.PHONY : src/atp_timer.cpp.o
+
+src/atp_timer.i: src/atp_timer.cpp.i
+
+.PHONY : src/atp_timer.i
+
+# target to preprocess a source file
+src/atp_timer.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_timer.cpp.i
+.PHONY : src/atp_timer.cpp.i
+
+src/atp_timer.s: src/atp_timer.cpp.s
+
+.PHONY : src/atp_timer.s
+
+# target to generate assembly for a file
+src/atp_timer.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_timer.cpp.s
+.PHONY : src/atp_timer.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -522,6 +549,9 @@ help:
 	@echo "... src/atp_tcp_server.o"
 	@echo "... src/atp_tcp_server.i"
 	@echo "... src/atp_tcp_server.s"
+	@echo "... src/atp_timer.o"
+	@echo "... src/atp_timer.i"
+	@echo "... src/atp_timer.s"
 .PHONY : help
 
 

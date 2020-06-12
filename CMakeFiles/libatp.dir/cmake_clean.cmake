@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o"
+  "CMakeFiles/libatp.dir/src/atp_timer.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o"

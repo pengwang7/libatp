@@ -1,6 +1,7 @@
 #include "glog/logging.h"
 
 #include "atp_debug.h"
+#include "atp_timer.h"
 #include "atp_libevent.h"
 #include "atp_event_loop.h"
 
@@ -53,7 +54,7 @@ void EventLoop::dispatch() {
     }
 }
 
-/* 不可以直接调用stopHandle, 因为我们不确定调用stop的线程是哪一个 */
+/* Can't call stopHandle directly, because you are not sure which thread is calling stop */
 void EventLoop::stop() {
     sendToQueue(std::bind(&EventLoop::stopHandle, this));
 }
@@ -89,13 +90,10 @@ void EventLoop::sendToQueue(const TaskEventPtr& task) {
 
 void EventLoop::sendToQueue(TaskEventPtr&& task) {
     if (safety()) {
-        //LOG(INFO) << "in thread same thread";
         /* If in loop thread, execute the task function */
         task();
         return;
     }
-
-    //LOG(INFO) << "send to other threads";
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -107,6 +105,13 @@ void EventLoop::sendToQueue(TaskEventPtr&& task) {
         notified_.store(true);
         event_watcher_->eventNotify();
     }
+}
+
+std::shared_ptr<CycleTimer> EventLoop::addCycleTask(int delay_ms, const TaskEventPtr& task, bool persist) {
+    std::shared_ptr<CycleTimer> cycle_timer = CycleTimer::newCycleTimer(this, delay_ms, task, persist);
+    cycle_timer->start();
+
+    return cycle_timer;
 }
 
 void EventLoop::doInit() {

@@ -20,6 +20,7 @@ set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/atp_memory_pool.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_memory_policy.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_event_watcher.cpp
+    ${PROJECT_SOURCE_DIR}/src/atp_timer.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_event_loop.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_event_loop_thread_pool.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_tcp_server.cpp
