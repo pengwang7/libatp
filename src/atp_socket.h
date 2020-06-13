@@ -9,7 +9,22 @@
 #include <sys/socket.h>
 #include <netinet/tcp.h>
 
+
 namespace atp {
+
+typedef enum {
+    SOCKET_ERROR_BASE          =  (-300),
+    SOCKET_CREATE_ERROR        =  (SOCKET_ERROR_BASE - 1),
+    SOCKET_SETOPT_ERROR        =  (SOCKET_ERROR_BASE - 2),
+    SOCKET_GETOPT_ERROR        =  (SOCKET_ERROR_BASE - 3),
+    SOCKET_SET_NONBLOCK_ERROR  =  (SOCKET_ERROR_BASE - 4),
+    SOCKET_CONNECT_ERROR       =  (SOCKET_ERROR_BASE - 5),
+    SOCKET_BIND_ERROR          =  (SOCKET_ERROR_BASE - 6),
+    SOCKET_LISTEN_ERROR        =  (SOCKET_ERROR_BASE - 7),
+    SOCKET_ACCEPT_ERROR        =  (SOCKET_ERROR_BASE - 9),
+    SOCKET_CONNECT_TIMEOUT     =  (SOCKET_ERROR_BASE - 10),
+    SOCKET_GET_APP_ERROR       =  (SOCKET_ERROR_BASE - 11)
+} SocketError;
 
 class SocketOptions {
 public:
@@ -32,7 +47,7 @@ protected:
     
     int create(bool stream);
     
-    int connect(std::string& ip, int port);
+    int connect(std::string& ip, int port, struct timeval* tv);
 
     int bind(std::string& ip, int port);
 

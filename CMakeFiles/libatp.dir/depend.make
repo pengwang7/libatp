@@ -28,7 +28,9 @@ CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_e
 CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_event_loop_thread_pool.h
 CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_event_watcher.h
 CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_libevent.h
+CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_send_helper.hpp
 CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_slice.h
+CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_socket.h
 CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_state_machine.h
 CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_tcp_conn.h
 CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o: src/atp_tcp_server.h

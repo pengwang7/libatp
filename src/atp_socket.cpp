@@ -106,10 +106,58 @@ int SocketImpl::create(bool stream) {
 error:
     ::close(fd_);
     fd_ = 0;
-    return -1;
+    return SOCKET_CREATE_ERROR;
 }
 
-int SocketImpl::connect(std::string& ip, int port) {
+int SocketImpl::connect(std::string& ip, int port, struct timeval* tv) {
+    int ret = 0;
+    int res = 0;
+
+    struct sockaddr_in srvaddr;
+    memset(&srvaddr, 0, sizeof(srvaddr));
+    srvaddr.sin_family = AF_INET;
+    srvaddr.sin_port = htons(port);
+    srvaddr.sin_addr.s_addr = inet_addr(ip.c_str());
+
+    do {
+        ret = ::connect(fd_, reinterpret_cast<struct sockaddr*>(&srvaddr), sizeof(srvaddr));
+    } while (ret < 0 && errno == EINTR);
+
+    if (ret == 0) {
+        return 0;
+    }
+
+    if (ret < 0 && errno == EINPROGRESS) {
+        fd_set conn_fdset, error_fdset;
+        FD_ZERO(&conn_fdset);
+        FD_ZERO(&error_fdset);
+
+        res = select(fd_ + 1, NULL, &conn_fdset, &error_fdset, tv);
+        if (res < 0) {
+            close();
+
+            return SOCKET_CONNECT_ERROR;
+        } else if (res == 0) {
+            errno = ETIMEDOUT;
+            close();
+
+            return SOCKET_CONNECT_TIMEOUT;
+        }
+
+        int so_error;
+        socklen_t so_error_len = sizeof(so_error);
+
+        if (FD_ISSET(fd_, &error_fdset)) {
+            getsockopt(fd_, SOL_SOCKET, SO_ERROR, &so_error, &so_error_len);
+            errno = so_error;
+            close();
+
+            return SOCKET_GET_APP_ERROR;
+        }
+    } else {
+        return SOCKET_CONNECT_ERROR;
+    }
+
     return 0;
 }
 
@@ -126,7 +174,7 @@ int SocketImpl::bind(std::string& ip, int port) {
     baddr.sin_addr.s_addr = inet_addr(ip_.c_str());
         
     if (::bind(fd_, (struct sockaddr*)&baddr, sizeof(baddr)) < 0) {
-        return -1;
+        return SOCKET_BIND_ERROR;
     }
 
     return 0;
@@ -136,7 +184,7 @@ int SocketImpl::listen(int backlog) {
     int SO_MAX_CONN = 0;
     backlog <= 0 ? SO_MAX_CONN = ATP_SO_MAX_CONN : SO_MAX_CONN = backlog;
     if (::listen(fd_, SO_MAX_CONN) < 0) {
-        return -1;
+        return SOCKET_LISTEN_ERROR;
     }
 
     return 0;
@@ -147,6 +195,10 @@ int SocketImpl::accept(std::string& remote_addr) {
     struct sockaddr_in raddr;
     socklen_t addr_len = sizeof(raddr);
     int conn_fd = ::accept(fd_, reinterpret_cast<struct sockaddr*>(&raddr), &addr_len);
+    if (conn_fd < 0) {
+        return SOCKET_ACCEPT_ERROR;
+    }
+
     remote_addr = inet_ntop(raddr.sin_family, &raddr.sin_addr, buf, sizeof(buf));
 
     return conn_fd;

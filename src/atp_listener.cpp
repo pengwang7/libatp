@@ -20,7 +20,7 @@ Listener::~Listener() {
 
 void Listener::listen() {
     listen_fd_ = create(true);
-    assert(listen_fd_ != -1);
+    assert(listen_fd_ >= 0);
 
     /* Set socket flags for listen fd */
     setOption(listen_fd_, SO_REUSEADDR, 1);
@@ -54,7 +54,7 @@ void Listener::acceptHandle() {
 
     std::string remote_address;
     int conn_fd = SocketImpl::accept(remote_address);
-    if (conn_fd == -1) {
+    if (conn_fd < 0) {
         if (errno != EAGAIN && errno != EINTR) {
             LOG(ERROR) << "Accept connection met error: " << strerror(errno);
         }
