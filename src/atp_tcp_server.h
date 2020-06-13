@@ -58,9 +58,13 @@ public:
     }
 };
 
-class Server     : public STATE_MACHINE_INTERFACE {
+class Server : public STATE_MACHINE_INTERFACE {
 public:
     explicit Server(std::string name, ServerAddress server_address, int thread_nums);
+
+    /* Multi accept mode(SO_REUSEPORT) */
+    explicit Server(std::string name, EventLoop* event_loop, ServerAddress server_address, int thread_num);
+
     ~Server();
 
 public:
@@ -103,6 +107,7 @@ private:
     CloseCallback close_fn_;
     int thread_num_;
 	int dynamic_thread_pool_size_;
+    int server_mode_;
 };
 
 } /* end namespace atp */;

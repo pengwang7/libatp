@@ -23,8 +23,55 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
     server_address_ = server_address;
     thread_num_ = thread_num;
 	dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
+    server_mode_ = 0;
 
     control_event_loop_.reset(new EventLoop());
+    listener_.reset(new Listener(control_event_loop_.get(), server_address_.addr_, server_address_.port_));
+    dynamic_thread_pool_.reset(new DynamicThreadPool(thread_num_));
+    uuid_generator_.reset(new UUIDGenerator());
+    json_codec_.reset(new Codec());
+    conns_table_.reset(new HashTableConn());
+
+	if (thread_num_ > 0) {
+		event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
+	}
+	
+    assert(control_event_loop_ != nullptr);
+    assert(listener_ != nullptr);
+    assert(dynamic_thread_pool_ != nullptr);
+    assert(uuid_generator_ != nullptr);
+    assert(json_codec_ != nullptr);
+    assert(conns_table_ != nullptr);
+    assert(server_address_.addr_.length() != 0);
+    assert(server_address_.port_ > 0);
+
+	if (thread_num_ > 0) {
+		assert(event_loop_thread_pool_ != nullptr);
+	}
+	
+    if (service_name_.length() == 0) {
+        service_name_ = "SERVER-" + uuid_generator_->generateUUID();
+    }
+
+    assert(service_name_.length() != 0);
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "[Server] create server: " << service_name_;
+    }
+
+    state_.store(STATE_INIT);
+}
+
+Server::Server(std::string name, EventLoop* event_loop, ServerAddress server_address, int thread_num) {
+    /* Initialize all components for the server. */
+    state_.store(STATE_NULL);
+    service_name_ = name;
+    server_address_ = server_address;
+    thread_num_ = thread_num;
+	dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
+    server_mode_ = 1;
+
+    control_event_loop_.reset(event_loop);
     listener_.reset(new Listener(control_event_loop_.get(), server_address_.addr_, server_address_.port_));
     dynamic_thread_pool_.reset(new DynamicThreadPool(thread_num_));
     uuid_generator_.reset(new UUIDGenerator());
@@ -84,7 +131,9 @@ void Server::start() {
     /* Update server state to running. */
     state_.store(STATE_RUNNING);
 
-    control_event_loop_->dispatch();
+    if (!server_mode_) {
+        control_event_loop_->dispatch();
+    }
 }
 
 void Server::stop() {

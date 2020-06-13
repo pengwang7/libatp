@@ -22,7 +22,7 @@ public:
     using TaskEventPtr = std::function<void()>;
     
 public:
-    explicit EventLoop();
+    EventLoop();
     ~EventLoop();
 
 public:

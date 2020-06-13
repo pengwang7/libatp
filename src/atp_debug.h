@@ -7,7 +7,7 @@ namespace atp {
 
 #define ATP_EXPORT_SYMBOL
 
-#define ATP_DEBUG_ON (0)
+#define ATP_DEBUG_ON (1)
 
 #define ATP_MEMORY_POOL_NAME  (64)
 #define ATP_MEMORY_POOL_ALIGN (8)

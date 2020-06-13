@@ -29,6 +29,10 @@ void Listener::listen() {
 
     assert(bind(address_.host_, address_.port_) == 0);
     assert(SocketImpl::listen(ATP_SO_MAX_CONN) == 0);
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "Listener listen host: " << address_.host_ << "  port: " << address_.port_;
+    }
 }
 
 void Listener::accept() {
@@ -58,7 +62,11 @@ void Listener::acceptHandle() {
         return;
     }
 
-	/* TCP_NODELAY and TCP_QUICKACK are need to used together. */
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "The listener accept fd thread id: " << std::this_thread::get_id();
+    }
+
+	/* TCP_NODELAY and TCP_QUICKACK are need to used together */
     setOption(conn_fd, O_NONBLOCK, 1);
     setOption(conn_fd, TCP_NODELAY, 1);
     setOption(conn_fd, TCP_QUICKACK, 1);

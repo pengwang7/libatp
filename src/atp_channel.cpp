@@ -1,5 +1,6 @@
 #include <string.h>
 
+#include "glog/logging.h"
 #include "atp_libevent.h"
 #include "atp_channel.h"
 #include "atp_event_loop.h"
@@ -25,10 +26,18 @@ Channel::Channel(EventLoop* event_loop, int fd, bool readable, bool writable)
     assert(event_);
 
     memset(event_, 0, sizeof(*event_));
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "New channel(" << fd_ << ").";
+    }
 }
 
 Channel::~Channel() {
     assert(event_ == NULL);
+
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "Destroy channel(" << fd_ << ").";
+    }
 }
 
 void Channel::attachToEventLoop() {

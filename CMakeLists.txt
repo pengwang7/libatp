@@ -3,7 +3,7 @@ project(libatp)
 
 include_directories(
     /home/pengwang/cloud_platform/framework/3rd
-    /home/pengwang/cloud_platform/project/libatp/src
+    /home/pengwang/cloud_platform/project/github/libatp/src
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O0 -pg -pipe -Wall -g -W")
@@ -28,26 +28,9 @@ set(BUTIL_SOURCES
     # benchmark
     #${PROJECT_SOURCE_DIR}/examples/atp_buffer_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_listener_benchmark.cpp
-    ${PROJECT_SOURCE_DIR}/examples/atp_tcp_benchmark.cpp
-    #${PROJECT_SOURCE_DIR}/examples/atp_tcp_multi_listener_benchmark.cpp
+    #{PROJECT_SOURCE_DIR}/examples/atp_tcp_benchmark.cpp
+    ${PROJECT_SOURCE_DIR}/examples/atp_tcp_multi_listener_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_memory_pool_benchmark.cpp
-
-    #${PROJECT_SOURCE_DIR}/beast/socket.cpp
-    #${PROJECT_SOURCE_DIR}/beast/buffer.cpp
-    #${PROJECT_SOURCE_DIR}/beast/channel.cpp
-    #${PROJECT_SOURCE_DIR}/beast/policy.cpp
-    #${PROJECT_SOURCE_DIR}/beast/memory_pool.cpp
-    #${PROJECT_SOURCE_DIR}/beast/dynamic_thread_pool.cpp
-    #${PROJECT_SOURCE_DIR}/beast/listener.cpp
-    #${PROJECT_SOURCE_DIR}/beast/libevent.cpp
-    #${PROJECT_SOURCE_DIR}/beast/event_watcher.cpp
-    #${PROJECT_SOURCE_DIR}/beast/event_loop.cpp
-    #${PROJECT_SOURCE_DIR}/beast/connection.cpp
-    #${PROJECT_SOURCE_DIR}/beast/event_timer.cpp
-    #${PROJECT_SOURCE_DIR}/beast/event_loop_thread.cpp
-    #${PROJECT_SOURCE_DIR}/beast/event_loop_pool.cpp
-    #${PROJECT_SOURCE_DIR}/beast/tcp_server.cpp
-
     #${PROJECT_SOURCE_DIR}/example/example_for_tcp_server.cpp
 
 )

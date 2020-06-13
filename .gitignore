@@ -2,6 +2,7 @@
 *.bin
 *.o
 *.log
+log*
 *.so
 *.a
 *.obj

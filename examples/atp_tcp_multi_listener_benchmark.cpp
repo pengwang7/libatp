@@ -3,6 +3,8 @@
 #include "glog/logging.h"
 
 #include "atp_tcp_server.h"
+#include "atp_event_loop.h"
+#include "atp_event_loop_thread_pool.h"
 
 using namespace atp;
 
@@ -28,14 +30,20 @@ public:
 		srvaddr_.addr_ = ip;
 		srvaddr_.port_ = port;
 
+        hold_event_loop_.reset(new EventLoop());
+        event_loop_pool_.reset(new EventLoopPool(listeners));
+        event_loop_pool_->autoStart();
+
 		for (int i = 0; i < listeners; ++ i) {
 			LOG(INFO) << "The " << i + 1 << " listener create";
-			
+
+            EventLoop* event_loop = event_loop_pool_->getIOEventLoop();
+
 			ServerPtr server;
-			server.reset(new Server("multi-listeners-echo-server", srvaddr_, 0));
+			server.reset(new Server("multi-listeners-echo-server", event_loop, srvaddr_, 0));
 			server->setConnectionCallback(std::bind(&EchoServer::onConnection, this, std::placeholders::_1));
 			server->setMessageCallback(std::bind(&EchoServer::onMessage, this, std::placeholders::_1, std::placeholders::_2));
-
+            server->start();
 			servers_.push_back(server);
 		}
 	}
@@ -45,9 +53,8 @@ public:
 	}
 
 	void start() {
-		for (auto iter = servers_.begin(); iter != servers_.end(); iter ++) {
-			(*iter)->start();
-		}
+	    // The hold_event_loop_ internal had event_watcher events.
+	    hold_event_loop_->dispatch();
 	}
 
 	void stop() {
@@ -69,17 +76,20 @@ void onMessage(const ConnectionPtr& conn, ByteBuffer& read_buf) {
 }
 
 private:
+    std::unique_ptr<EventLoop> hold_event_loop_;
+    std::unique_ptr<EventLoopPool> event_loop_pool_;
 	std::vector<ServerPtr> servers_;
 	ServerAddress srvaddr_;
 };
 
 void test1() {
-	int listeners = getSystemCPUProcessers() * 2;
-	EchoServer server(std::string("0.0.0.0"), 7788, listeners);
+	int listeners = getSystemCPUProcessers();
+	EchoServer server(std::string("0.0.0.0"), 8012, listeners);
 	server.start();
 }
 
 int main() {
+    atp_logger_init();
 #ifdef TEST_1
 	test1();
 #endif

@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11 -O0 -pg -pipe -Wall -g -W -fPIC -fstrict-aliasing -Wno-i
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/pengwang/cloud_platform/framework/3rd -I/home/pengwang/cloud_platform/project/libatp/src 
+CXX_INCLUDES = -I/home/pengwang/cloud_platform/framework/3rd -I/home/pengwang/cloud_platform/project/github/libatp/src 
 

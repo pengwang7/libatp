@@ -39,7 +39,7 @@ private:
 };
 
 
-class EventLoopPool           : public STATE_MACHINE_INTERFACE {
+class EventLoopPool    : public STATE_MACHINE_INTERFACE {
 public:
     EventLoopPool(size_t threads_num);
     ~EventLoopPool();

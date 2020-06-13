@@ -90,10 +90,18 @@ void EventLoop::sendToQueue(const TaskEventPtr& task) {
 
 void EventLoop::sendToQueue(TaskEventPtr&& task) {
     if (safety()) {
+		if (ATP_DEBUG_ON) {
+			LOG(INFO) << "in thread same thread";
+		}
+
         /* If in loop thread, execute the task function */
         task();
         return;
     }
+
+	if (ATP_DEBUG_ON) {
+		LOG(INFO) << "send to other threads";
+	}
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -146,15 +154,18 @@ void EventLoop::doPendingTasks() {
     }
 
     if (ATP_DEBUG_ON) {
-        LOG(INFO) << "The current tasks size: " << tmp_pending_tasks.size();
+        LOG(INFO) << "The begin current tasks size: " << tmp_pending_tasks.size();
+        LOG(INFO) << "Do tasks thread id: " << std::this_thread::get_id();
     }
-
-    //LOG(INFO) << "do tasks thread id: " << std::this_thread::get_id();
 
     /* Execute other threads send to this thread(safety thread) tasks */
     for (size_t i = 0; i < tmp_pending_tasks.size(); ++ i) {
         tmp_pending_tasks[i]();
         -- pending_tasks_size_;
+
+        if (ATP_DEBUG_ON) {
+            LOG(INFO) << "Do task, current task size: " << pending_tasks_size_;
+        }
     }
 }
 
