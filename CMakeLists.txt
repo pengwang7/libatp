@@ -8,7 +8,7 @@ include_directories(
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O0 -pg -pipe -Wall -g -W")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -fstrict-aliasing -Wno-invalid-offsetof -Wno-unused-parameter -fno-omit-frame-pointer -Wno-unused-function")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -luuid -lglog")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -luuid -lssl -lcrypto -lglog")
 
 set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/atp_socket.cpp
@@ -24,6 +24,7 @@ set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/atp_event_loop.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_event_loop_thread_pool.cpp
     ${PROJECT_SOURCE_DIR}/src/atp_tcp_server.cpp
+    ${PROJECT_SOURCE_DIR}/src/atp_https_client.cpp
 
     # benchmark
     #${PROJECT_SOURCE_DIR}/examples/atp_buffer_benchmark.cpp
@@ -37,7 +38,7 @@ set(BUTIL_SOURCES
 
 add_executable(${PROJECT_NAME} ${BUTIL_SOURCES})
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/jsoncpp/libjsoncpp.a)
-target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/libevent/libevent_core.a)
+target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/libevent/libevent.a)
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/gflags/libgflags.so)
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/glog/libglog.a)
 

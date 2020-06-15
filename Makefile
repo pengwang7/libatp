@@ -285,6 +285,33 @@ src/atp_event_watcher.cpp.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.s
 .PHONY : src/atp_event_watcher.cpp.s
 
+src/atp_https_client.o: src/atp_https_client.cpp.o
+
+.PHONY : src/atp_https_client.o
+
+# target to build an object file
+src/atp_https_client.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_https_client.cpp.o
+.PHONY : src/atp_https_client.cpp.o
+
+src/atp_https_client.i: src/atp_https_client.cpp.i
+
+.PHONY : src/atp_https_client.i
+
+# target to preprocess a source file
+src/atp_https_client.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_https_client.cpp.i
+.PHONY : src/atp_https_client.cpp.i
+
+src/atp_https_client.s: src/atp_https_client.cpp.s
+
+.PHONY : src/atp_https_client.s
+
+# target to generate assembly for a file
+src/atp_https_client.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/src/atp_https_client.cpp.s
+.PHONY : src/atp_https_client.cpp.s
+
 src/atp_libevent.o: src/atp_libevent.cpp.o
 
 .PHONY : src/atp_libevent.o
@@ -528,6 +555,9 @@ help:
 	@echo "... src/atp_event_watcher.o"
 	@echo "... src/atp_event_watcher.i"
 	@echo "... src/atp_event_watcher.s"
+	@echo "... src/atp_https_client.o"
+	@echo "... src/atp_https_client.i"
+	@echo "... src/atp_https_client.s"
 	@echo "... src/atp_libevent.o"
 	@echo "... src/atp_libevent.i"
 	@echo "... src/atp_libevent.s"

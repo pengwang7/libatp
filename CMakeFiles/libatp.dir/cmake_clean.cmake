@@ -12,6 +12,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o"
   "CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o"
+  "CMakeFiles/libatp.dir/src/atp_https_client.cpp.o"
   "CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o"
   "libatp.pdb"
   "libatp"

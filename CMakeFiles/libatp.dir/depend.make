@@ -93,6 +93,14 @@ CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: src/atp_event_watcher.cpp
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: src/atp_event_watcher.h
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: src/atp_libevent.h
 
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/buffer.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/bufferevent.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/bufferevent_ssl.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/http.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: src/atp_https_client.cpp
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: src/atp_https_client.h
+
 CMakeFiles/libatp.dir/src/atp_libevent.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
 CMakeFiles/libatp.dir/src/atp_libevent.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
 CMakeFiles/libatp.dir/src/atp_libevent.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h

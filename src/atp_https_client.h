@@ -6,6 +6,11 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 
+
+struct event_base;
+struct bufferevent;
+struct evhttp_connection;
+
 namespace atp {
 
 typedef enum {
@@ -15,18 +20,15 @@ typedef enum {
     TYPE_NULL
 } DataType;
 
-struct event_base;
-struct bufferevent;
-struct evhttp_connection;
 
 class HttpsClient {
 public:
-    HttpsClient();
+    explicit HttpsClient();
 
     ~HttpsClient();
 
 public:
-    int launchRequest(std::string data, int data_type);
+    std::string launchRequest(std::string uri, std::string data, DataType data_type);
 
 private:
     void doPostRequest();
@@ -64,6 +66,8 @@ private:
         std::string host;
         std::string post_data;
         DataType type;
+
+        std::string response;
 
         struct event_base* base;
         struct bufferevent* bev;

@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pengwang/cloud_platform/project/github/libatp/src/atp_event_loop.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o"
   "/home/pengwang/cloud_platform/project/github/libatp/src/atp_event_loop_thread_pool.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o"
   "/home/pengwang/cloud_platform/project/github/libatp/src/atp_event_watcher.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_https_client.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_https_client.cpp.o"
   "/home/pengwang/cloud_platform/project/github/libatp/src/atp_libevent.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_libevent.cpp.o"
   "/home/pengwang/cloud_platform/project/github/libatp/src/atp_listener.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_listener.cpp.o"
   "/home/pengwang/cloud_platform/project/github/libatp/src/atp_memory_policy.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"
