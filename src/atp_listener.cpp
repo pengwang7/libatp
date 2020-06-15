@@ -77,4 +77,4 @@ void Listener::acceptHandle() {
     }
 }
 
-}/*end namespace atp*/
+} /* end namespace atp */

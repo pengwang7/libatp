@@ -221,6 +221,8 @@ vector
 -
 glog/logging.h
 /home/pengwang/cloud_platform/project/github/libatp/examples/glog/logging.h
+atp_https_client.h
+/home/pengwang/cloud_platform/project/github/libatp/examples/atp_https_client.h
 atp_send_helper.hpp
 /home/pengwang/cloud_platform/project/github/libatp/examples/atp_send_helper.hpp
 atp_tcp_server.h
@@ -620,6 +622,14 @@ src/atp_state_machine.h
 
 src/atp_event_watcher.h
 functional
+-
+
+src/atp_https_client.h
+string
+-
+openssl/ssl.h
+-
+openssl/err.h
 -
 
 src/atp_libevent.h

@@ -81,5 +81,6 @@ private:
     std::atomic<bool> notified_;
 };
 
-}/*end namespace atp*/
-#endif
+} /* end namespace atp */
+
+#endif /* __ATP_EVENT_LOOP_H__ */

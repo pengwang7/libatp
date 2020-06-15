@@ -64,5 +64,6 @@ evutil_make_internal_pipe(evutil_socket_t fd[2]);
 int
 evutil_make_internal_eventfd(int val, int flags);
 
-}/*end namespace atp*/
-#endif
+} /* end namespace atp */
+
+#endif /* __ATP_LIBEVENT_H__ */

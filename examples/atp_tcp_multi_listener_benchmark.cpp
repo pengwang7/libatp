@@ -2,6 +2,7 @@
 
 #include "glog/logging.h"
 
+#include "atp_https_client.h"
 #include "atp_send_helper.hpp"
 #include "atp_tcp_server.h"
 #include "atp_event_loop.h"

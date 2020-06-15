@@ -28,6 +28,7 @@ CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o
  src/atp_event_loop.h
  src/atp_event_loop_thread_pool.h
  src/atp_event_watcher.h
+ src/atp_https_client.h
  src/atp_libevent.h
  src/atp_send_helper.hpp
  src/atp_slice.h

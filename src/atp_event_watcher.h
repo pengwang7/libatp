@@ -100,5 +100,6 @@ private:
     struct timeval tv_;
 };
 
-}/*end namespace atp*/
-#endif
+} /* end namespace atp */
+
+#endif /* __ATP_EVENT_WATCHER_H__ */
