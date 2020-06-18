@@ -21,6 +21,7 @@ typedef enum {
 } DataType;
 
 
+/* A tiny https client for POST. */
 class HttpsClient {
 public:
     explicit HttpsClient();

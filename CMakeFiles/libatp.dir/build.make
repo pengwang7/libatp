@@ -456,6 +456,7 @@ libatp: CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o
 libatp: CMakeFiles/libatp.dir/build.make
 libatp: /home/pengwang/cloud_platform/target/3rd/jsoncpp/libjsoncpp.a
 libatp: /home/pengwang/cloud_platform/target/3rd/libevent/libevent.a
+libatp: /home/pengwang/cloud_platform/target/3rd/libevent/libevent_openssl.a
 libatp: /home/pengwang/cloud_platform/target/3rd/gflags/libgflags.so
 libatp: /home/pengwang/cloud_platform/target/3rd/glog/libglog.a
 libatp: CMakeFiles/libatp.dir/link.txt

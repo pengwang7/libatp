@@ -425,6 +425,8 @@ libevent/event2/bufferevent.h
 /home/pengwang/cloud_platform/project/github/libatp/src/libevent/event2/bufferevent.h
 libevent/event2/bufferevent_ssl.h
 /home/pengwang/cloud_platform/project/github/libatp/src/libevent/event2/bufferevent_ssl.h
+glog/logging.h
+/home/pengwang/cloud_platform/project/github/libatp/src/glog/logging.h
 atp_https_client.h
 /home/pengwang/cloud_platform/project/github/libatp/src/atp_https_client.h
 

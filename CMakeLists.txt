@@ -39,6 +39,7 @@ set(BUTIL_SOURCES
 add_executable(${PROJECT_NAME} ${BUTIL_SOURCES})
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/jsoncpp/libjsoncpp.a)
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/libevent/libevent.a)
+target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/libevent/libevent_openssl.a)
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/gflags/libgflags.so)
 target_link_libraries(libatp /home/pengwang/cloud_platform/target/3rd/glog/libglog.a)
 

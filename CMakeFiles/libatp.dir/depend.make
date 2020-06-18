@@ -93,6 +93,12 @@ CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: src/atp_event_watcher.cpp
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: src/atp_event_watcher.h
 CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o: src/atp_libevent.h
 
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_declare.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_gflags.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/log_severity.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/logging.h
+CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/glog/vlog_is_on.h
 CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/buffer.h
 CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/bufferevent.h
 CMakeFiles/libatp.dir/src/atp_https_client.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/bufferevent_ssl.h

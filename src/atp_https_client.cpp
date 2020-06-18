@@ -4,11 +4,15 @@
 #include "libevent/event2/bufferevent.h"
 #include "libevent/event2/bufferevent_ssl.h"
 
+#include "glog/logging.h"
+
 #include "atp_https_client.h"
 
 namespace atp {
 
+
 HttpsClient::HttpsClient() {
+    s1_ = NULL;
 }
 
 HttpsClient::~HttpsClient() {
@@ -89,15 +93,81 @@ std::string HttpsClient::launchRequest(std::string uri, std::string data, DataTy
 }
 
 void HttpsClient::doPostRequest() {
+    SSL* ssl = SSL_new(s1_->ssl_ctx);
+    s1_->bev = bufferevent_openssl_socket_new(s1_->base, -1, ssl,
+        BUFFEREVENT_SSL_CONNECTING,
+        0 | BEV_OPT_CLOSE_ON_FREE | BEV_OPT_DEFER_CALLBACKS);
+    if (!s1_->bev) {
+        LOG(ERROR) << "The bufferevent is nil";
 
+        return;
+    }
+
+    bufferevent_openssl_set_allow_dirty_shutdown(s1_->bev, 1);
+
+    struct evhttp_request* request = evhttp_request_new(HttpsClient::requestFinished, this);
+    struct evkeyvalq* headers = evhttp_request_get_output_headers(request);
+    evhttp_add_header(headers, "Host", s1_->host.c_str());
+    evhttp_add_header(headers, "Connection", "close");
+
+    if (s1_->type == TYPE_JSON) {
+        /* Set content-type */
+        evhttp_add_header(headers, "Content-Type", "application/json;charset=UTF-8");
+    }
+    
+    s1_->conn = evhttp_connection_base_bufferevent_new(s1_->base, NULL, s1_->bev, s1_->host.c_str(), s1_->port);
+
+    /* Set connect timeout */
+    evhttp_connection_set_timeout(s1_->conn, 10);
+
+    /* Set post data */
+    evbuffer_add(evhttp_request_get_output_buffer(request), s1_->post_data.c_str(), s1_->post_data.size());
+
+    /* Send https post request */
+    evhttp_make_request(s1_->conn, request, EVHTTP_REQ_POST, s1_->uri.c_str());
 }
 
 void HttpsClient::requestFinished(struct evhttp_request* request, void* args) {
-
+    HttpsClient* client = static_cast<HttpsClient*>(args);
+    if (client) {
+        client->requestFinished(request);
+    }
 }
 
 void HttpsClient::requestFinished(struct evhttp_request* request) {
+    const int status_code = request ? evhttp_request_get_response_code(request) : 0;
+    if (status_code != HTTP_OK) {
+        LOG(INFO) << "statu_code error: " << status_code;
+    }
 
+    s1_->status = status_code;
+
+    char buffer[256] = {0};
+    unsigned long oslerr;
+
+    int printed_err = 0;
+    int errcode = EVUTIL_SOCKET_ERROR();
+
+    /* Print out the OpenSSL error queue that libevent */
+    /* squirreled away for us, if any. */
+    while ((oslerr = bufferevent_get_openssl_error(s1_->bev))) {
+        ERR_error_string_n(oslerr, buffer, sizeof(buffer));
+        printed_err = 1;
+    }
+
+    /* If the OpenSSL error queue was empty, maybe it was a */
+    /* socket error, let's try printing that. */
+    if (!printed_err && s1_->status != HTTP_OK) {
+        LOG(INFO) << "The socket error = " << evutil_socket_error_to_string(errcode);
+    }
+
+    /* Get remote response data */
+    if (request) {
+        struct evbuffer* buff = evhttp_request_get_input_buffer(request);
+        evbuffer_add (buff, "", 1);
+        char* payload = reinterpret_cast<char*>(evbuffer_pullup(buff, -1));
+        s1_->response = std::string(payload);
+    }
 }
 
 } /* end namespace atp */
