@@ -131,6 +131,8 @@ int SocketImpl::connect(std::string& ip, int port, struct timeval* tv) {
         fd_set conn_fdset, error_fdset;
         FD_ZERO(&conn_fdset);
         FD_ZERO(&error_fdset);
+        FD_SET(fd_, &conn_fdset);
+        FD_SET(fd_, &error_fdset);
 
         res = select(fd_ + 1, NULL, &conn_fdset, &error_fdset, tv);
         if (res < 0) {

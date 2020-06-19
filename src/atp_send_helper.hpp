@@ -57,6 +57,11 @@ public:
     }
 
 public:
+    /* Support external fd. */
+    int setFd(int fd) {
+        fd_ = fd;
+    }
+
     void setRetryCount(int retry_count) {
         retry_count_ = retry_count;
     }
