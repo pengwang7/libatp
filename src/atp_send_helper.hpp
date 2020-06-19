@@ -60,6 +60,8 @@ public:
     /* Support external fd. */
     int setFd(int fd) {
         fd_ = fd;
+
+        return fd_;
     }
 
     void setRetryCount(int retry_count) {
@@ -113,14 +115,7 @@ private:
             pollfds.events = POLLIN;
 
             ret = poll(&pollfds, 1, tv == NULL ? NULL : tv->tv_sec);
-        } while (ret < 0 && errno == EINTR);
-
-        do {
-            pollfds.fd = fd_;
-            pollfds.events = POLLIN;
-            
-            ret = poll(&pollfds, 1, tv == NULL ? -1 : tv->tv_sec);
-        } while (ret < 0 && errno == EINPROGRESS);
+        } while ((ret < 0 && (errno == EINTR || errno == EINPROGRESS)));
 
         if (ret <= 0) {
             if (ret == 0) {
