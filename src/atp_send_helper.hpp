@@ -129,14 +129,14 @@ private:
             return ATP_HELPER_POLL_ERROR;
         }
 
-        if (pollfds.revents & (POLLERR | POLLNVAL | POLLHUP)) {
+        if (pollfds.revents & ((POLLERR | POLLNVAL))) {
             close(fd_);
             fd_ = -1;
 
             return ATP_HELPER_POLL_ERROR;
         }
 
-        if (pollfds.revents & POLLIN) {
+        if (pollfds.revents & (POLLIN | POLLPRI | POLLRDHUP)) {
             char buff[4096];
             memset(buff, 0, sizeof(buff));
             ret = recv(fd_, buff, sizeof(buff), 0);
