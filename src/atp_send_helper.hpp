@@ -107,14 +107,26 @@ private:
         int ret = 0;
 
         struct pollfd pollfds;
-        pollfds.fd = fd_;
-        pollfds.events = POLLIN;
 
         do {
+            pollfds.fd = fd_;
+            pollfds.events = POLLIN;
+
             ret = poll(&pollfds, 1, tv == NULL ? NULL : tv->tv_sec);
         } while (ret < 0 && errno == EINTR);
 
+        do {
+            pollfds.fd = fd_;
+            pollfds.events = POLLIN;
+            
+            ret = poll(&pollfds, 1, tv == NULL ? -1 : tv->tv_sec);
+        } while (ret < 0 && errno == EINPROGRESS);
+
         if (ret <= 0) {
+            if (ret == 0) {
+                errno = ETIMEDOUT;
+            }
+
             LOG(INFO) << "The poll met error: " << strerror(errno);
             close(fd_);
             fd_ = -1;
