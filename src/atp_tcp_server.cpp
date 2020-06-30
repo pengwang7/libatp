@@ -3,9 +3,7 @@
 #include "atp_uuid.h"
 #include "atp_tcp_conn.h"
 #include "atp_listener.h"
-#include "atp_event_loop.h"
 #include "atp_dynamic_thread_pool.h"
-#include "atp_event_loop_thread_pool.h"
 #include "atp_tcp_server.h"
 #include "glog/logging.h"
 

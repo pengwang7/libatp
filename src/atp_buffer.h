@@ -291,14 +291,18 @@ public:
 
     int32_t readInt32() {
         int32_t x = peekInt32();
-        remove(sizeof(x));
+        if (x != -1) {
+            remove(sizeof(x));
+        }
 
         return x;
     }
 
     int64_t readInt64() {
         int64_t x = peekInt64();
-        remove(sizeof(x));
+        if (x != -1) {
+            remove(sizeof(x));
+        }
 
         return x;
     }
@@ -331,9 +335,29 @@ public:
 
         return n;
     }
-    
+
+    slice consume(const size_t length, bool verifiy) {
+        if (length <= buffer_.unreadBytes()) {
+            slice ss(buffer_.data(), length);
+            remove(length);
+        
+            return ss;
+        }
+
+        if (verifiy) {
+            slice ss2;
+
+            return ss2;
+        }
+
+        slice ss3(buffer_.data(), buffer_.unreadBytes());
+        remove(buffer_.unreadBytes());
+        
+        return ss3;
+    }
+
     slice consume(const size_t length) {
-        if (length < buffer_.unreadBytes()) {
+        if (length <= buffer_.unreadBytes()) {
             slice ss(buffer_.data(), length);
             remove(length);
         
@@ -350,5 +374,6 @@ private:
     ByteBuffer& buffer_;
 };
 
-}/*end namespace atp*/
-#endif
+} /* end namespace atp */
+
+#endif /* __ATP_BUFFER_H__ */

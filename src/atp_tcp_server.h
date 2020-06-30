@@ -7,6 +7,8 @@
 
 #include "atp_cbs.h"
 #include "atp_tcp_conn.h"
+#include "atp_event_loop.h"
+#include "atp_event_loop_thread_pool.h"
 #include "atp_state_machine.h"
 
 namespace atp {
