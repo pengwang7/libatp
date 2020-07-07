@@ -58,13 +58,17 @@ public:
     void onMessage(const ConnectionPtr& conn, ByteBuffer& buff);
 
 private:
+    void setRpcMessageId(int64_t id) {
+        id_ = id;
+    }
+
     void onRpcMessage(const ConnectionPtr& conn, const RpcMessagePtr& message);
 
     void onRpcRequest(const ConnectionPtr& conn, const RpcMessagePtr& message);
 
     void onRpcResponse(const ConnectionPtr& conn, const RpcMessagePtr& message);
 
-    void doneCallback(::google::protobuf::Message* response, int64_t id);
+    void doneCallback(const ConnectionPtr conn, ::google::protobuf::Message* response);
 
 private:
     typedef struct {
@@ -77,6 +81,8 @@ private:
     std::map<int64_t, outstanding_call> outstandings_;
 
     const ProtobufServicesMap* services_;
+
+    int64_t id_;
 };
 
 } /* end namespace atp */

@@ -2,6 +2,7 @@
 
 #include "rpc.pb.h"
 #include "atp_buffer.h"
+#include "atp_tcp_conn.h"
 #include "atp_rpc_channel.h"
 #include "glog/logging.h"
 
@@ -87,9 +88,9 @@ void RpcChannel::onRpcRequest(const ConnectionPtr& conn, const RpcMessagePtr& me
             std::unique_ptr<::google::protobuf::Message> request(service->GetRequestPrototype(method).New());
             if (request->ParseFromString(message->request())) {
                 ::google::protobuf::Message* response = service->GetResponsePrototype(method).New();
-                int64_t id = message->id();
+                setRpcMessageId(message->id());
                 service->CallMethod(method, NULL, request.get(), response,
-                    ::google::protobuf::NewCallback(this, &RpcChannel::doneCallback, response, id));
+                    ::google::protobuf::NewCallback(this, &RpcChannel::doneCallback, conn, response));
             }
         }
     } else {
@@ -105,8 +106,16 @@ void RpcChannel::onRpcResponse(const ConnectionPtr& conn, const RpcMessagePtr& m
     LOG(INFO) << "OnRpcResponse ......";
 }
 
-void RpcChannel::doneCallback(::google::protobuf::Message* response, int64_t id) {
-    LOG(INFO) << "doneCallback doing";
+void RpcChannel::doneCallback(const ConnectionPtr conn, ::google::protobuf::Message* response) {
+    std::unique_ptr<::google::protobuf::Message> body(response);
+    RpcMessage message;
+    message.set_type(RESPONSE);
+    message.set_id(id_);
+    message.set_response(body->SerializeAsString());
+
+    std::string buff;
+    message.SerializeToString(&buff);
+    conn->send(buff.c_str(), buff.length());
 }
 
 } /* end namespace atp */

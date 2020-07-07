@@ -17,8 +17,8 @@ RpcServer::RpcServer(std::string ip, unsigned int port) {
         .addr_ = ip,
         .port_ = port,
     };
-        
-    server_.reset(new Server("RpcServer", srvaddr, 6));
+
+    server_.reset(new Server("RpcServer", srvaddr, threads));
     server_->setConnectionCallback(std::bind(&RpcServer::onConnection, this, std::placeholders::_1));
     server_->setMessageCallback(std::bind(&RpcServer::onMessage, this, std::placeholders::_1, std::placeholders::_2));
 }
