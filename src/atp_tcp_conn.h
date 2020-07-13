@@ -39,44 +39,44 @@ public:
         return remote_addr_;
     }
 
-	/* For application layer set Connection read and write callback function. */
-	void setConnectionCallback(const ConnectionCallback& fn) {
-		conn_fn_ = fn;
-	}
+    /* For application layer set Connection read and write callback function. */
+    void setConnectionCallback(const ConnectionCallback& fn) {
+        conn_fn_ = fn;
+    }
 
-	void setReadMessageCallback(const ReadMessageCallback& fn) {
-		read_fn_ = fn;
-	}
+    void setReadMessageCallback(const ReadMessageCallback& fn) {
+        read_fn_ = fn;
+    }
 
-	void setWriteCompleteCallback(const WriteCompleteCallback& fn) {
-		write_complete_fn_ = fn;
-	}
+    void setWriteCompleteCallback(const WriteCompleteCallback& fn) {
+        write_complete_fn_ = fn;
+    }
 
-	void setTimedoutCallback(const TimedoutCallback& fn) {
-		timedout_fn_ = fn;
-	}
+    void setTimedoutCallback(const TimedoutCallback& fn) {
+        timedout_fn_ = fn;
+    }
 
-	void setCloseCallback(const CloseCallback& fn) {
-		close_fn_ = fn;
-	}
+    void setCloseCallback(const CloseCallback& fn) {
+        close_fn_ = fn;
+    }
 	
 private:
-	void netFdReadHandle();
-	void netFdWriteHandle();
-	void netFdCloseHandle();
-	void netFdErrorHandle();
+    void netFdReadHandle();
+    void netFdWriteHandle();
+    void netFdCloseHandle();
+    void netFdErrorHandle();
 	
 private:
-	EventLoop* event_loop_;
+    EventLoop* event_loop_;
 	
-	int fd_;
-	std::string id_;
+    int fd_;
+    std::string id_;
 
-	/* Record remote address. */
-	std::string remote_addr_;
+    /* Record remote address. */
+    std::string remote_addr_;
 
-	/* For the event realy read and write. */
-	std::unique_ptr<Channel> chan_;
+    /* For the event realy read and write. */
+    std::unique_ptr<Channel> chan_;
 
 	/* The buffer for this Connection read and write. */
     ByteBuffer read_buffer_;
@@ -89,13 +89,13 @@ private:
     ReadMessageCallback		read_fn_;
 
     /* When a Connection write all data to file description kernel buffer, this callback will be called. */
-	WriteCompleteCallback	write_complete_fn_;
+    WriteCompleteCallback	write_complete_fn_;
 
-	/* When a Connection is timeout, this callback will be called. */
-	TimedoutCallback		timedout_fn_;
+    /* When a Connection is timeout, this callback will be called. */
+    TimedoutCallback		timedout_fn_;
 
-	/* When a Connection closed, this callback will be called. */
-	CloseCallback			close_fn_;
+    /* When a Connection closed, this callback will be called. */
+    CloseCallback			close_fn_;
 };
 
 }/*end namespace atp*/

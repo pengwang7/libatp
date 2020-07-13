@@ -197,4 +197,4 @@ void EventLoop::stopHandle() {
     }
 }
 
-}/*end namespace atp*/
+} /* end namespace atp */

@@ -68,19 +68,6 @@ int main() {
     core_message.set_request(req_message);    
     core_message.SerializeToString(&message);
 
-    LOG(INFO) << "The message1: " << message;
-
-    //request.set_message(message);
-    //request.SerializeToString(&message);
-
-    LOG(INFO) << "=====client request message2 serialize to string: " << message;
-/*
-    int32_t msg_len = htonl(message.size());
-    char buff[message.size() + sizeof(int32_t) + 1];
-    memset(buff, 0, sizeof(buff));
-    memcpy(buff, &msg_len, sizeof(int32_t));
-    memcpy(buff + sizeof(int32_t), message.c_str(), sizeof(buff) - sizeof(int32_t));
-*/
     ret = send(fd, message.c_str(), message.size(), 0);
     if (ret == message.size()) {
         LOG(INFO) << "Send message success";
