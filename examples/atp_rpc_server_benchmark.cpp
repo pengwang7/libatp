@@ -1,5 +1,6 @@
 #include "echo_server.pb.h"
 #include "atp_rpc_server.h"
+#include "atp_rsa_crypto.hpp"
 #include "glog/logging.h"
 
 using namespace atp;

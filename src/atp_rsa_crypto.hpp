@@ -34,6 +34,8 @@
 #include <openssl/pem.h>
 #include <openssl/err.h>
 
+#include "glog/logging.h"
+
 namespace atp {
 
 typedef enum {
@@ -45,18 +47,17 @@ typedef enum {
     RSA_READ_PRIVATE_KEY_ERROR =  (RSA_ERROR_BASE - 5),
     RSA_ENCRYPT_ERROR          =  (RSA_ERROR_BASE - 6),
     RSA_DECRYPT_ERROR          =  (RSA_ERROR_BASE - 7),
-    RSA_INVALID_ARGS           =  (RSA_ERROR_BASE - 8)
+    RSA_INVALID_ARGS           =  (RSA_ERROR_BASE - 8),
+    RSA_ENCRYPT_DATA_TO_LARGE  =  (RSA_ERROR_BASE - 9)
 } RSAErrorCode;
 
-
 /* The interface for message encrypt/decrypt. */
-class Encrypt {
+class RSA {
 public:
     virtual int encryptContent(std::string content, int padding) = 0;
 
     virtual int decryptContent(std::string content, int origlen, int padding) = 0;
 };
-
 
 /*
  * The module implement RSA encrypt/decrypt.
@@ -65,14 +66,14 @@ public:
  * messages of length up to k - 11 octets (k is the octet length of the RSA modulus)
  * so if you are using 2048-bit RSA key then maximum length of the plain data to be encrypted is 245 bytes.
  */
-class RsaEncrypt : public Encrypt {
+class RSACrypto : public RSA {
 public:
-    RsaEncrypt(std::string public_key = "", std::string private_key = "") {
+    RSACrypto(std::string public_key = "", std::string private_key = "") {
         public_key_path_ = public_key;
         private_key_path_ = private_key;
     }
 
-    ~RsaEncrypt() {
+    ~RSACrypto() {
 
     }
 
@@ -100,12 +101,47 @@ public:
     }
 
     int encryptContent(std::string content, int padding) override {
+        FILE* fp = fopen(public_key_path_.c_str(), "r");
+        ::RSA* rsa = PEM_read_RSA_PUBKEY(fp, NULL, NULL, NULL);
+        if (!rsa) {
+            fclose(fp);
+            LOG(ERROR) << "Read the RSA public key failed.";
+
+            return RSA_READ_PUBLIC_KEY_ERROR;
+        }
+
+        int rsa_len = RSA_size(rsa);
+
+        if (rsa_len < content.size()) {
+            return RSA_ENCRYPT_DATA_TO_LARGE;
+        }
+
+        unsigned char chunk_buff[rsa_len + 1];
+        unsigned char chunk_encrypt_buff[rsa_len];
+
+        memset(chunk_buff, 0, sizeof(chunk_buff));
+        memset(chunk_encrypt_buff, 0, sizeof(chunk_encrypt_buff));
+
+        memcpy(chunk_buff, (const unsigned char*)(content.c_str()), rsa_len);
+
+        int ret = RSA_public_encrypt(strlen((char*)chunk_buff), chunk_buff, chunk_encrypt_buff, rsa, padding == 0 ? RSA_NO_PADDING : padding);
+        if (ret < 0) {
+            char error[512];
+            ERR_load_crypto_strings();
+            ERR_error_string_n(ERR_get_error(), error, sizeof(error));
+            LOG(ERROR) << "The RSA encrypt error: " << error;
+        
+            return -1;
+        }
+
+        encrypt_result_ = std::string((char*)chunk_encrypt_buff, ret);
+
         return 0;
     }
 
     int decryptContent(std::string content, int origlen, int padding) override {
         FILE* fp = fopen(private_key_path_.c_str(), "r");
-        RSA* rsa = PEM_read_RSAPrivateKey(fp, NULL, NULL, NULL);
+        ::RSA* rsa = PEM_read_RSAPrivateKey(fp, NULL, NULL, NULL);
         if (!rsa) {
             fclose(fp);
             LOG(ERROR) << "Read the RSA private key failed.";
