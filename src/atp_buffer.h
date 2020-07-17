@@ -256,7 +256,7 @@ public:
             buffer_.setCoreBuffer(new_mem);
             buffer_.updateReadWriteIndex(reserved_prepend_size, reserved_prepend_size + buffer_.unreadBytes(), false);
         }
-	}
+    }
 	
     /* Remove constant length data for byte buffer */
     void remove(size_t length) {
