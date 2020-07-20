@@ -20,7 +20,7 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
     service_name_ = name;
     server_address_ = server_address;
     thread_num_ = thread_num;
-	dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
+    dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
     server_mode_ = 0;
 
     control_event_loop_.reset(new EventLoop());
@@ -30,10 +30,10 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
     json_codec_.reset(new Codec());
     conns_table_.reset(new HashTableConn());
 
-	if (thread_num_ > 0) {
-		event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
-	}
-	
+    if (thread_num_ > 0) {
+        event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
+    }
+
     assert(control_event_loop_ != nullptr);
     assert(listener_ != nullptr);
     assert(dynamic_thread_pool_ != nullptr);
@@ -43,10 +43,10 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
     assert(server_address_.addr_.length() != 0);
     assert(server_address_.port_ > 0);
 
-	if (thread_num_ > 0) {
-		assert(event_loop_thread_pool_ != nullptr);
-	}
-	
+    if (thread_num_ > 0) {
+        assert(event_loop_thread_pool_ != nullptr);
+    }
+
     if (service_name_.length() == 0) {
         service_name_ = "SERVER-" + uuid_generator_->generateUUID();
     }
@@ -66,7 +66,7 @@ Server::Server(std::string name, EventLoop* event_loop, ServerAddress server_add
     service_name_ = name;
     server_address_ = server_address;
     thread_num_ = thread_num;
-	dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
+    dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
     server_mode_ = 1;
 
     control_event_loop_.reset(event_loop);
@@ -76,10 +76,10 @@ Server::Server(std::string name, EventLoop* event_loop, ServerAddress server_add
     json_codec_.reset(new Codec());
     conns_table_.reset(new HashTableConn());
 
-	if (thread_num_ > 0) {
-		event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
-	}
-	
+    if (thread_num_ > 0) {
+        event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
+    }
+
     assert(control_event_loop_ != nullptr);
     assert(listener_ != nullptr);
     assert(dynamic_thread_pool_ != nullptr);
@@ -89,10 +89,10 @@ Server::Server(std::string name, EventLoop* event_loop, ServerAddress server_add
     assert(server_address_.addr_.length() != 0);
     assert(server_address_.port_ > 0);
 
-	if (thread_num_ > 0) {
-		assert(event_loop_thread_pool_ != nullptr);
-	}
-	
+    if (thread_num_ > 0) {
+        assert(event_loop_thread_pool_ != nullptr);
+    }
+
     if (service_name_.length() == 0) {
         service_name_ = "SERVER-" + uuid_generator_->generateUUID();
     }
@@ -108,9 +108,9 @@ Server::Server(std::string name, EventLoop* event_loop, ServerAddress server_add
 
 Server::~Server() {
     state_.store(STATE_STOPPED);
-	if (ATP_DEBUG_ON) {
-		LOG(INFO) << "[~Server] destroy server: " << service_name_;
-	}
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "[~Server] destroy server: " << service_name_;
+    }
 }
 
 void Server::start() {
@@ -141,15 +141,15 @@ void Server::stop() {
 }
 
 void Server::startEventLoopPool() {
-	if (thread_num_ > 0) {
-		event_loop_thread_pool_->autoStart();
-	}
+    if (thread_num_ > 0) {
+        event_loop_thread_pool_->autoStart();
+    }
 }
 
 void Server::stopEventLoopPool() {
-	if (thread_num_ > 0) {
-		event_loop_thread_pool_->autoStop();
-	}
+    if (thread_num_ > 0) {
+        event_loop_thread_pool_->autoStop();
+    }
 }
 
 void Server::handleNewConnection(int fd, std::string& taddr, void* args) {
@@ -163,7 +163,7 @@ void Server::handleNewConnection(int fd, std::string& taddr, void* args) {
     conn->setConnectionCallback(conn_fn_);
     conn->setReadMessageCallback(message_fn_);
     conn->setCloseCallback(std::bind(&Server::handleCloseConnection, this, std::placeholders::_1));
-    
+
     assert(conn);
 
     event_loop->sendToQueue(std::bind(&Connection::attachToEventLoop, conn));
@@ -177,8 +177,10 @@ void Server::handleCloseConnection(const ConnectionPtr& conn) {
         this->hashTableRemove(conn->getUUID());
     };
 
-	/* Thinking about this why used control_event_loop_ not used conn event_loop it self. */
-	/* We only have one container to store connections And want to reduce the lib lock. */
+    /*
+     * Thinking about this why used control_event_loop_ not used conn event_loop it self.
+     * We only have one container to store connections And want to reduce the lib lock.
+     */
     control_event_loop_->sendToQueue(fn);
 }
 
@@ -188,22 +190,22 @@ EventLoop* Server::getIOEventLoop() {
 }
 
 size_t Server::hashTableSize() {
-	return conns_table_->size();
+    return conns_table_->size();
 }
 
 void Server::hashTableInsert(std::pair<std::string, ConnectionPtr>& pair_val) {
 	if (ATP_DEBUG_ON) {
 		LOG(INFO) << "[hashTableInsert] conn uuid: " << pair_val.first;
 	}
-	
+
     conns_table_->insert(pair_val);
 }
 
 void Server::hashTableRemove(std::string uuid) {
-	if (ATP_DEBUG_ON) {
-		LOG(INFO) << "[hashTableRemove] conn uuid: " << uuid;
-	}
-	
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "[hashTableRemove] conn uuid: " << uuid;
+    }
+
     conns_table_->erase(uuid);
 }
 

@@ -5,18 +5,17 @@
 #include "atp_channel.h"
 #include "atp_event_loop.h"
 
-// test add
-#include <iostream>
-
 namespace atp {
 
-/* Check the libatp events */
+/*
+ * Check the libatp events == libevent events
+ */
 static_assert(ATP_READ_EVENT == EV_READ, "CHECK ELIBVENT VERSION FOR EV_READ");
 static_assert(ATP_WRITE_EVENT == EV_WRITE, "CHECKL IBEVENT VERSION FOR EV_WRITE");
 
 Channel::Channel(EventLoop* event_loop, int fd, bool readable, bool writable)
     : event_loop_(event_loop), attached_(false) {
-   
+
     events_ = (readable ? ATP_READ_EVENT : 0) | (writable ? ATP_WRITE_EVENT : 0);
 
     fd_ = fd;
@@ -41,18 +40,25 @@ Channel::~Channel() {
 }
 
 void Channel::attachToEventLoop() {
-    /* The channel is none events, not attach to event loop */
+    /*
+     * If the channel events is none, don't attach it to event loop.
+     */
     if (isNone()) {
         return;
     }
 
-    /* The channel if already attached, we detach from event loop */
+    /*
+     * If the channel already attached to event loop, need detach it.
+     */
     if (attached_) {
         detachFromEventLoop();
     }
-   
-    /* Add event_ default is persist event */
-    event_assign(event_, event_loop_->getEventBase(), fd_, 
+
+    /*
+     * Add the event to libevent event base
+     * and we set events default is persist.
+     */
+    event_assign(event_, event_loop_->getEventBase(), fd_,
         events_ | EV_PERSIST, &Channel::eventHandle, this);
 
     if (!event_add(event_, NULL)) {
@@ -61,7 +67,9 @@ void Channel::attachToEventLoop() {
 }
 
 void Channel::detachFromEventLoop() {
-    /* Delete event_ from the libevent event_base */
+    /*
+     * Delete event_ from the libevent event_base
+     */
     if (attached_ && event_del(event_) == 0) {
         attached_ = false;
     }
@@ -70,7 +78,9 @@ void Channel::detachFromEventLoop() {
 void Channel::updateEvents() {
     assert(event_loop_->safety());
 
-    /* Update the events to none/read/write */
+    /*
+     * Update the events to none/read/write
+     */
     if (isNone()) {
         detachFromEventLoop();
     } else {
@@ -148,7 +158,9 @@ std::string Channel::eventsToString() const {
 void Channel::eventHandle(int fd, short which) {
     assert(fd == fd_);
 
-    /* Call Connection layer read/write callback */
+    /*
+     * Call Connection layer read/write callback
+     */
     if ((which & ATP_READ_EVENT) && read_cb_) {
         read_cb_();
     }
@@ -163,4 +175,4 @@ void Channel::eventHandle(int fd, short which, void* args) {
     owner->eventHandle(fd, which);
 }
 
-}/*end namespace atp*/
+} /* end namespace atp */

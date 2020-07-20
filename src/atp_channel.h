@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2019 pengwang7(https://github.com/pengwang7/libatp)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 #ifndef __ATP_CHANNEL_H__
 #define __ATP_CHANNEL_H__
 
@@ -35,7 +59,6 @@ public:
     std::string eventsToString() const;
 
 public:
-    /* Inline functions */
     void setReadCallback(const EventCallbackPtr& cb) {
         read_cb_ = cb; 
     }
@@ -61,20 +84,23 @@ public:
     }
 
 private:
-	/* Using two eventHandle to avoid the limitation of static function */
+    /*
+     * In this, using two event handle to avoid the limitation of static function.
+     */
     void eventHandle(int fd, short which);
     static void eventHandle(int fd, short which, void* args);
 
 private:
-    EventLoop* event_loop_;			/* IO event loop */
-    struct event* event_;			/* The libevent event for read and write */
-    int fd_;						/* The event file description */
-    int events_;					/* The event is read or write or both */
-    bool attached_;					/* The event is weather or not add to libevent event_base */
+    EventLoop* event_loop_;         /* IO event loop */
+    struct event* event_;           /* The libevent event for read and write */
+    int fd_;                        /* The event file description */
+    int events_;                    /* The event is read or write or both */
+    bool attached_;                 /* The event is weather or not add to libevent event_base */
 
-    EventCallbackPtr read_cb_;		/* Libevent event read callback function */
-    EventCallbackPtr write_cb_;		/* Libevent event write callback function */
+    EventCallbackPtr read_cb_;      /* Libevent event read callback function */
+    EventCallbackPtr write_cb_;     /* Libevent event write callback function */
 };
 
-}/*end namespace atp*/
-#endif
+} /* end namespace atp */
+
+#endif /* __ATP_CHANNEL_H__ */

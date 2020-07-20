@@ -112,6 +112,6 @@ private:
     int has_dev_urandom_;
 };
 
-}/*end namespace atp*/
+} /* end namespace atp */
 
 #endif /* __ATP_UUID_H__ */

@@ -4,7 +4,6 @@
 
 #include "atp_base64.h"
 
-
 namespace atp {
 
 static char base64_code[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
