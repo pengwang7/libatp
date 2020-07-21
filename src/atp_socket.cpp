@@ -235,4 +235,4 @@ void SocketImpl::close() {
     fd_ = -1;
 }
 
-}/*end namespace atp*/
+} /* end namespace atp */

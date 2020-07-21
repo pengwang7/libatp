@@ -147,4 +147,4 @@ void Connection::netFdErrorHandle() {
     netFdCloseHandle();
 }
 
-} /*end namespace atp */
+} /* end namespace atp */

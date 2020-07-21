@@ -78,4 +78,4 @@ void CycleTimer::onCancel() {
     self_.reset();
 }
 
-}
+} /* end namespace atp */

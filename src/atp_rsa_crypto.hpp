@@ -48,7 +48,10 @@ typedef enum {
     RSA_ENCRYPT_ERROR          =  (RSA_ERROR_BASE - 6),
     RSA_DECRYPT_ERROR          =  (RSA_ERROR_BASE - 7),
     RSA_INVALID_ARGS           =  (RSA_ERROR_BASE - 8),
-    RSA_ENCRYPT_DATA_TO_LARGE  =  (RSA_ERROR_BASE - 9)
+    RSA_ENCRYPT_DATA_TO_LARGE  =  (RSA_ERROR_BASE - 9),
+    RSA_TRANSFORM_ARGS_ERROR   =  (RSA_ERROR_BASE - 10),
+    RSA_TRANSFORM_CERT_ERROR   =  (RSA_ERROR_BASE - 11),
+    RSA_TRANSFORM_OPEN_ERROR   =  (RSA_ERROR_BASE - 12)
 } RSAErrorCode;
 
 /* The interface for message encrypt/decrypt. */
@@ -206,6 +209,47 @@ public:
 
         RSA_free(rsa);
         fclose(fp);
+
+        return 0;
+    }
+
+    int getPublicKeyFromCertificate(std::string cert_path, std::string public_key_path) {
+        if (cert_path.size() == 0 || public_key_path.size() == 0) {
+            return RSA_TRANSFORM_ARGS_ERROR;
+        }
+
+        FILE* input_cert_fp = fopen(cert_path.c_str(), "r");
+        if (!input_cert_fp) {
+            return RSA_TRANSFORM_OPEN_ERROR;
+        }
+
+        X509* cert = PEM_read_X509(input_cert_fp, NULL, NULL, NULL);
+        if (!cert) {
+            fclose(input_cert_fp);
+
+            return RSA_TRANSFORM_CERT_ERROR;
+        }
+
+        // OpenSSL internal struct transform.
+        EVP_PKEY* evp_key = X509_get_pubkey(cert);
+        ::RSA* rsa = EVP_PKEY_get1_RSA(evp_key);
+
+        FILE* public_key_fp = fopen(public_key_path.c_str(), "w+");
+        if (!public_key_fp) {
+            fclose(input_cert_fp);
+            X509_free(cert);
+            RSA_free(rsa);
+
+            return RSA_TRANSFORM_OPEN_ERROR;
+        }
+
+        PEM_write_RSA_PUBKEY(public_key_fp, rsa);
+
+        fclose(input_cert_fp);
+        fclose(public_key_fp);
+
+        X509_free(cert);
+        RSA_free(rsa);
 
         return 0;
     }

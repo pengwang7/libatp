@@ -87,6 +87,6 @@ private:
     std::string ip_;
 };
 
-}/*end namespace atp*/
+} /* end namespace atp */
 
 #endif /* __ATP_SOCKET_H__ */

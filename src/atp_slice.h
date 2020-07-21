@@ -1,5 +1,5 @@
 #ifndef __ATP_SLICE_H__
-#define __APT_SLICE_H__
+#define __ATP_SLICE_H__
 
 #include <assert.h>
 #include <string.h>
@@ -50,6 +50,6 @@ inline bool operator!=(const Slice& x, const Slice& y) { return !(x == y); }
 
 using slice = Slice;
 
-}/*end namespace atp*/
+} /* end namespace atp */
 
-#endif
+#endif /* __ATP_SLICE_H__ */

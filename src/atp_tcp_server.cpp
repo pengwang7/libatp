@@ -194,9 +194,9 @@ size_t Server::hashTableSize() {
 }
 
 void Server::hashTableInsert(std::pair<std::string, ConnectionPtr>& pair_val) {
-	if (ATP_DEBUG_ON) {
-		LOG(INFO) << "[hashTableInsert] conn uuid: " << pair_val.first;
-	}
+    if (ATP_DEBUG_ON) {
+        LOG(INFO) << "[hashTableInsert] conn uuid: " << pair_val.first;
+    }
 
     conns_table_->insert(pair_val);
 }

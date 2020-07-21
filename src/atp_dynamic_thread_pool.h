@@ -72,6 +72,6 @@ private:
     std::list<DynamicThread*> dead_threads_;
 };
 
-}/*end namespace atp*/
+} /* end namespace atp */
 
-#endif
+#endif /* __ATP_DYNAMIC_THREAD_POOL__ */
