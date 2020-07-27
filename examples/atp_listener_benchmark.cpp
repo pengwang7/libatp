@@ -9,13 +9,13 @@
 using namespace atp;
 
 void atp_logger_init() {
-    FLAGS_alsologtostderr = true;                                                
+    FLAGS_alsologtostderr = true;
     FLAGS_colorlogtostderr = true;
-    FLAGS_logbufsecs = 0;                                                        
-    FLAGS_max_log_size = 1800;                                                   
-                                                                                 
-    google::InitGoogleLogging("test");                                           
-    google::SetLogDestination(google::GLOG_INFO,"log-");                         
+    FLAGS_logbufsecs = 0;
+    FLAGS_max_log_size = 1800;
+
+    google::InitGoogleLogging("test");
+    google::SetLogDestination(google::GLOG_INFO,"log-");
 }
 
 void atp_logger_close() {
