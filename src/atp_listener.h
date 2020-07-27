@@ -50,6 +50,6 @@ private:
     NewConnCallbackPtr new_conn_cb_;        /* The variable fn_ will be set by function setNewConnCallback */
 };
 
-}/*end namespace atp*/
+} /* end namespace atp */
 
-#endif
+#endif /* __ATP_LISTENER_H__ */

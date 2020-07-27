@@ -9,7 +9,6 @@
 #include <functional>
 #include <condition_variable>
 
-
 #include "atp_debug.h"
 
 namespace atp {

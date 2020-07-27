@@ -23,6 +23,7 @@ class Connection;
 class RpcChannel;
 class RpcMessage;
 
+using WeakConnectionPtr = std::weak_ptr<Connection>;
 using ConnectionPtr = std::shared_ptr<Connection>;
 using RpcChannelPtr = std::shared_ptr<RpcChannel>;
 using MessagePtr = std::shared_ptr<::google::protobuf::Message>;
