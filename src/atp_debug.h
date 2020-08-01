@@ -81,5 +81,6 @@ namespace atp {
 
 #define event_safe_free(_var, _freefn) do { _freefn((_var)), (_var) = NULL; } while(0)
 
-}/*end namespace atp*/
-#endif
+} /* end namespace at p*/
+
+#endif /* __ATP_DEBUG_H__ */

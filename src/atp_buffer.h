@@ -12,17 +12,20 @@ namespace atp {
 class ByteBuffer {
 public:
     ByteBuffer(size_t prepend_size = RESERVED_PREPEND_SIZE, size_t initial_size = INIT_BUFFER_SIZE) {
-        /* The prepend_size is the header size, initial_size is the body size */
+        /*
+         * Init the ByteBuffer core variable,
+         * the default buffer size [8 header|1024 body]
+         */
         caps_ = prepend_size + initial_size;
         reserved_prepend_size_ = prepend_size;
         read_index_ = write_index_ = prepend_size;
 
         buffer_ = new(std::nothrow) char[caps_];
         memset(buffer_, 0, caps_);
-        
+
         assert(buffer_ != NULL);
     }
-    
+
     ~ByteBuffer() {
         delete[] buffer_;
         buffer_ = NULL;
@@ -37,7 +40,7 @@ public:
     char* data() {
         return buffer_ + read_index_;
     }
-    
+
     const char* data() const {
         return buffer_ + read_index_;
     }
@@ -108,7 +111,7 @@ public:
     char* writeBegin() {
         return buffer_ + write_index_;
     }
-    
+
     const char* writeBegin() const {
         return buffer_ + write_index_;
     }
@@ -145,7 +148,7 @@ public:
 
             memset(new_mem, 0, new_size);
             memcpy(new_mem + reserved_prepend_size, buffer_.data(), unread_bytes);
-            
+
             delete[] buffer;
             buffer_.setCoreBuffer(new_mem);
 
@@ -212,10 +215,10 @@ public:
         if (n < 0 && EVUTIL_ERR_RW_RETRIABLE(errno)) {
             return RETRIABLE_ERROR;
         }
-        
+
         return n;
     }
-    
+
 private:
     ByteBuffer& buffer_;
 };
@@ -225,14 +228,14 @@ class ByteBufferReader {
 public:
     explicit ByteBufferReader(ByteBuffer& buffer) : buffer_(buffer) {}
     ~ByteBufferReader() {}
-    
+
 public:
     /* Provide a buffer decrease operation to prevent excessive memroy usage */
     void decrease(size_t length) {
         if (length == 0) {
             return;
         }
-        
+
         size_t available_len = buffer_.getCaps() - buffer_.prependHeaderBytes() - buffer_.unreadBytes();
         if (buffer_.writableBytes() < length && available_len >= length) {
             size_t unread_bytes = buffer_.unreadBytes();
@@ -252,21 +255,21 @@ public:
             char* old_buffer = buffer_.getCoreBuffer();
             delete[] old_buffer;
             old_buffer = nullptr;
-            
+
             buffer_.setCoreBuffer(new_mem);
             buffer_.updateReadWriteIndex(reserved_prepend_size, reserved_prepend_size + buffer_.unreadBytes(), false);
         }
     }
-	
+
     /* Remove constant length data for byte buffer */
     void remove(size_t length) {
         if (length < buffer_.unreadBytes()) {
-            buffer_.updateReadWriteIndex(length, 0, true);     
+            buffer_.updateReadWriteIndex(length, 0, true);
         } else {
             buffer_.reset();
         }
     }
-    
+
     int32_t peekInt32() {
         if (buffer_.unreadBytes() < sizeof(int32_t)) {
             return -1;
@@ -340,7 +343,7 @@ public:
         if (length <= buffer_.unreadBytes()) {
             slice ss(buffer_.data(), length);
             remove(length);
-        
+
             return ss;
         }
 
@@ -352,7 +355,7 @@ public:
 
         slice ss3(buffer_.data(), buffer_.unreadBytes());
         remove(buffer_.unreadBytes());
-        
+
         return ss3;
     }
 
@@ -360,7 +363,7 @@ public:
         if (length <= buffer_.unreadBytes()) {
             slice ss(buffer_.data(), length);
             remove(length);
-        
+
             return ss;
         }
 
