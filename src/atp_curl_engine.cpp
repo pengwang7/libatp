@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2019 pengwang7(https://github.com/pengwang7/libatp)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 #include "atp_curl_engine.h"
 #include "atp_thread_storage.h"
 
@@ -93,10 +117,10 @@ PRIVATE_API(int curl_tls_init(void* data),
         return -1;
     }
 
-	curl_easy_setopt(*curl, CURLOPT_NOSIGNAL, 1);
-	curl_easy_setopt(*curl, CURLOPT_TIMEOUT, 30);
+    curl_easy_setopt(*curl, CURLOPT_NOSIGNAL, 1);
+    curl_easy_setopt(*curl, CURLOPT_TIMEOUT, 30);
     curl_easy_setopt(*curl, CURLOPT_CONNECTTIMEOUT, 5);
-	curl_easy_setopt(*curl, CURLOPT_USERAGENT, HTTP_USERAGENT);
+    curl_easy_setopt(*curl, CURLOPT_USERAGENT, HTTP_USERAGENT);
 
     LOG(INFO) << "curl_tls_init";
 
@@ -124,7 +148,7 @@ PRIVATE_API(int core_init(struct curl_instance* instance),
         return -1;
     }
 
-	curl_easy_setopt(*instance->curl, CURLOPT_WRITEFUNCTION, on_message);
+    curl_easy_setopt(*instance->curl, CURLOPT_WRITEFUNCTION, on_message);
     curl_easy_setopt(*instance->curl, CURLOPT_WRITEDATA, (void*)instance);
 
     instance->resp_data.cursor = 0;
@@ -188,6 +212,7 @@ PRIVATE_API(void core_destroy(struct curl_instance** instance),
     struct curl_instance* tmp = *instance;
 
     pointer_safe_free(tmp->resp_data.buff, free);
+    pointer_safe_free(tmp, free);
 
     *instance = NULL;
 })
@@ -232,7 +257,7 @@ PUBLIC_API(void curl_instance_set_ssl_verifypeer(struct curl_instance* instance,
     instance->engine->set_ssl_verifypeer(instance, verifypeer);
 })
 
-PUBLIC_API(void curl_instance_set_headers(struct curl_instance* instance, curl_slist* headers),
+PUBLIC_API(void curl_instance_set_headers(struct curl_instance* instance, struct curl_slist* headers),
 {
     instance->engine->set_headers(instance, headers);
 })

@@ -15,7 +15,7 @@ DEFINE_PUBLIC_API(int curl_instance_perform(struct curl_instance* instance, CURL
 
 DEFINE_PUBLIC_API(void curl_instance_set_ssl_verifypeer(struct curl_instance* instance, int verifypeer))
 
-DEFINE_PUBLIC_API(void curl_instance_set_headers(struct curl_instance* instance, curl_slist* headers))
+DEFINE_PUBLIC_API(void curl_instance_set_headers(struct curl_instance* instance, struct curl_slist* headers))
 
 DEFINE_PUBLIC_API(void curl_instance_set_request_url(struct curl_instance* instance, const char* url))
 
