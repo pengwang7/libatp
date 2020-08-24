@@ -50,9 +50,13 @@ public:
 
 public:
     bool doInit();
+
     void doCancel();
+
     void doTerminate();
+
     void detachEventAndFree();
+
     bool doWatch(struct timeval* tv);
 
     void setCancelCallback(DoTasksEventPtr&& cb) {

@@ -33,6 +33,7 @@
 #include <functional>
 
 #include "net/atp_event_watcher.h"
+#include "net/atp_state_machine.hpp"
 
 struct event;
 struct event_base;
@@ -41,12 +42,13 @@ namespace atp {
 
 class CycleTimer;
 
-class EventLoop {
+class EventLoop final : public STATE_MACHINE_INTERFACE {
 public:
     using TaskEventPtr = std::function<void()>;
-    
+
 public:
     EventLoop();
+
     ~EventLoop();
 
 public:
@@ -59,13 +61,13 @@ public:
     void sendToQueue(TaskEventPtr&& task);
 
     std::shared_ptr<CycleTimer> addCycleTask(int delay_ms, const TaskEventPtr& task, bool persist);
-        
+
 public:
     struct event_base* getEventBase() const {
         return event_base_;
     }
 
-    bool safety() const {
+    bool threadSafety() const {
         return thread_id_ == std::this_thread::get_id();
     }
 
@@ -80,17 +82,20 @@ public:
     int getPendingTaskQueueSize() const {
         return pending_tasks_->size();
     }
-    
+
     bool pendingTaskQueueIsEmpty() {
         return pending_tasks_->empty();
     }
 
 private:
     void doInit();
+
     void doInitEventWatcher();
+
     void doPendingTasks();
+
     void stopHandle();
-    
+
 private:
     struct event_base* event_base_;
 

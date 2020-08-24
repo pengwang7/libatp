@@ -92,25 +92,27 @@ private:
     void reaper(std::list<DynamicThread*>* tlist);
 
 private:
-    // Dynamic thread pool state.
+    // Pool state.
     bool shutdown_;
 
-    // Dynamic thread pool minimum thread number.
+    // Minimum thread number.
     size_t core_threads_;
 
-    // Dynamic thread pool current thread number.
+    // Current thread number.
     size_t current_threads_;
 
-    // Dynamic thread pool current waiting thread number.
+    // Current waiting thread number.
     size_t waiting_threads_;
 
-    // Dynamic thread pool max thread number.
+    // Max thread number.
     size_t max_threads_;
 
+    // Task queue lock.
     std::mutex lock_;
 
     std::condition_variable cond_var_;
 
+    // Task queue.
     std::queue<TaskPtr> callbacks_;
 
     std::list<DynamicThread*> dead_threads_;

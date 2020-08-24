@@ -18,7 +18,10 @@ Connection::Connection(EventLoop* event_loop, int fd, std::string id, std::strin
 	assert(id_.length() > 0);
 	assert(remote_addr_ != "");
 
-	/* Construct event channel and init channel read and write callback function. */
+    /*
+     * Create channel for file description read and write,
+     * and set channel read callback and write callback.
+     */
 	chan_.reset(new Channel(event_loop_, fd_, false, false));
 	chan_->setReadCallback(std::bind(&Connection::netFdReadHandle, this));
 	chan_->setWriteCallback(std::bind(&Connection::netFdWriteHandle, this));
@@ -38,8 +41,11 @@ Connection::~Connection() {
 }
 
 void Connection::attachToEventLoop() {
-    assert(event_loop_->safety());
+    assert(event_loop_->threadSafety());
 
+    /*
+     * Every connection attach to event loop default enable read event.
+     */
     chan_->enableEvents(true, false);
 
     if (conn_fn_) {
@@ -47,7 +53,6 @@ void Connection::attachToEventLoop() {
     }
 }
 
-/* Send data to remote client. */
 void Connection::send(const void* data, size_t len) {
     if (!data || len <= 0) {
         return;
@@ -57,7 +62,12 @@ void Connection::send(const void* data, size_t len) {
         ssize_t nwrite = 0;
         size_t remaining_data_size = len;
 
-        /* In gereral, however, send data to peer dose not pass through channel and write buffer. */
+        /*
+         * If the write buffer unread bytes is not 0, it means had retransmissions data at last time.
+         * Need to make sure that send all the retransmissions data first, and then send this(data) data
+         * to make sure that write in order.
+         * The channel's writable is true only if retransmission data needs to be written.
+         */
         if (!chan_->isWritable() && write_buffer_.unreadBytes() == 0) {
             nwrite = ::send(fd_, static_cast<const char*>(data), len, MSG_NOSIGNAL);
             if (nwrite >= 0) {
@@ -70,7 +80,6 @@ void Connection::send(const void* data, size_t len) {
             }
         }
 
-        /* Special case only for send remaining data to peer. */
         if (remaining_data_size > 0) {
             ByteBufferWriter writer(write_buffer_);
             writer.append(static_cast<const char*>(data) + nwrite, remaining_data_size);
@@ -95,7 +104,7 @@ void Connection::send(ByteBuffer* buffer) {
 void Connection::close() {
     auto self = shared_from_this();
     auto fn = [self]() {
-        assert(self->event_loop_->safety());
+        assert(self->event_loop_->threadSafety());
         self->netFdCloseHandle();
     };
 
@@ -115,9 +124,12 @@ void Connection::netFdReadHandle() {
 }
 
 void Connection::netFdWriteHandle() {
+    /*
+     * The write callback only for send retransmissions data,
+     * when the write data size > file description kernel buffer size.
+     */
     assert(chan_->isWritable());
 
-    /* The handle only for send remaining data, when the write buffer data size > fd kernel buffer size. */
     ssize_t n = ::send(fd_, write_buffer_.data(), write_buffer_.unreadBytes(), MSG_NOSIGNAL);
     if (n > 0) {
         ByteBufferReader reader(write_buffer_);

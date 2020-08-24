@@ -33,13 +33,17 @@
 
 namespace atp {
 
+/*
+ * Get current available CPU for event loop count.
+ */
 int getSystemCPUProcessers() {
-    /* Get current available CPU. */
     return get_nprocs();
 }
 
 Server::Server(std::string name, ServerAddress server_address, int thread_num) {
-    /* Initialize all components for the server. */
+    /*
+     * Initialize all components for tcp server.
+     */
     state_.store(STATE_NULL);
     service_name_ = name;
     server_address_ = server_address;

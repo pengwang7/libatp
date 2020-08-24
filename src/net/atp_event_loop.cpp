@@ -64,7 +64,10 @@ EventLoop::~EventLoop() {
 void EventLoop::dispatch() {
     assert(event_watcher_->asyncWait());
 
-    // Last set thread id
+    // Set event loop current state is running.
+    state_ = STATE_RUNNING;
+
+    // Set really thread id.
     thread_id_ = std::this_thread::get_id();
 
     int error = event_base_dispatch(event_base_);
@@ -75,13 +78,17 @@ void EventLoop::dispatch() {
     }
 }
 
-// Don't call this function directly, because not sure which thread is call this function.
 void EventLoop::stop() {
+    /*
+     * Don't call this function directly, 
+     * because not sure which thread is call this function.
+     */
+    state_ = STATE_STOPPING;
     sendToQueue(std::bind(&EventLoop::stopHandle, this));
 }
 
 void EventLoop::sendToQueue(const TaskEventPtr& task) {
-    if (safety()) {
+    if (threadSafety()) {
 
         task();
 
@@ -101,7 +108,7 @@ void EventLoop::sendToQueue(const TaskEventPtr& task) {
 }
 
 void EventLoop::sendToQueue(TaskEventPtr&& task) {
-    if (safety()) {
+    if (threadSafety()) {
 
         task();
 
@@ -128,9 +135,12 @@ std::shared_ptr<CycleTimer> EventLoop::addCycleTask(int delay_ms, const TaskEven
 }
 
 void EventLoop::doInit() {
+    // Set event loop current state.
+    state_ = STATE_INIT;
+
     // First set thread id, When used multi threads mode,
     // the create event_loop thread and dispatch event_loop thread not in the same thread,
-    // The first set for listener, because that init used sendToQueue.
+    // multi thread mode(one listener) create event_loop and dispatch in same thread.
     thread_id_ = std::this_thread::get_id();
     pending_tasks_ = new std::vector<TaskEventPtr>();
     assert(pending_tasks_ != NULL);
@@ -149,7 +159,7 @@ void EventLoop::doInitEventWatcher() {
 
 void EventLoop::doPendingTasks() {
 	// Why used a tmp_pending_tasks in here?
-	// 1.This is to prevent call this func blocking by insert new tasks.
+	// 1.This is to prevent call this function blocking by insert new tasks.
 	// 2.Timely release pending_tasks_ accupation memory by std::vector swap method.
 	std::vector<TaskEventPtr> tmp_pending_tasks;
     {
@@ -187,6 +197,8 @@ void EventLoop::stopHandle() {
 
         std::vector<TaskEventPtr>().swap(*pending_tasks_);
     }
+
+    state_ = STATE_STOPPED;
 }
 
 } /* end namespace atp */

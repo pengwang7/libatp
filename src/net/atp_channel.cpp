@@ -96,7 +96,7 @@ void Channel::detachFromEventLoop() {
 }
 
 void Channel::updateEvents() {
-    assert(event_loop_->safety());
+    assert(event_loop_->threadSafety());
 
     if (isNone()) {
         detachFromEventLoop();

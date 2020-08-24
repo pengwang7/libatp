@@ -32,7 +32,7 @@
 namespace atp {
 
 // Open the libatp net layer log.
-#define ATP_NET_DEBUG_ON               (1)
+#define ATP_NET_DEBUG_ON               (0)
 
 
 // The libatp none/read/write event flags.

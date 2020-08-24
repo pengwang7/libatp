@@ -1,3 +1,4 @@
+
 /*
  * MIT License
  *
@@ -61,18 +62,18 @@ void Listener::accept() {
     channel_.reset(new Channel(event_loop_, listen_fd_, true, false));
     channel_->setReadCallback(std::bind(&Listener::acceptHandle, this));
 
-    /* Attach listen channel event to owner event loop */
+    /* Attach listen channel event to owner event loop. */
     event_loop_->sendToQueue(std::bind(&Channel::attachToEventLoop, channel_.get()));
 }
 
 void Listener::stop() {
-    assert(event_loop_->safety());
+    assert(event_loop_->threadSafety());
     channel_->disableAllEvents();
     channel_->close();
 }
 
 void Listener::acceptHandle() {
-    assert(event_loop_->safety());
+    assert(event_loop_->threadSafety());
 
     std::string remote_address;
     int conn_fd = SocketImpl::accept(remote_address);
