@@ -18,15 +18,15 @@ public:
 
 public:
     /* Attach the connection fd to libevent event_base. */
-	void attachToEventLoop();
+    void attachToEventLoop();
 
 public:
     /* Send data to peer for application layer. */
-	void send(const void* data, size_t len);
-	void send(ByteBuffer* buffer);
+    void send(const void* data, size_t len);
+    void send(ByteBuffer* buffer);
 
     /* Close connection for application layer. */
-	void close();
+    void close();
 
 public:
     /* Get already generate connection uuid. */
@@ -78,11 +78,11 @@ private:
     /* For the event realy read and write. */
     std::unique_ptr<Channel> chan_;
 
-	/* The buffer for this Connection read and write. */
+    /* The buffer for this Connection read and write. */
     ByteBuffer read_buffer_;
     ByteBuffer write_buffer_;
 
-	/* When a Connection established, broken down, connecting failed, this callback will be called. */
+    /* When a Connection established, broken down, connecting failed, this callback will be called. */
     ConnectionCallback		conn_fn_;
 
     /* When a Connection had data for read, this callback will be called. */
@@ -95,7 +95,7 @@ private:
     TimedoutCallback		timedout_fn_;
 
     /* When a Connection closed, this callback will be called. */
-    CloseCallback			close_fn_;
+    CloseCallback           close_fn_;
 };
 
 } /* end namespace atp */

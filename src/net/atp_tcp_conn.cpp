@@ -10,21 +10,21 @@
 namespace atp {
 
 Connection::Connection(EventLoop* event_loop, int fd, std::string id, std::string& remote_addr)
-	: event_loop_(event_loop), fd_(fd), id_(id), remote_addr_(remote_addr) {
+    : event_loop_(event_loop), fd_(fd), id_(id), remote_addr_(remote_addr) {
 
-	/* Check the args is validity. */
-	assert(event_loop_ != nullptr);
-	assert(fd_ >= 0);
-	assert(id_.length() > 0);
-	assert(remote_addr_ != "");
+    /* Check the args is validity. */
+    assert(event_loop_ != nullptr);
+    assert(fd_ >= 0);
+    assert(id_.length() > 0);
+    assert(remote_addr_ != "");
 
     /*
      * Create channel for file description read and write,
      * and set channel read callback and write callback.
      */
-	chan_.reset(new Channel(event_loop_, fd_, false, false));
-	chan_->setReadCallback(std::bind(&Connection::netFdReadHandle, this));
-	chan_->setWriteCallback(std::bind(&Connection::netFdWriteHandle, this));
+    chan_.reset(new Channel(event_loop_, fd_, false, false));
+    chan_->setReadCallback(std::bind(&Connection::netFdReadHandle, this));
+    chan_->setWriteCallback(std::bind(&Connection::netFdWriteHandle, this));
 
     if (ATP_NET_DEBUG_ON) {
         LOG(INFO) << "[Connection] create connection: " << id_;
@@ -32,8 +32,8 @@ Connection::Connection(EventLoop* event_loop, int fd, std::string id, std::strin
 }
 
 Connection::~Connection() {
-	::close(fd_);
-	fd_ = -1;
+    ::close(fd_);
+    fd_ = -1;
 
     if (ATP_NET_DEBUG_ON) {
         LOG(INFO) << "[~Connection] destroy connection: " << id_;
