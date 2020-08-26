@@ -61,7 +61,8 @@ set(BUTIL_SOURCES
     # benchmark
     #${PROJECT_SOURCE_DIR}/examples/atp_buffer_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_listener_benchmark.cpp
-    ${PROJECT_SOURCE_DIR}/examples/atp_tcp_benchmark.cpp
+    #${PROJECT_SOURCE_DIR}/examples/atp_tcp_benchmark.cpp
+    ${PROJECT_SOURCE_DIR}/examples/atp_cycle_timer_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_tcp_multi_listener_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_memory_pool_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_rpc_server_benchmark.cpp

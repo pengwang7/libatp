@@ -189,7 +189,7 @@ void Server::handleNewConnection(int fd, std::string& taddr, void* args) {
     conn->setReadMessageCallback(message_fn_);
     conn->setCloseCallback(std::bind(&Server::handleCloseConnection, this, std::placeholders::_1));
 
-    assert(conn);
+    assert(conn != nullptr);
 
     event_loop->sendToQueue(std::bind(&Connection::attachToEventLoop, conn));
     std::pair<std::string, ConnectionPtr> pair_value;

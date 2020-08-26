@@ -1,6 +1,5 @@
+#include "net/atp_buffer.h"
 #include "glog/logging.h"
-
-#include "atp_buffer.h"
 
 using namespace atp;
 

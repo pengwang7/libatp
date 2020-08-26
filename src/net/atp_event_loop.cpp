@@ -59,6 +59,10 @@ EventLoop::~EventLoop() {
         pending_tasks_ = NULL;
         pending_tasks_size_ = 0;
     }
+
+    if (ATP_NET_DEBUG_ON) {
+        LOG(INFO) << "EventLoop destroy";
+    }
 }
 
 void EventLoop::dispatch() {
