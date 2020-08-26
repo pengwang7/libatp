@@ -22,63 +22,7 @@
  * SOFTWARE.
  */
 
-#ifndef __ATP_RING_BUFFER_HPP__
-#define __ATP_RING_BUFFER_HPP__
+#ifndef __ATP_NET_ERROR_H__
+#define __ATP_NET_ERROR_H__
 
-#include <list>
-
-#include "glog/logging.h"
-
-namespace atp {
-
-const size_t DEFAULT_BUFF_SIZE = 300;
-
-template <class T>
-class RingBuffer {
-public:
-    RingBuffer() {
-        max_size_ = DEFAULT_BUFF_SIZE;
-    }
-
-    explicit RingBuffer(size_t size) {
-        max_size_ = size;
-    }
-
-    ~RingBuffer() {
-        core_list_.clear();
-        max_size_ = 0;
-    }
-
-public:
-    void push_back(T elem) {
-        if (core_list_.size() == max_size_) {
-            core_list_.pop_front();
-        }
-
-        core_list_.push_back(elem);
-    }
-
-    int resize(size_t size) {
-        max_size_ = size;
-
-        return 0;
-    }
-
-    bool empty() { return core_list_.empty(); }
-
-    bool full() { return core_list_.size() == max_size_; }
-
-    size_t size() { return core_list_.size(); }
-
-    size_t length() { return core_list_.size(); }
-
-    T& back() { return core_list_.back(); }
-
-private:
-    size_t max_size_;
-    std::list<T> core_list_;
-};
-
-} /* end namespace atp */
-
-#endif /* __ATP_RING_BUFFER_HPP__ */
+#endif /* __ATP_NET_ERROR_H__ */
