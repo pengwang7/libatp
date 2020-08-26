@@ -1,3 +1,7 @@
+/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/install/strip.dir
+/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/install/local.dir
+/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/install.dir
+/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/list_install_components.dir
 /home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/rebuild_cache.dir
 /home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/edit_cache.dir
 /home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir

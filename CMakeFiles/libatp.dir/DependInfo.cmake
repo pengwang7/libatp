@@ -4,29 +4,39 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pengwang/cloud_platform/project/github/libatp/examples/atp_tcp_multi_listener_benchmark.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/examples/atp_tcp_multi_listener_benchmark.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_channel.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_channel.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_dynamic_thread_pool.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_dynamic_thread_pool.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_event_loop.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_event_loop.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_event_loop_thread_pool.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_event_loop_thread_pool.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_event_watcher.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_event_watcher.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_https_client.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_https_client.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_libevent.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_libevent.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_listener.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_listener.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_memory_policy.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_memory_policy.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_memory_pool.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_memory_pool.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_socket.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_socket.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_tcp_conn.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_tcp_conn.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_tcp_server.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_tcp_server.cpp.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/src/atp_timer.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/atp_timer.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/echo_server.pb.cc" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/echo_server.pb.cc.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/examples/atp_tcp_benchmark.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/rpc.pb.cc" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/rpc.pb.cc.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/app/atp_base64.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/app/atp_base64.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/app/atp_curl_engine.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/app/atp_curl_engine.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/app/atp_event_https.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/app/atp_event_https.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_channel.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_channel.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_cycle_timer.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_cycle_timer.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_dynamic_thread_pool.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_dynamic_thread_pool.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_event_loop.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_event_loop.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_event_loop_thread_pool.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_event_loop_thread_pool.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_event_watcher.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_event_watcher.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_libevent.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_libevent.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_listener.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_listener.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_socket.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_socket.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_tcp_conn.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/src/net/atp_tcp_server.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "."
   "/home/pengwang/cloud_platform/framework/3rd"
   "src"
   )
+
+# Pairs of files generated by the same build rule.
+set(CMAKE_MULTIPLE_OUTPUT_PAIRS
+  "/home/pengwang/cloud_platform/project/github/libatp/echo_server.pb.h" "/home/pengwang/cloud_platform/project/github/libatp/echo_server.pb.cc"
+  "/home/pengwang/cloud_platform/project/github/libatp/rpc.pb.h" "/home/pengwang/cloud_platform/project/github/libatp/rpc.pb.cc"
+  )
+
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES

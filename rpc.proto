@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+package atp;
+
+enum RpcMessageType {
+    UNKNOW   =   0;
+
+    REQUEST  =   1;
+
+    RESPONSE =   2;
+}
+
+enum RpcError {
+    SUCCESS    =   0;
+
+    NO_SERVICE =   -1;
+
+    NO_METHOD  =   -2;
+
+    TIMEDOUT   =   -3;
+}
+
+message RpcMessage {
+    // Rpc message type
+    optional RpcMessageType type = 1;
+
+    // Rpc client id
+    optional fixed64 id = 2;
+
+    // Rpc service name
+    optional string service = 3;
+
+    // Rpc service method name
+    optional string method = 4;
+
+    // Rpc request data
+    optional bytes request = 5;
+
+    // Rpc response data
+    optional bytes response = 6;
+
+    // Rpc error code
+    optional RpcError error = 7;
+}

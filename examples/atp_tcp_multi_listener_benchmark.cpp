@@ -2,11 +2,11 @@
 
 #include "glog/logging.h"
 
-#include "atp_https_client.h"
-#include "atp_send_helper.hpp"
-#include "atp_tcp_server.h"
-#include "atp_event_loop.h"
-#include "atp_event_loop_thread_pool.h"
+#include "app/atp_https_client.h"
+//#include "app/atp_send_helper.hpp"
+#include "net/atp_tcp_server.h"
+#include "net/atp_event_loop.h"
+#include "net/atp_event_loop_thread_pool.h"
 
 using namespace atp;
 

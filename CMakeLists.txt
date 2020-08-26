@@ -17,9 +17,9 @@ include_directories(
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -fstrict-aliasing -Wno-invalid-offsetof -Wno-unused-parameter -fno-omit-frame-pointer -Wno-unused-function")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -luuid -lssl -lcrypto -lglog")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CPP_FLAGS} -O2 -pipe -Wall -W -fPIC -fstrict-aliasing -Wno-invalid-offsetof -Wno-unused-parameter -fno-omit-frame-pointer")
-set(CMAKE_CXX_FLAGS "${CMAKE_CPP_FLAGS} -lpthread -luuid -lgflags -lprotoc -lssl -lcrypto -lglog -ldl -lz")
-set(CMAKE_C_FLAGS   "${CMAKE_CPP_FLAGS} -O2 -pipe -Wall -W -fPIC -fstrict-aliasing -Wno-unused-parameter -fno-omit-frame-pointer")
+set(CMAKE_CXX_FLAGS "${CMAKE_CPP_FLAGS} -O2 -fsanitize=address -pipe -Wall -W -fPIC -fstrict-aliasing -Wno-invalid-offsetof -Wno-unused-parameter -fno-omit-frame-pointer")
+set(CMAKE_CXX_FLAGS "${CMAKE_CPP_FLAGS} -lpthread -luuid -lgflags -lcurl -lprotoc -lssl -lcrypto -lglog -ldl -lz")
+set(CMAKE_C_FLAGS   "${CMAKE_CPP_FLAGS} -O2 -fsanitize=address -pipe -Wall -W -fPIC -fstrict-aliasing -Wno-unused-parameter -fno-omit-frame-pointer")
 
 macro(use_cxx11)
 if(CMAKE_VERSION VERSION_LESS "3.1.3")
@@ -38,31 +38,34 @@ endmacro(use_cxx11)
 use_cxx11()
 
 set(BUTIL_SOURCES
-    ${PROJECT_SOURCE_DIR}/src/atp_socket.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_dynamic_thread_pool.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_libevent.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_channel.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_tcp_conn.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_listener.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_memory_pool.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_memory_policy.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_event_watcher.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_timer.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_event_loop.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_event_loop_thread_pool.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_tcp_server.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_rpc_channel.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_rpc_server.cpp
-    ${PROJECT_SOURCE_DIR}/src/atp_https_client.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_socket.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_dynamic_thread_pool.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_libevent.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_channel.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_tcp_conn.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_listener.cpp
+    #${PROJECT_SOURCE_DIR}/src/atp_memory_pool.cpp
+    #${PROJECT_SOURCE_DIR}/src/atp_memory_policy.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_event_watcher.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_cycle_timer.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_event_loop.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_event_loop_thread_pool.cpp
+    ${PROJECT_SOURCE_DIR}/src/net/atp_tcp_server.cpp
+    #${PROJECT_SOURCE_DIR}/src/atp_rpc_channel.cpp
+    #${PROJECT_SOURCE_DIR}/src/atp_rpc_server.cpp
+    #${PROJECT_SOURCE_DIR}/src/atp_curl_engine.cpp
 
+    ${PROJECT_SOURCE_DIR}/src/app/atp_base64.cpp
+    ${PROJECT_SOURCE_DIR}/src/app/atp_curl_engine.cpp
+    ${PROJECT_SOURCE_DIR}/src/app/atp_event_https.cpp
     # benchmark
     #${PROJECT_SOURCE_DIR}/examples/atp_buffer_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_listener_benchmark.cpp
-    #{PROJECT_SOURCE_DIR}/examples/atp_tcp_benchmark.cpp
+    ${PROJECT_SOURCE_DIR}/examples/atp_tcp_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_tcp_multi_listener_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_memory_pool_benchmark.cpp
-    #${PROJECT_SOURCE_DIR}/example/example_for_tcp_server.cpp
-    ${PROJECT_SOURCE_DIR}/examples/atp_rpc_server_benchmark.cpp
+    #${PROJECT_SOURCE_DIR}/examples/atp_rpc_server_benchmark.cpp
+    #${PROJECT_SOURCE_DIR}/examples/atp_timing_wheel_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_rpc_client.cpp
 )
 

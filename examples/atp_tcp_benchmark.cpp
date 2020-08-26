@@ -1,7 +1,12 @@
-#include "glog/logging.h"
+#include "net/atp_config.h"
+#include "net/atp_tcp_server.h"
 
-#include "atp_tcp_server.h"
+///////////////////////////////////
 
+#include "app/atp_base64.h"
+#include "app/atp_curl_engine.h"
+#include "app/atp_event_https.h"
+///////////////////////////////////
 using namespace atp;
 
 #ifndef TEST_1
@@ -26,7 +31,7 @@ public:
 			.port_ = 7788,
 		};
 			
-		server_.reset(new Server("resp-200-server", srvaddr, 6));
+		server_.reset(new Server("resp-200-server", srvaddr, 4));
 		server_->setConnectionCallback(std::bind(&Resp200Server::onConnection, this, std::placeholders::_1));
 		server_->setMessageCallback(std::bind(&Resp200Server::onMessage, this, std::placeholders::_1, std::placeholders::_2));
 	}
@@ -41,14 +46,14 @@ public:
 	
 private:
 	void onConnection(const ConnectionPtr& conn) {
-        if (ATP_DEBUG_ON) {
+        if (ATP_NET_DEBUG_ON) {
             LOG(INFO) << "Resp200Server conn uuid: " << conn->getUUID();
         }
     }
 
 	void onMessage(const ConnectionPtr& conn, ByteBuffer& read_buf) {
 		ByteBufferReader io_reader(read_buf);
-        if (ATP_DEBUG_ON) {
+        if (ATP_NET_DEBUG_ON) {
             LOG(INFO) << "Resp200Server conn read data: " << io_reader.consume(65535).toString();
         }
 	
