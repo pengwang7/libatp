@@ -64,12 +64,14 @@ void CycleTimer::onTrigger() {
     } else {
         cancel_fn_ = ExpiresFunctor();
         expires_fn_ = ExpiresFunctor();
+
+        // NOTICE: the self_ reference count before reset timer_watcher_
         timer_watcher_.reset();
+
+        // NOTICE: the self_ reference count after reset timer_watcher_
         // Need to reset timer for hold self
         self_.reset();
     }
-
-    LOG(INFO) << "===after reference: " << self_.use_count();
 }
 
 void CycleTimer::onCancel() {
@@ -81,7 +83,10 @@ void CycleTimer::onCancel() {
     }
 
     expires_fn_ = ExpiresFunctor();
+
+    // NOTICE: the self_ reference count before reset timer_watcher_
     timer_watcher_.reset();
+    // NOTICE: the self_ reference count after reset timer_watcher_
     // Need to reset timer for hold self
     self_.reset();
 }

@@ -161,7 +161,11 @@ void Server::start() {
 
 void Server::stop() {
     state_.store(STATE_STOPPING);
+
+    listener_->stop();
+
     stopEventLoopPool();
+
     state_.store(STATE_STOPPED);
 }
 
@@ -191,10 +195,11 @@ void Server::handleNewConnection(int fd, std::string& taddr, void* args) {
 
     assert(conn != nullptr);
 
-    event_loop->sendToQueue(std::bind(&Connection::attachToEventLoop, conn));
     std::pair<std::string, ConnectionPtr> pair_value;
     pair_value = std::make_pair(conn->getUUID(), conn);
     hashTableInsert(pair_value);
+
+    event_loop->sendToQueue(std::bind(&Connection::attachToEventLoop, conn));
 }
 
 void Server::handleCloseConnection(const ConnectionPtr& conn) {

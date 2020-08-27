@@ -20,13 +20,11 @@ void atp_logger_close() {
 int main() {
     atp_logger_init();
     LOG(INFO) << "test";
-    //std::shared_ptr<CycleTimer> addCycleTask(int delay_ms, const TaskEventPtr& task, bool persist);
-
     {
         std::unique_ptr<EventLoop> event_loop(new EventLoop());
         event_loop->addCycleTask(5, []() {
             LOG(INFO) << "timedout";
-        }, false);
+        }, true);
 
         event_loop->dispatch();
     }
