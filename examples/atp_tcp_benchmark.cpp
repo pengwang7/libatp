@@ -54,17 +54,19 @@ private:
 	void onMessage(const ConnectionPtr& conn, ByteBuffer& read_buf) {
 		ByteBufferReader io_reader(read_buf);
         if (ATP_NET_DEBUG_ON) {
-            LOG(INFO) << "Resp200Server conn read data: " << io_reader.consume(65535).toString();
+            slice ss = io_reader.consume(65535);
+            LOG(INFO) << "Resp200Server conn read data: " << ss.size() << ":" << ss.toString();
         }
 	
 		std::string resp_200_message = "";
-		resp_200_message += "HTTP1.1/ 200 OK\r\n";
+		resp_200_message += "HTTP/1.1 200 OK\r\n";
 		resp_200_message += "Server: Resp200Server\r\n";
 		resp_200_message += "Content-Type: text/html\r\n";
 		resp_200_message += "Content-Length: 10\r\n\r\n";
 		resp_200_message += "aaabbbcccde";
 		resp_200_message += "\r\n";
 
+        LOG(INFO) << "response message len: " << resp_200_message.length();
 		conn->send(resp_200_message.c_str(), resp_200_message.length());
 		conn->close();
 	}

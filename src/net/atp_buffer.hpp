@@ -27,6 +27,7 @@
 
 #include "net/atp_config.h"
 #include "net/atp_libevent.h"
+#include "net/atp_io.hpp"
 #include "app/atp_slice.hpp"
 
 namespace atp {

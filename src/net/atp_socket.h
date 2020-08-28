@@ -57,7 +57,7 @@ public:
 
 class SocketImpl : public SocketOptions {
 public:
-    explicit SocketImpl() {}
+    SocketImpl() {}
     virtual ~SocketImpl() {}
 
 protected:

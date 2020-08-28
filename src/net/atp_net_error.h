@@ -25,18 +25,28 @@
 #ifndef __ATP_NET_ERROR_H__
 #define __ATP_NET_ERROR_H__
 
-typedef enum {
-    ATP_BUFFER_ERROR_BASE                   =       (-1000),
-    ATP_SOCKET_ERROR_BASE                   =       (-2000),
-    ATP_CHANNEL_ERROR_BASE                  =       (-3000),
-    ATP_TCP_CONN_ERROR_BASE                 =       (-4000),
-    ATP_LISTENER_ERROR_BASE                 =       (-5000),
-    ATP_EVENT_WATCHER_ERROR_BASE            =       (-6000),
-    ATP_EVENT_LOOP_ERROR_BASE               =       (-7000),
-    ATP_EVENT_LOOP_THREAD_POOL_ERROR_BASE   =       (-8000),
-    ATP_DYNAMIC_THREAD_POOL_ERROR_BASE      =       (-9000),
-    ATP_CYCLE_TIMER_ERROR_BASE              =       (-10000),
-    ATP_TCP_SERVER_ERROR_BASE               =       (-11000)
-} ATP_ERROR_BASE;
+#define ATP_BUFFER_ERROR_BASE                           (-100)
+
+#define ATP_IO_ERROR_BASE                               (ATP_BUFFER_ERROR_BASE - 100)
+
+#define ATP_SOCKET_ERROR_BASE                           (ATP_BUFFER_ERROR_BASE - 200)
+
+#define ATP_CHANNEL_ERROR_BASE                          (ATP_BUFFER_ERROR_BASE - 300)
+
+#define ATP_TCP_CONN_ERROR_BASE                         (ATP_BUFFER_ERROR_BASE - 400)
+
+#define ATP_LISTENER_ERROR_BASE                         (ATP_BUFFER_ERROR_BASE - 500)
+
+#define ATP_TCP_SERVER_ERROR_BASE                       (ATP_BUFFER_ERROR_BASE - 600)
+
+#define ATP_CYCLE_TIMER_ERROR_BASE                      (ATP_BUFFER_ERROR_BASE - 700)
+
+#define ATP_EVENT_LOOP_ERROR_BASE                       (ATP_BUFFER_ERROR_BASE - 800)
+
+#define ATP_EVENT_WATCHER_ERROR_BASE                    (ATP_BUFFER_ERROR_BASE - 900)
+
+#define ATP_DYNAMIC_THREAD_POOL_ERROR_BASE              (ATP_BUFFER_ERROR_BASE - 1000)
+
+#define ATP_EVENT_LOOP_THREAD_POOL_ERROR_BASE           (ATP_BUFFER_ERROR_BASE - 1100)
 
 #endif /* __ATP_NET_ERROR_H__ */
