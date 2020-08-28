@@ -69,7 +69,7 @@ private:
 	}
 
 void onMessage(const ConnectionPtr& conn, ByteBuffer& read_buf) {
-	ByteBufferReader io_reader(read_buf);
+	ByteBufferedReader io_reader(read_buf);
 	LOG(INFO) << "conn read data: " << io_reader.consume(65535).toString();
 
 	std::string resp_message = "pong-pong-pong-pong-pong-pong-pong-pong-pong-pong-pong-pong\r\n";

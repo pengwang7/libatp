@@ -196,32 +196,32 @@ echo_server.pb.cc.s:
 	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/echo_server.pb.cc.s
 .PHONY : echo_server.pb.cc.s
 
-examples/atp_tcp_benchmark.o: examples/atp_tcp_benchmark.cpp.o
+examples/atp_buffer_benchmark.o: examples/atp_buffer_benchmark.cpp.o
 
-.PHONY : examples/atp_tcp_benchmark.o
+.PHONY : examples/atp_buffer_benchmark.o
 
 # target to build an object file
-examples/atp_tcp_benchmark.cpp.o:
-	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o
-.PHONY : examples/atp_tcp_benchmark.cpp.o
+examples/atp_buffer_benchmark.cpp.o:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o
+.PHONY : examples/atp_buffer_benchmark.cpp.o
 
-examples/atp_tcp_benchmark.i: examples/atp_tcp_benchmark.cpp.i
+examples/atp_buffer_benchmark.i: examples/atp_buffer_benchmark.cpp.i
 
-.PHONY : examples/atp_tcp_benchmark.i
+.PHONY : examples/atp_buffer_benchmark.i
 
 # target to preprocess a source file
-examples/atp_tcp_benchmark.cpp.i:
-	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.i
-.PHONY : examples/atp_tcp_benchmark.cpp.i
+examples/atp_buffer_benchmark.cpp.i:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.i
+.PHONY : examples/atp_buffer_benchmark.cpp.i
 
-examples/atp_tcp_benchmark.s: examples/atp_tcp_benchmark.cpp.s
+examples/atp_buffer_benchmark.s: examples/atp_buffer_benchmark.cpp.s
 
-.PHONY : examples/atp_tcp_benchmark.s
+.PHONY : examples/atp_buffer_benchmark.s
 
 # target to generate assembly for a file
-examples/atp_tcp_benchmark.cpp.s:
-	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.s
-.PHONY : examples/atp_tcp_benchmark.cpp.s
+examples/atp_buffer_benchmark.cpp.s:
+	$(MAKE) -f CMakeFiles/libatp.dir/build.make CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.s
+.PHONY : examples/atp_buffer_benchmark.cpp.s
 
 rpc.pb.o: rpc.pb.cc.o
 
@@ -644,9 +644,9 @@ help:
 	@echo "... echo_server.pb.o"
 	@echo "... echo_server.pb.i"
 	@echo "... echo_server.pb.s"
-	@echo "... examples/atp_tcp_benchmark.o"
-	@echo "... examples/atp_tcp_benchmark.i"
-	@echo "... examples/atp_tcp_benchmark.s"
+	@echo "... examples/atp_buffer_benchmark.o"
+	@echo "... examples/atp_buffer_benchmark.i"
+	@echo "... examples/atp_buffer_benchmark.s"
 	@echo "... rpc.pb.o"
 	@echo "... rpc.pb.i"
 	@echo "... rpc.pb.s"

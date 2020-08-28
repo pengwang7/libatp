@@ -4,44 +4,22 @@
 CMakeFiles/libatp.dir/echo_server.pb.cc.o
  /home/pengwang/cloud_platform/project/github/libatp/echo_server.pb.cc
  /home/pengwang/cloud_platform/project/github/libatp/echo_server.pb.h
-CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o
+CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o
  /home/pengwang/cloud_platform/framework/3rd/gflags/gflags.h
  /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_declare.h
  /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_gflags.h
  /home/pengwang/cloud_platform/framework/3rd/glog/log_severity.h
  /home/pengwang/cloud_platform/framework/3rd/glog/logging.h
  /home/pengwang/cloud_platform/framework/3rd/glog/vlog_is_on.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/allocator.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/autolink.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/config.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/features.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/forwards.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/json.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/reader.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/value.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/version.h
- /home/pengwang/cloud_platform/framework/3rd/jsoncpp/writer.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
  /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
- /home/pengwang/cloud_platform/project/github/libatp/examples/atp_tcp_benchmark.cpp
- src/app/atp_api.h
- src/app/atp_base64.h
- src/app/atp_codec.hpp
- src/app/atp_curl_engine.h
- src/app/atp_event_https.h
+ /home/pengwang/cloud_platform/project/github/libatp/examples/atp_buffer_benchmark.cpp
  src/app/atp_slice.hpp
  src/net/atp_buffer.hpp
- src/net/atp_cbs.h
  src/net/atp_config.h
- src/net/atp_event_loop.h
- src/net/atp_event_loop_thread_pool.h
- src/net/atp_event_watcher.h
  src/net/atp_io.hpp
  src/net/atp_libevent.h
- src/net/atp_state_machine.hpp
- src/net/atp_tcp_conn.h
- src/net/atp_tcp_server.h
 CMakeFiles/libatp.dir/rpc.pb.cc.o
  /home/pengwang/cloud_platform/project/github/libatp/rpc.pb.cc
  /home/pengwang/cloud_platform/project/github/libatp/rpc.pb.h

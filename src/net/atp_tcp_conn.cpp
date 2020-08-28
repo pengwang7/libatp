@@ -81,7 +81,7 @@ void Connection::send(const void* data, size_t len) {
         }
 
         if (remaining_data_size > 0) {
-            ByteBufferWriter writer(write_buffer_);
+            ByteBufferedWriter writer(write_buffer_);
             writer.append(static_cast<const char*>(data) + nwrite, remaining_data_size);
             chan_->enableEvents(false, true);
         }
@@ -95,7 +95,7 @@ void Connection::send(ByteBuffer* buffer) {
         return;
     }
 
-    ByteBufferReader reader(*buffer);
+    ByteBufferedReader reader(*buffer);
     size_t len = buffer->unreadBytes();
 
     send(reader.consume(len).void_type_data(), len);
@@ -112,7 +112,7 @@ void Connection::close() {
 }
 
 void Connection::netFdReadHandle() {
-    ByteBufferReader reader(read_buffer_);
+    ByteBufferedReader reader(read_buffer_);
     if (reader.read(fd_) <= 0) {
         netFdErrorHandle();
         return;
@@ -132,7 +132,7 @@ void Connection::netFdWriteHandle() {
 
     ssize_t n = ::send(fd_, write_buffer_.data(), write_buffer_.unreadBytes(), MSG_NOSIGNAL);
     if (n > 0) {
-        ByteBufferReader reader(write_buffer_);
+        ByteBufferedReader reader(write_buffer_);
         reader.remove(n);
 
         if (write_buffer_.unreadBytes() == 0) {

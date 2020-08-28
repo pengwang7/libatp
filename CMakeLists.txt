@@ -59,9 +59,9 @@ set(BUTIL_SOURCES
     ${PROJECT_SOURCE_DIR}/src/app/atp_curl_engine.cpp
     ${PROJECT_SOURCE_DIR}/src/app/atp_event_https.cpp
     # benchmark
-    #${PROJECT_SOURCE_DIR}/examples/atp_buffer_benchmark.cpp
+    ${PROJECT_SOURCE_DIR}/examples/atp_buffer_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_listener_benchmark.cpp
-    ${PROJECT_SOURCE_DIR}/examples/atp_tcp_benchmark.cpp
+    #${PROJECT_SOURCE_DIR}/examples/atp_tcp_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_cycle_timer_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_tcp_multi_listener_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_memory_pool_benchmark.cpp

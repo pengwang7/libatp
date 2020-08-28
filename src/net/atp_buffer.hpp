@@ -40,15 +40,15 @@ public:
         reserved_prepend_size_ = prepend_size;
         read_index_ = write_index_ = prepend_size;
 
-        buffer_ = new(std::nothrow) char[caps_];
-        memset(buffer_, 0, caps_);
+        buff_ = new(std::nothrow) char[caps_];
+        memset(buff_, 0, caps_);
 
-        assert(buffer_ != NULL);
+        assert(buff_ != NULL);
     }
 
     ~ByteBuffer() {
-        delete[] buffer_;
-        buffer_ = NULL;
+        delete[] buff_;
+        buff_ = NULL;
 
         caps_ = 0;
         read_index_ = 0;
@@ -58,24 +58,27 @@ public:
 
 public:
     char* data() {
-        return buffer_ + read_index_;
+        return buff_ + read_index_;
     }
 
     const char* data() const {
-        return buffer_ + read_index_;
+        return buff_ + read_index_;
     }
 
-    void setCoreBuffer(char* buffer) {
-        buffer_ = buffer;
+    char* swap(char* buff) {
+        char* tmp = buff_;
+        buff_ = buff;
+
+        return tmp;
     }
 
-    char* getCoreBuffer() const {
-        return buffer_;
+    char* buff() const {
+        return buff_;
     }
 
     // Update the core buffer read/write index, if don't need any index, set 0.
-    void updateReadWriteIndex(size_t read_index, size_t write_index, bool incremnt) {
-        if (incremnt) {
+    void updateReadWriteIndex(size_t read_index, size_t write_index, bool increment) {
+        if (increment) {
             if (read_index != 0) {
                 read_index_ += read_index;
             }
@@ -125,11 +128,11 @@ public:
     }
 
     char* writeBegin() {
-        return buffer_ + write_index_;
+        return buff_ + write_index_;
     }
 
     const char* writeBegin() const {
-        return buffer_ + write_index_;
+        return buff_ + write_index_;
     }
 
     void reset() {
@@ -137,7 +140,7 @@ public:
     }
 
 private:
-    char*  buffer_;
+    char*  buff_;
     size_t caps_;
     size_t read_index_;
     size_t write_index_;
@@ -145,15 +148,14 @@ private:
 };
 
 
-class ByteBufferWriter {
+class ByteBufferedWriter {
 public:
-    explicit ByteBufferWriter(ByteBuffer& buffer) : buffer_(buffer) {}
+    explicit ByteBufferedWriter(ByteBuffer& buffer) : buffer_(buffer) {}
 
-    ~ByteBufferWriter() {}
+    ~ByteBufferedWriter() {}
 
 public:
     void grow(size_t length) {
-        char* buffer = buffer_.getCoreBuffer();
         size_t unread_bytes = buffer_.unreadBytes();
         size_t reserved_prepend_size = buffer_.prependHeaderBytes();
 
@@ -165,15 +167,15 @@ public:
             memset(new_mem, 0, new_size);
             memcpy(new_mem + reserved_prepend_size, buffer_.data(), unread_bytes);
 
-            delete[] buffer;
-            buffer_.setCoreBuffer(new_mem);
+            delete[] (buffer_.swap(new_mem));
 
             size_t new_write_index = reserved_prepend_size + unread_bytes;
             buffer_.updateReadWriteIndex(reserved_prepend_size, new_write_index, false);
             buffer_.setNewCaps(new_size);
         } else {
+            char* buff = buffer_.buff();
             assert(reserved_prepend_size < buffer_.prependableBytes());
-            memmove(buffer + reserved_prepend_size, buffer_.data(), unread_bytes);
+            memmove(buff + reserved_prepend_size, buffer_.data(), unread_bytes);
             size_t new_write_index = reserved_prepend_size + unread_bytes;
             buffer_.updateReadWriteIndex(reserved_prepend_size, new_write_index, false);
 
@@ -237,10 +239,11 @@ private:
 };
 
 
-class ByteBufferReader {
+class ByteBufferedReader {
 public:
-    explicit ByteBufferReader(ByteBuffer& buffer) : buffer_(buffer) {}
-    ~ByteBufferReader() {}
+    explicit ByteBufferedReader(ByteBuffer& buffer) : buffer_(buffer) {}
+
+    ~ByteBufferedReader() {}
 
 public:
     void decrease(size_t length) {
@@ -251,7 +254,7 @@ public:
         size_t available_len = buffer_.getCaps() - buffer_.prependHeaderBytes() - buffer_.unreadBytes();
         if (buffer_.writableBytes() < length && available_len >= length) {
             size_t unread_bytes = buffer_.unreadBytes();
-            memmove(buffer_.getCoreBuffer() + buffer_.prependHeaderBytes(), buffer_.data(), unread_bytes);
+            memmove(buffer_.buff() + buffer_.prependHeaderBytes(), buffer_.data(), unread_bytes);
             assert(unread_bytes = buffer_.unreadBytes());
         }
 
@@ -259,16 +262,15 @@ public:
             size_t reserved_prepend_size = buffer_.prependHeaderBytes();
             size_t new_size = buffer_.getCaps() + reserved_prepend_size - length;
             char* new_mem = new(std::nothrow) char[new_size];
+
             assert(new_mem);
 
             memset(new_mem, 0, new_size);
             memcpy(new_mem + reserved_prepend_size, buffer_.data(), buffer_.unreadBytes());
-            buffer_.setNewCaps(new_size);
-            char* old_buffer = buffer_.getCoreBuffer();
-            delete[] old_buffer;
-            old_buffer = nullptr;
 
-            buffer_.setCoreBuffer(new_mem);
+            buffer_.setNewCaps(new_size);
+            delete[] (buffer_.swap(new_mem));
+
             buffer_.updateReadWriteIndex(reserved_prepend_size, reserved_prepend_size + buffer_.unreadBytes(), false);
         }
     }
@@ -342,7 +344,7 @@ public:
             buffer_.updateReadWriteIndex(0, n, true);
         } else {
             buffer_.updateReadWriteIndex(0, buffer_.getCaps(), false);
-            ByteBufferWriter writer(buffer_);
+            ByteBufferedWriter writer(buffer_);
             writer.grow(n - writable);
             writer.append(extrbuffer);
         }

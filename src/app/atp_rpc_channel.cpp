@@ -32,7 +32,7 @@ void RpcChannel::CallMethod(const ::google::protobuf::MethodDescriptor* method,
 }
 
 void RpcChannel::onMessage(const ConnectionPtr& conn, ByteBuffer& buff) {
-    ByteBufferReader reader(buff);
+    ByteBufferedReader reader(buff);
 
     slice ss = reader.consume(65535);
     if (ss.empty()) {

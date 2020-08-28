@@ -52,7 +52,7 @@ private:
     }
 
 	void onMessage(const ConnectionPtr& conn, ByteBuffer& read_buf) {
-		ByteBufferReader io_reader(read_buf);
+		ByteBufferedReader io_reader(read_buf);
         if (ATP_NET_DEBUG_ON) {
             slice ss = io_reader.consume(65535);
             LOG(INFO) << "Resp200Server conn read data: " << ss.size() << ":" << ss.toString();

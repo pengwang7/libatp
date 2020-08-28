@@ -17,7 +17,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/libatp.dir/src/app/atp_base64.cpp.o"
   "CMakeFiles/libatp.dir/src/app/atp_curl_engine.cpp.o"
   "CMakeFiles/libatp.dir/src/app/atp_event_https.cpp.o"
-  "CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o"
+  "CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o"
   "CMakeFiles/libatp.dir/rpc.pb.cc.o"
   "CMakeFiles/libatp.dir/echo_server.pb.cc.o"
   "libatp.pdb"

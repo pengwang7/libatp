@@ -60,7 +60,7 @@ private:
     void onMessage(const ConnectionPtr& conn, ByteBuffer& buffer) {
         LOG(INFO) << "on message.";
 
-        ByteBufferReader reader(buffer);
+        ByteBufferedReader reader(buffer);
         if (ATP_DEBUG_ON) {
             LOG(INFO) << "data: " << reader.consume(8192).data();
         }

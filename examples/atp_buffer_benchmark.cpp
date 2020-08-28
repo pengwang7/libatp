@@ -1,5 +1,4 @@
-#include "net/atp_buffer.h"
-#include "glog/logging.h"
+#include "net/atp_buffer.hpp"
 
 using namespace atp;
 
@@ -20,7 +19,7 @@ void atp_logger_close() {
 int main() {
     atp_logger_init();
 
-    LOG(INFO) <<"ByteBuffer ByteBufferReader ByteBufferWriter tt.";
+    LOG(INFO) <<"ByteBuffer ByteBufferedReader ByteBufferedWriter tt.";
 
     ByteBuffer* byte_buffer = new ByteBuffer(8, 2);
     if (!byte_buffer) {
@@ -28,8 +27,8 @@ int main() {
         return -1;
     }
 
-    ByteBufferWriter writer(*byte_buffer);
-    ByteBufferReader reader(*byte_buffer);
+    ByteBufferedWriter writer(*byte_buffer);
+    ByteBufferedReader reader(*byte_buffer);
 
 	LOG(INFO) << "Buffer caps: " << byte_buffer->getCaps();
 	
