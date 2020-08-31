@@ -244,6 +244,10 @@ TimerEventWatcher::TimerEventWatcher(EventLoop* event_loop, DoTasksEventPtr&& ha
     tv_.tv_usec = 0;
 }
 
+TimerEventWatcher::~TimerEventWatcher() {
+    this->doTerminate();
+}
+
 bool TimerEventWatcher::asyncWait() {
     return this->doWatch(&tv_);
 }

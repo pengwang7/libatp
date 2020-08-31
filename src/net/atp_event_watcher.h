@@ -87,16 +87,21 @@ protected:
 class EventfdWatcher : public EventWatcher {
 public:
 	explicit EventfdWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle, int eventfd_flags);
+
 	~EventfdWatcher();
 
 public:
     bool asyncWait();
+
     void eventNotify();
+
     void getEventfd(int* fd);
 
 private:
     bool doInitImpl() override;
+
     void doTerminateImpl() override;
+
     static void eventfdNotifyHandle(int fd, short which, void* args);
 
 private:
@@ -109,16 +114,21 @@ private:
 class PipeEventWatcher : public EventWatcher {
 public:
     explicit PipeEventWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle);
+
     ~PipeEventWatcher();
 
 public:
     bool asyncWait();
+
     void eventNotify();
+
     void getPipeInternalReadWriteFd(int* fd0, int* fd1);
 
 private:
     bool doInitImpl() override;
+
     void doTerminateImpl() override;
+
     static void pipeEventNotifyHandle(int fd, short which, void* args);
 
 private:
@@ -128,12 +138,18 @@ private:
 
 class TimerEventWatcher : public EventWatcher {
 public:
-    TimerEventWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle, int delay_second);
+    explicit TimerEventWatcher(EventLoop* event_loop, DoTasksEventPtr&& handle, int delay_second);
+
+    ~TimerEventWatcher();
+
+public:
     bool asyncWait();
 
 private:
     bool doInitImpl() override;
+
     void doTerminateImpl() override;
+
     static void timerEventExecuteHandle(int fd, short which, void* args);
 
 private:

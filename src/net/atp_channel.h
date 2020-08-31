@@ -42,19 +42,27 @@ public:
 
 public:
     Channel(EventLoop* event_loop, int fd, bool readable, bool writable);
+
     ~Channel();
 
 public:
     void attachToEventLoop();
+
     void detachFromEventLoop();
+
     void updateEvents();
+
     void close();
 
 public:
     void enableEvents(bool readable, bool writable);
+
     void disableEvents(bool readable, bool writable);
+
     void disableAllEvents();
+
     int getInternalFd() const;
+
     std::string eventsToString() const;
 
 public:
