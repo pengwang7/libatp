@@ -49,15 +49,17 @@ typedef enum {
     SOCKET_GET_APP_ERROR       =  (SOCKET_ERROR_BASE - 11)
 } SocketError;
 
-class SocketOptions {
+class ISocketOptions {
 public:
     virtual bool getOption(int fd, int opt_id) = 0;
+
     virtual void setOption(int fd, int opt_id, int on) = 0;
 };
 
-class SocketImpl : public SocketOptions {
+class SocketImpl : public ISocketOptions {
 public:
     SocketImpl() {}
+
     virtual ~SocketImpl() {}
 
 protected:

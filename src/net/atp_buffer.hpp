@@ -332,7 +332,7 @@ public:
         // TODO: Implement the stream read.
     }
 
-    ssize_t readv(int fd, const struct iovec* iovs, size_t iovs_size) {
+    ssize_t readv(int fd, const struct iovec* iovs, size_t iovs_size) override {
         /*
          * In ByteBufferedReader, read the data to bytebuffer, not to IO vector.
          * Check the iov、iov_size must NULL and 0. 
