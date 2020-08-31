@@ -148,7 +148,7 @@ private:
 };
 
 
-class ByteBufferedWriter {
+class ByteBufferedWriter : public IWriter {
 public:
     explicit ByteBufferedWriter(ByteBuffer& buffer) : buffer_(buffer) {}
 
@@ -225,8 +225,8 @@ public:
         append(&net_x, sizeof(net_x));
     }
 
-    ssize_t write(int fd, const char* data, size_t length) {
-        ssize_t n = ::send(fd, data, length, MSG_NOSIGNAL);
+    ssize_t write(int fd, const char* data, size_t size) override {
+        ssize_t n = ::send(fd, data, size, MSG_NOSIGNAL);
         if (n < 0 && EVUTIL_ERR_RW_RETRIABLE(errno)) {
             return RETRIABLE_ERROR;
         }
@@ -234,12 +234,17 @@ public:
         return n;
     }
 
+    ssize_t writev(int fd, const struct iovec* iov, int iov_size) override {
+        // TODO: Implement the vector write.
+        return -1;
+    }
+
 private:
     ByteBuffer& buffer_;
 };
 
 
-class ByteBufferedReader {
+class ByteBufferedReader : public IReader {
 public:
     explicit ByteBufferedReader(ByteBuffer& buffer) : buffer_(buffer) {}
 
@@ -323,7 +328,17 @@ public:
         return x;
     }
 
-    ssize_t read(int fd) {
+    ssize_t read(int fd, char* buf, size_t size) override {
+        // TODO: Implement the stream read.
+    }
+
+    ssize_t readv(int fd, const struct iovec* iovs, size_t iovs_size) {
+        /*
+         * In ByteBufferedReader, read the data to bytebuffer, not to IO vector.
+         * Check the iov、iov_size must NULL and 0. 
+         */
+        assert(!iovs && !iovs_size);
+
         char extrbuffer[65536] = {0};
         struct iovec iov[2];
         const size_t writable = buffer_.writableBytes();
@@ -331,9 +346,9 @@ public:
         iov[0].iov_len = writable;
         iov[1].iov_base = extrbuffer;
         iov[1].iov_len = sizeof(extrbuffer);
-
+        
         const int iov_count = (writable < sizeof(extrbuffer)) ? 2 : 1;
-        const ssize_t n = readv(fd, iov, iov_count);
+        const ssize_t n = ::readv(fd, iov, iov_count);
         if (n <= 0) {
             if (EVUTIL_ERR_RW_RETRIABLE(errno)) {
                 return RETRIABLE_ERROR;
@@ -348,8 +363,9 @@ public:
             writer.grow(n - writable);
             writer.append(extrbuffer);
         }
-
+        
         return n;
+
     }
 
     slice consume(const size_t length, bool verifiy) {

@@ -22,7 +22,7 @@ public:
     virtual ~IVectorReader() {}
 
 public:
-    virtual ssize_t readv(int fd, const struct iovec* iov, size_t iov_size) = 0;
+    virtual ssize_t readv(int fd, const struct iovec* iovs, size_t iovs_size) = 0;
 };
 
 class IStreamWriter {
@@ -32,7 +32,7 @@ public:
     virtual ~IStreamWriter() {}
 
 public:
-    virtual ssize_t write(int fd, char* buf, size_t size) = 0;
+    virtual ssize_t write(int fd, const char* buf, size_t size) = 0;
 };
 
 class IVectorWriter {

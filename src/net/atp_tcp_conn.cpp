@@ -113,7 +113,11 @@ void Connection::close() {
 
 void Connection::netFdReadHandle() {
     ByteBufferedReader reader(read_buffer_);
-    if (reader.read(fd_) <= 0) {
+    /*
+     * Read data to ByteBuffer, only set the first parameter,
+     * the second and third parameters are not supported.
+     */
+    if (reader.readv(fd_, NULL, 0) <= 0) {
         netFdErrorHandle();
         return;
     }
