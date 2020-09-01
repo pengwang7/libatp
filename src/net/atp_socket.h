@@ -67,6 +67,10 @@ protected:
 
     void setOption(int fd, int opt_id, int on) override;
 
+    void setSendRecvBufferSize(int fd, int opt_id, size_t size);
+
+    void getSendRecvBufferSize(int fd, int opt_id, size_t& size);
+
 protected:
     void setfd(int fd);
 

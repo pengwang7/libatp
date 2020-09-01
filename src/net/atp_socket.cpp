@@ -104,6 +104,17 @@ void SocketImpl::setOption(int fd, int opt_id, int on) {
     }
 }
 
+void SocketImpl::setSendRecvBufferSize(int fd, int opt_id, size_t size) {
+    setsockopt(fd, SOL_SOCKET, opt_id, (void*)&size, static_cast<socklen_t>(sizeof(size)));
+}
+
+void SocketImpl::getSendRecvBufferSize(int fd, int opt_id, size_t& size) {
+    size_t n = 0;
+    socklen_t optlen = sizeof(n);
+    getsockopt(fd, SOL_SOCKET, opt_id, (void*)&n, &optlen);
+    size =  n;
+}
+
 void SocketImpl::setfd(int fd) {
     fd_ = fd;
 }

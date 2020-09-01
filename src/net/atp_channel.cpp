@@ -106,6 +106,7 @@ void Channel::updateEvents() {
 }
 
 void Channel::close() {
+    // The ownership of fd_ is Connection, needn't to close fd_.
     if (event_) {
         detachFromEventLoop();
         delete event_;
@@ -127,6 +128,7 @@ void Channel::enableEvents(bool readable, bool writable) {
         events_ |= ATP_WRITE_EVENT;
     }
 
+    // If change the events, update the event to event loop.
     if (events_ != orig_events) {
         updateEvents();
     }
@@ -143,6 +145,7 @@ void Channel::disableEvents(bool readable, bool writable) {
         events_ &= (~ATP_WRITE_EVENT);
     }
 
+    // If change the events, update the event to event loop.
     if (events_ != orig_events) {
         updateEvents();
     }
