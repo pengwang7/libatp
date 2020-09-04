@@ -57,6 +57,7 @@ Server::Server(std::string name, ServerAddress server_address, int thread_num) {
     uuid_generator_.reset(new UUIDGenerator());
     json_codec_.reset(new Codec());
     conns_table_.reset(new HashTableConn());
+    timing_wheel_.reset(new TimingWheel(CONN_READ_WRITE_EXPIRES, TIMIING_WHEEL_STEP));
 
     if (thread_num_ > 0) {
         event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));

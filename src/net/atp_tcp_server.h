@@ -29,6 +29,7 @@
 #include "net/atp_tcp_conn.h"
 #include "net/atp_event_loop.h"
 #include "net/atp_event_loop_thread_pool.h"
+#include "net/atp_timing_wheel.hpp"
 #include "net/atp_state_machine.hpp"
 #include "app/atp_codec.hpp"
 
@@ -87,22 +88,52 @@ private:
     void hashTableRemove(std::string uuid);
 
 private:
+    // The TCP server name.
     std::string service_name_;
+
+    // Only support IPV4 address.
     ServerAddress server_address_;
 
+    // The control event loop send connection to IO event loop.
     std::unique_ptr<EventLoop> control_event_loop_;
+
+    // TCP listener for accept new connection.
     std::unique_ptr<Listener> listener_;
+
+    // Each threads with one IO event loop.
     std::unique_ptr<EventLoopPool> event_loop_thread_pool_;
+
+    // Scalable thread pool.
     std::unique_ptr<DynamicThreadPool> dynamic_thread_pool_;
+
+    // Generate uuid for each connections.
     std::unique_ptr<UUIDGenerator> uuid_generator_;
+
+    // The code for json encode/decode.
     std::unique_ptr<Codec> json_codec_;
+
+    // The container storage all established connections.
     std::unique_ptr<HashTableConn> conns_table_;
 
+    // The timing wheel manage all established connections tiemout.
+    std::unique_ptr<TimingWheel> timing_wheel_;
+
+    // Incoming a connection will be call this.
     ConnectionCallback conn_fn_;
+
+    // Connection had message will call this.
     ReadMessageCallback message_fn_;
+
+    // Connection clsoed will call this.
     CloseCallback close_fn_;
+
+    // The event loop pool core size.
     int thread_num_;
+
+    // Dynamic thread pool core thread size.
     int dynamic_thread_pool_size_;
+
+    // Server mode for SO_REUSEPORT or not.
     int server_mode_;
 };
 

@@ -5,7 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pengwang/cloud_platform/project/github/libatp/echo_server.pb.cc" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/echo_server.pb.cc.o"
-  "/home/pengwang/cloud_platform/project/github/libatp/examples/atp_buffer_benchmark.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/examples/atp_buffer_benchmark.cpp.o"
+  "/home/pengwang/cloud_platform/project/github/libatp/examples/atp_tcp_benchmark.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o"
   "/home/pengwang/cloud_platform/project/github/libatp/rpc.pb.cc" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/rpc.pb.cc.o"
   "/home/pengwang/cloud_platform/project/github/libatp/src/app/atp_base64.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/app/atp_base64.cpp.o"
   "/home/pengwang/cloud_platform/project/github/libatp/src/app/atp_curl_engine.cpp" "/home/pengwang/cloud_platform/project/github/libatp/CMakeFiles/libatp.dir/src/app/atp_curl_engine.cpp.o"

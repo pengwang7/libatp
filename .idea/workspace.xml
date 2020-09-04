@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Default" GENERATION_DIR="." />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0bbe03ee-f519-4c57-999c-66fc9cad1361" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1gysVxXhfhDuwv88qfBnt7ZTa0L" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.CoffeeScript" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0bbe03ee-f519-4c57-999c-66fc9cad1361" name="Default Changelist" comment="" />
+      <created>1599098196149</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599098196149</updated>
+      <workItem from="1599098200685" duration="3310000" />
+      <workItem from="1599120739751" duration="9000" />
+      <workItem from="1599120988159" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="701" y="343" key="#Notifications" timestamp="1599100371891">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="701" y="343" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1599100371891" />
+    <state x="819" y="147" key="SettingsEditor" timestamp="1599099997255">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="819" y="147" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1599099997255" />
+    <state x="681" y="261" width="927" height="524" key="StructurePopup" timestamp="1599100600917">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="681" y="261" width="927" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1599100600917" />
+    <state x="1233" y="94" width="672" height="775" key="search.everywhere.popup" timestamp="1599101649292">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1233" y="94" width="672" height="775" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1599101649292" />
+  </component>
+</project>

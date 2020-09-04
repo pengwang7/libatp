@@ -32,7 +32,7 @@
 namespace atp {
 
 // Open the libatp net layer log.
-#define ATP_NET_DEBUG_ON               (1)
+#define ATP_NET_DEBUG_ON               (0)
 
 
 // The libatp none/read/write event flags.
@@ -66,6 +66,8 @@ namespace atp {
 // Tcp connection read/write timeout ms.
 #define CONN_READ_WRITE_EXPIRES        (300)
 
+// Timing wheel default step.
+#define TIMIING_WHEEL_STEP             (1)
 
 // Socket retriable error.
 #define RETRIABLE_ERROR                (-11)
