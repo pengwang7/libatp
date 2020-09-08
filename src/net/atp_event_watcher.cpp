@@ -268,10 +268,6 @@ void TimerEventWatcher::timerEventExecuteHandle(int fd, short which, void* args)
     assert(timer_watcher);
 
     timer_watcher->do_tasks_handle();
-
-    if (ATP_NET_DEBUG_ON) {
-        LOG(INFO) << "[TimerEventWatcher] timerEventExecuteHandle timer expired.";
-    }
 }
 
 } /* end namespace atp */

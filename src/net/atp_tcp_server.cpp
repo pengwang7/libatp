@@ -41,69 +41,56 @@ int getSystemCPUProcessers() {
 }
 
 Server::Server(std::string name, ServerAddress server_address, int thread_num) {
-    /*
-     * Initialize all components for tcp server.
-     */
+    /* Initialize all components for tcp server(mode 0). */
     state_.store(STATE_NULL);
+
     service_name_ = name;
     server_address_ = server_address;
     thread_num_ = thread_num;
-    dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
+
+    /* Set tcp server mode. */
     server_mode_ = 0;
 
     control_event_loop_.reset(new EventLoop());
-    listener_.reset(new Listener(control_event_loop_.get(), server_address_.addr_, server_address_.port_));
-    dynamic_thread_pool_.reset(new DynamicThreadPool(thread_num_));
-    uuid_generator_.reset(new UUIDGenerator());
-    json_codec_.reset(new Codec());
-    conns_table_.reset(new HashTableConn());
-    timing_wheel_.reset(new TimingWheel(CONN_READ_WRITE_EXPIRES, TIMIING_WHEEL_STEP));
 
-    if (thread_num_ > 0) {
-        event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
-    }
-
-    assert(control_event_loop_ != nullptr);
-    assert(listener_ != nullptr);
-    assert(dynamic_thread_pool_ != nullptr);
-    assert(uuid_generator_ != nullptr);
-    assert(json_codec_ != nullptr);
-    assert(conns_table_ != nullptr);
-    assert(server_address_.addr_.length() != 0);
-    assert(server_address_.port_ > 0);
-
-    if (thread_num_ > 0) {
-        assert(event_loop_thread_pool_ != nullptr);
-    }
-
-    if (service_name_.length() == 0) {
-        service_name_ = "SERVER-" + uuid_generator_->generateUUID();
-    }
-
-    assert(service_name_.length() != 0);
-
-    if (ATP_NET_DEBUG_ON) {
-        LOG(INFO) << "[Server] create server: " << service_name_;
-    }
-
-    state_.store(STATE_INIT);
+    doInit();
 }
 
 Server::Server(std::string name, EventLoop* event_loop, ServerAddress server_address, int thread_num) {
-    /* Initialize all components for the server. */
+    /* Initialize all components for tcp server(mode 1). */
     state_.store(STATE_NULL);
+
     service_name_ = name;
     server_address_ = server_address;
     thread_num_ = thread_num;
-    dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
+
+    /* Set tcp server mode. */
     server_mode_ = 1;
 
     control_event_loop_.reset(event_loop);
+
+    doInit();
+}
+
+Server::~Server() {
+    assert(CHECK_STATE(STATE_STOPPED));
+}
+
+void Server::doInit() {
+    dynamic_thread_pool_size_ = getSystemCPUProcessers() * 2;
+
     listener_.reset(new Listener(control_event_loop_.get(), server_address_.addr_, server_address_.port_));
-    dynamic_thread_pool_.reset(new DynamicThreadPool(thread_num_));
     uuid_generator_.reset(new UUIDGenerator());
     json_codec_.reset(new Codec());
     conns_table_.reset(new HashTableConn());
+
+    if (ENABLED_TIMING_WHEEL) {
+        timing_wheel_.reset(new TimingWheel(CONN_READ_WRITE_EXPIRES, TIMIING_WHEEL_STEP));
+    }
+
+    if (ENABLED_DYNAMIC_THREAD_POOL) {
+        dynamic_thread_pool_.reset(new DynamicThreadPool(dynamic_thread_pool_size_));
+    }
 
     if (thread_num_ > 0) {
         event_loop_thread_pool_.reset(new EventLoopPool(thread_num_));
@@ -111,7 +98,6 @@ Server::Server(std::string name, EventLoop* event_loop, ServerAddress server_add
 
     assert(control_event_loop_ != nullptr);
     assert(listener_ != nullptr);
-    assert(dynamic_thread_pool_ != nullptr);
     assert(uuid_generator_ != nullptr);
     assert(json_codec_ != nullptr);
     assert(conns_table_ != nullptr);
@@ -129,14 +115,10 @@ Server::Server(std::string name, EventLoop* event_loop, ServerAddress server_add
     assert(service_name_.length() != 0);
 
     if (ATP_NET_DEBUG_ON) {
-        LOG(INFO) << "[Server] create server: " << service_name_;
+        LOG(INFO) << "[Server] create server: " << service_name_ << "|| mode: " << server_mode_;
     }
 
     state_.store(STATE_INIT);
-}
-
-Server::~Server() {
-    state_.store(STATE_STOPPED);
 }
 
 void Server::start() {
@@ -145,6 +127,22 @@ void Server::start() {
 
     /* Start event_loop_pool, it mabe had none event_loop_thread. */
     startEventLoopPool();
+
+    /* Add a persist timer task for timing wheel. */
+    if (ENABLED_TIMING_WHEEL) {
+        control_event_loop_->addCycleTask(1, [&]() {
+            if (ATP_NET_DEBUG_ON) {
+                LOG(INFO) << "The timer trigger for timing wheel.";
+            }
+
+            if (!server_mode_) {
+                std::lock_guard<std::mutex> lock(lock_);
+                timing_wheel_->push_bucket(Bucket());
+            } else {
+                timing_wheel_->push_bucket(Bucket());
+            }
+        }, true);
+    }
 
     /* Bind listener server layer handle. */
     listener_->setNewConnCallback(std::bind(&Server::handleNewConnection, this,

@@ -25,7 +25,7 @@
 #include <string.h>
 
 #include "app/atp_curl_engine.h"
-#include "app/atp_thread_storage.h"
+#include "app/atp_thread_storage.hpp"
 
 namespace atp {
 

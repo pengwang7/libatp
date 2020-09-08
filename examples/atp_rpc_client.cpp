@@ -42,7 +42,7 @@ int main() {
     fd = socket(AF_INET, SOCK_STREAM, 0);
     bzero(&server, sizeof(server));
     server.sin_family = AF_INET;
-    server.sin_port = htons(7765);
+    server.sin_port = htons(7788);
     server.sin_addr.s_addr = inet_addr("127.0.0.1");
     
     int ret = connect(fd, (struct sockaddr *)&server, sizeof(struct sockaddr));
@@ -68,6 +68,7 @@ int main() {
     core_message.set_request(req_message);    
     core_message.SerializeToString(&message);
 
+    sleep(5);
     ret = send(fd, message.c_str(), message.size(), 0);
     if (ret == message.size()) {
         LOG(INFO) << "Send message success";
@@ -88,8 +89,11 @@ int main() {
     LOG(INFO) << "===111==" << r1.id();
     LOG(INFO) << "===222==" << r1.type();
     LOG(INFO) << "===333==" << r1.response();
-    close(fd);
+    //close(fd);
 
+    for (; ;) {
+        sleep(2);
+    }
     atp_logger_close();
 
     return 0;

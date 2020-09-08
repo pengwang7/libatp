@@ -24,7 +24,7 @@ set(CMAKE_C_FLAGS   "${CMAKE_CPP_FLAGS} -O2 -fsanitize=address -pipe -Wall -W -f
 macro(use_cxx11)
 if(CMAKE_VERSION VERSION_LESS "3.1.3")
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=++11")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
     endif()
     if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
@@ -68,6 +68,7 @@ set(BUTIL_SOURCES
     #${PROJECT_SOURCE_DIR}/examples/atp_rpc_server_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_timing_wheel_benchmark.cpp
     #${PROJECT_SOURCE_DIR}/examples/atp_rpc_client.cpp
+    #${PROJECT_SOURCE_DIR}/examples/atp_any_benchmark.cpp
 )
 
 set(DYNAMIC_LIB

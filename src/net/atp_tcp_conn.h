@@ -5,6 +5,7 @@
 
 #include "net/atp_cbs.h"
 #include "net/atp_buffer.hpp"
+#include "app/atp_any.hpp"
 
 namespace atp {
 
@@ -37,6 +38,14 @@ public:
     /* Get the connection remote ip address. */
     std::string getAddress() {
         return remote_addr_;
+    }
+
+    void setContext(const any& context) {
+        context_ = context;
+    }
+
+    any& getContext() {
+        return context_;
     }
 
     /* For application layer set Connection read and write callback function. */
@@ -81,6 +90,9 @@ private:
     /* The buffer for this Connection read and write. */
     ByteBuffer read_buffer_;
     ByteBuffer write_buffer_;
+
+    /* The context_ for timing wheel to save weak entry pointer. */
+    any context_;
 
     /* When a Connection established, broken down, connecting failed, this callback will be called. */
     ConnectionCallback		conn_fn_;

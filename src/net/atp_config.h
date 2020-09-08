@@ -32,7 +32,7 @@
 namespace atp {
 
 // Open the libatp net layer log.
-#define ATP_NET_DEBUG_ON               (0)
+#define ATP_NET_DEBUG_ON               (1)
 
 
 // The libatp none/read/write event flags.
@@ -55,19 +55,25 @@ namespace atp {
 #define INIT_BUFFER_SIZE               (1024)
 
 
-// RingBuffer initial size.
-#define INIT_RING_BUFFER_SIZE          (300)
-
+// Weather to use dynamic thread pool.
+#define ENABLED_DYNAMIC_THREAD_POOL    (1)
 
 // Dynamic thread pool max threads.
 #define THREAD_POOL_MAX_THREADS        (128)
 
 
+// Whether to use timing wheel to manage Connections.
+#define ENABLED_TIMING_WHEEL           (1)
+
 // Tcp connection read/write timeout ms.
-#define CONN_READ_WRITE_EXPIRES        (300)
+#define CONN_READ_WRITE_EXPIRES        (10)
+
+// RingBuffer initial size.
+#define INIT_RING_BUFFER_SIZE          (CONN_READ_WRITE_EXPIRES)
 
 // Timing wheel default step.
 #define TIMIING_WHEEL_STEP             (1)
+
 
 // Socket retriable error.
 #define RETRIABLE_ERROR                (-11)

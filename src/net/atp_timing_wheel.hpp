@@ -104,6 +104,10 @@ struct Entry {
         if (conn) {
             conn->close();
         }
+
+        if (ATP_NET_DEBUG_ON) {
+            LOG(INFO) << "The entry destroy.";
+        }
     }
 
     WeakConnectionPtr conn_;

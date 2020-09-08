@@ -24,12 +24,14 @@ CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: /home/pengwang/cloud_pla
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: examples/atp_tcp_benchmark.cpp
+CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/app/atp_any.hpp
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/app/atp_api.h
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/app/atp_base64.h
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/app/atp_codec.hpp
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/app/atp_curl_engine.h
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/app/atp_event_https.h
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/app/atp_slice.hpp
+CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/app/atp_thread_storage.hpp
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/net/atp_buffer.hpp
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/net/atp_cbs.h
 CMakeFiles/libatp.dir/examples/atp_tcp_benchmark.cpp.o: src/net/atp_config.h
@@ -53,7 +55,7 @@ CMakeFiles/libatp.dir/src/app/atp_base64.cpp.o: src/app/atp_base64.h
 CMakeFiles/libatp.dir/src/app/atp_curl_engine.cpp.o: src/app/atp_curl_engine.cpp
 CMakeFiles/libatp.dir/src/app/atp_curl_engine.cpp.o: src/app/atp_api.h
 CMakeFiles/libatp.dir/src/app/atp_curl_engine.cpp.o: src/app/atp_curl_engine.h
-CMakeFiles/libatp.dir/src/app/atp_curl_engine.cpp.o: src/app/atp_thread_storage.h
+CMakeFiles/libatp.dir/src/app/atp_curl_engine.cpp.o: src/app/atp_thread_storage.hpp
 
 CMakeFiles/libatp.dir/src/app/atp_event_https.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags.h
 CMakeFiles/libatp.dir/src/app/atp_event_https.cpp.o: /home/pengwang/cloud_platform/framework/3rd/gflags/gflags_declare.h
@@ -194,6 +196,7 @@ CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/
 CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
 CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
 CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o: src/net/atp_tcp_conn.cpp
+CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o: src/app/atp_any.hpp
 CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o: src/app/atp_slice.hpp
 CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o: src/net/atp_buffer.hpp
 CMakeFiles/libatp.dir/src/net/atp_tcp_conn.cpp.o: src/net/atp_cbs.h
@@ -226,6 +229,7 @@ CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o: /home/pengwang/cloud_platfor
 CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/event_struct.h
 CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o: /home/pengwang/cloud_platform/framework/3rd/libevent/event2/util.h
 CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o: src/net/atp_tcp_server.cpp
+CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o: src/app/atp_any.hpp
 CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o: src/app/atp_codec.hpp
 CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o: src/app/atp_slice.hpp
 CMakeFiles/libatp.dir/src/net/atp_tcp_server.cpp.o: src/app/atp_uuid.h

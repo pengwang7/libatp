@@ -51,6 +51,10 @@ public:
     void push_back(T elem) {
         if (core_list_.size() == max_size_) {
             core_list_.pop_front();
+
+            if (ATP_NET_DEBUG_ON) {
+                LOG(INFO) << "The ring buffer pop elemnet before push.";
+            }
         }
 
         core_list_.push_back(elem);

@@ -59,6 +59,7 @@ public:
 
 public:
     void start();
+
     void stop();
 
 public:
@@ -70,7 +71,21 @@ public:
         message_fn_ = fn;
     }
 
+    void timingWheelInsert(EntryPtr& entry) {
+        LOG(INFO) << "timing insert use1 count: " << entry.use_count();
+        if (!server_mode_) {
+            std::lock_guard<std::mutex> lock(lock_);
+            timing_wheel_->push_back(entry);
+        } else {
+            timing_wheel_->push_back(entry);
+        }
+
+        LOG(INFO) << "timing insert use2 count: " << entry.use_count();
+    }
+
 private:
+    void doInit();
+
     void startEventLoopPool();
 
     void stopEventLoopPool();
@@ -117,6 +132,9 @@ private:
 
     // The timing wheel manage all established connections tiemout.
     std::unique_ptr<TimingWheel> timing_wheel_;
+
+    // The timing wheel lock.
+    std::mutex lock_;
 
     // Incoming a connection will be call this.
     ConnectionCallback conn_fn_;
